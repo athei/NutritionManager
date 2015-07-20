@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1194360A1B5DB416001EDFF8 /* IngredientCell.swift */; };
 		11BC34FD1B5D620100DBD7B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */; };
-		11BC34FF1B5D620100DBD7B8 /* IngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC34FE1B5D620100DBD7B8 /* IngredientsViewController.swift */; };
-		11BC35011B5D620100DBD7B8 /* DishesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC35001B5D620100DBD7B8 /* DishesViewController.swift */; };
+		11BC34FF1B5D620100DBD7B8 /* IngredientsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC34FE1B5D620100DBD7B8 /* IngredientsList.swift */; };
 		11BC35041B5D620100DBD7B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BC35021B5D620100DBD7B8 /* Main.storyboard */; };
 		11BC35061B5D620100DBD7B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11BC35051B5D620100DBD7B8 /* Assets.xcassets */; };
 		11BC35091B5D620100DBD7B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BC35071B5D620100DBD7B8 /* LaunchScreen.storyboard */; };
@@ -35,10 +35,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1194360A1B5DB416001EDFF8 /* IngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		11BC34F91B5D620100DBD7B8 /* NutritionManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NutritionManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		11BC34FE1B5D620100DBD7B8 /* IngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsViewController.swift; sourceTree = "<group>"; };
-		11BC35001B5D620100DBD7B8 /* DishesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishesViewController.swift; sourceTree = "<group>"; };
+		11BC34FE1B5D620100DBD7B8 /* IngredientsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsList.swift; sourceTree = "<group>"; };
 		11BC35031B5D620100DBD7B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11BC35051B5D620100DBD7B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11BC35081B5D620100DBD7B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -76,6 +76,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		119436091B5D9DAF001EDFF8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				11BC34FE1B5D620100DBD7B8 /* IngredientsList.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
 		11BC34F01B5D620100DBD7B8 = {
 			isa = PBXGroup;
 			children = (
@@ -99,13 +107,13 @@
 		11BC34FB1B5D620100DBD7B8 /* NutritionManager */ = {
 			isa = PBXGroup;
 			children = (
+				119436091B5D9DAF001EDFF8 /* ViewController */,
 				11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */,
-				11BC34FE1B5D620100DBD7B8 /* IngredientsViewController.swift */,
-				11BC35001B5D620100DBD7B8 /* DishesViewController.swift */,
 				11BC35021B5D620100DBD7B8 /* Main.storyboard */,
 				11BC35051B5D620100DBD7B8 /* Assets.xcassets */,
 				11BC35071B5D620100DBD7B8 /* LaunchScreen.storyboard */,
 				11BC350A1B5D620100DBD7B8 /* Info.plist */,
+				1194360A1B5DB416001EDFF8 /* IngredientCell.swift */,
 			);
 			path = NutritionManager;
 			sourceTree = "<group>";
@@ -257,9 +265,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11BC35011B5D620100DBD7B8 /* DishesViewController.swift in Sources */,
 				11BC34FD1B5D620100DBD7B8 /* AppDelegate.swift in Sources */,
-				11BC34FF1B5D620100DBD7B8 /* IngredientsViewController.swift in Sources */,
+				11BC34FF1B5D620100DBD7B8 /* IngredientsList.swift in Sources */,
+				1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +494,7 @@
 				11BC35251B5D620200DBD7B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		11BC35261B5D620200DBD7B8 /* Build configuration list for PBXNativeTarget "NutritionManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +503,7 @@
 				11BC35281B5D620200DBD7B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		11BC35291B5D620200DBD7B8 /* Build configuration list for PBXNativeTarget "NutritionManagerUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +512,7 @@
 				11BC352B1B5D620200DBD7B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
