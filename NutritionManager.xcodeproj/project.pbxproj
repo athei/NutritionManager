@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */; };
 		1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1194360A1B5DB416001EDFF8 /* IngredientCell.swift */; };
+		11A0DC261B5EDF7B00456C94 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11A0DC251B5EDF7B00456C94 /* Info.plist */; };
 		11BC34FD1B5D620100DBD7B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */; };
 		11BC34FF1B5D620100DBD7B8 /* IngredientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC34FE1B5D620100DBD7B8 /* IngredientList.swift */; };
 		11BC35041B5D620100DBD7B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BC35021B5D620100DBD7B8 /* Main.storyboard */; };
@@ -38,13 +39,13 @@
 /* Begin PBXFileReference section */
 		1122E8431B5E0D7600BCDB8F /* model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = model.xcdatamodel; sourceTree = "<group>"; };
 		1194360A1B5DB416001EDFF8 /* IngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
+		11A0DC251B5EDF7B00456C94 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11BC34F91B5D620100DBD7B8 /* NutritionManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NutritionManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11BC34FE1B5D620100DBD7B8 /* IngredientList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientList.swift; sourceTree = "<group>"; };
 		11BC35031B5D620100DBD7B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11BC35051B5D620100DBD7B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11BC35081B5D620100DBD7B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		11BC350A1B5D620100DBD7B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resource/Info.plist; sourceTree = "<group>"; };
 		11BC350F1B5D620200DBD7B8 /* NutritionManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NutritionManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BC35131B5D620200DBD7B8 /* NutritionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionManagerTests.swift; sourceTree = "<group>"; };
 		11BC35151B5D620200DBD7B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,9 +147,9 @@
 		11BC34FB1B5D620100DBD7B8 /* NutritionManager */ = {
 			isa = PBXGroup;
 			children = (
-				11A0DC161B5ECE0400456C94 /* Resource */,
 				11A0DC171B5ED85C00456C94 /* Source */,
-				11BC350A1B5D620100DBD7B8 /* Info.plist */,
+				11A0DC161B5ECE0400456C94 /* Resource */,
+				11A0DC251B5EDF7B00456C94 /* Info.plist */,
 			);
 			path = NutritionManager;
 			sourceTree = "<group>";
@@ -273,6 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11A0DC261B5EDF7B00456C94 /* Info.plist in Resources */,
 				11BC35091B5D620100DBD7B8 /* LaunchScreen.storyboard in Resources */,
 				11BC35061B5D620100DBD7B8 /* Assets.xcassets in Resources */,
 				11BC35041B5D620100DBD7B8 /* Main.storyboard in Resources */,
