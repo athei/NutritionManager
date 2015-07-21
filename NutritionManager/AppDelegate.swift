@@ -16,13 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.LibraryDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask)
         
         if let modelFile = NSBundle.mainBundle().URLForResource("model", withExtension: "momd") {
             if let model = NSManagedObjectModel(contentsOfURL: modelFile) {
                 let coord = NSPersistentStoreCoordinator(managedObjectModel:model)
+                //NSPersistentStore(persistentStoreCoordinator: coord, configurationName: nil, URL: NSFileManager.defaultManager().URLForDirectory(<#T##directory: NSSearchPathDirectory##NSSearchPathDirectory#>, inDomain: <#T##NSSearchPathDomainMask#>, appropriateForURL: <#T##NSURL?#>, create: <#T##Bool#>), options: <#T##[NSObject : AnyObject]?#>)
+                //try! coord.addPersistentStoreWithType("SQL", configuration: nil, URL: nil, options: nil)
                 let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
                 context.persistentStoreCoordinator = coord
-                let ingredient = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: context)
+                let _ = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: context)
+                try! context.save();
             }
         }
         
