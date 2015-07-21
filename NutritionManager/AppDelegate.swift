@@ -16,13 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.LibraryDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask)
+        let url = NSFileManager.defaultManager().URLsForDirectory(.LibraryDirectory, inDomains: .UserDomainMask)[0]
+        print(url)
         
         if let modelFile = NSBundle.mainBundle().URLForResource("model", withExtension: "momd") {
             if let model = NSManagedObjectModel(contentsOfURL: modelFile) {
                 let coord = NSPersistentStoreCoordinator(managedObjectModel:model)
-                //NSPersistentStore(persistentStoreCoordinator: coord, configurationName: nil, URL: NSFileManager.defaultManager().URLForDirectory(<#T##directory: NSSearchPathDirectory##NSSearchPathDirectory#>, inDomain: <#T##NSSearchPathDomainMask#>, appropriateForURL: <#T##NSURL?#>, create: <#T##Bool#>), options: <#T##[NSObject : AnyObject]?#>)
-                //try! coord.addPersistentStoreWithType("SQL", configuration: nil, URL: nil, options: nil)
+                try! coord.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url.URLByAppendingPathComponent("database.sqlite"), options: nil)
                 let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
                 context.persistentStoreCoordinator = coord
                 let _ = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: context)

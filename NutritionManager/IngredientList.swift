@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IngredientsList: UITableViewController {
+class IngredientList: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
