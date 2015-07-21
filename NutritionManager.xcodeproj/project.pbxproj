@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */; };
 		1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1194360A1B5DB416001EDFF8 /* IngredientCell.swift */; };
 		11BC34FD1B5D620100DBD7B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */; };
 		11BC34FF1B5D620100DBD7B8 /* IngredientsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC34FE1B5D620100DBD7B8 /* IngredientsList.swift */; };
@@ -15,6 +16,8 @@
 		11BC35091B5D620100DBD7B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BC35071B5D620100DBD7B8 /* LaunchScreen.storyboard */; };
 		11BC35141B5D620200DBD7B8 /* NutritionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC35131B5D620200DBD7B8 /* NutritionManagerTests.swift */; };
 		11BC351F1B5D620200DBD7B8 /* NutritionManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC351E1B5D620200DBD7B8 /* NutritionManagerUITests.swift */; };
+		11C781021B5E1D4E005CDE67 /* Ingredient+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C781001B5E1D4E005CDE67 /* Ingredient+CoreDataProperties.swift */; };
+		11C781031B5E1D4E005CDE67 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C781011B5E1D4E005CDE67 /* Ingredient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1122E8431B5E0D7600BCDB8F /* model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = model.xcdatamodel; sourceTree = "<group>"; };
 		1194360A1B5DB416001EDFF8 /* IngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		11BC34F91B5D620100DBD7B8 /* NutritionManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NutritionManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,8 @@
 		11BC351A1B5D620200DBD7B8 /* NutritionManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NutritionManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BC351E1B5D620200DBD7B8 /* NutritionManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionManagerUITests.swift; sourceTree = "<group>"; };
 		11BC35201B5D620200DBD7B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11C781001B5E1D4E005CDE67 /* Ingredient+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		11C781011B5E1D4E005CDE67 /* Ingredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,9 @@
 				11BC35071B5D620100DBD7B8 /* LaunchScreen.storyboard */,
 				11BC350A1B5D620100DBD7B8 /* Info.plist */,
 				1194360A1B5DB416001EDFF8 /* IngredientCell.swift */,
+				11C781001B5E1D4E005CDE67 /* Ingredient+CoreDataProperties.swift */,
+				11C781011B5E1D4E005CDE67 /* Ingredient.swift */,
+				1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */,
 			);
 			path = NutritionManager;
 			sourceTree = "<group>";
@@ -267,7 +276,10 @@
 			files = (
 				11BC34FD1B5D620100DBD7B8 /* AppDelegate.swift in Sources */,
 				11BC34FF1B5D620100DBD7B8 /* IngredientsList.swift in Sources */,
+				11C781031B5E1D4E005CDE67 /* Ingredient.swift in Sources */,
 				1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */,
+				1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */,
+				11C781021B5E1D4E005CDE67 /* Ingredient+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,6 +527,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1122E8431B5E0D7600BCDB8F /* model.xcdatamodel */,
+			);
+			currentVersion = 1122E8431B5E0D7600BCDB8F /* model.xcdatamodel */;
+			path = model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 11BC34F11B5D620100DBD7B8 /* Project object */;
 }

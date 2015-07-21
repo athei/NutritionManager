@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        if let modelFile = NSBundle.mainBundle().URLForResource("model", withExtension: "momd") {
+            if let model = NSManagedObjectModel(contentsOfURL: modelFile) {
+                let coord = NSPersistentStoreCoordinator(managedObjectModel:model)
+                let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+                context.persistentStoreCoordinator = coord
+                let ingredient = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: context)
+            }
+        }
+        
+        
         // Override point for customization after application launch.
         return true
     }
