@@ -44,7 +44,7 @@
 		11BC35031B5D620100DBD7B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11BC35051B5D620100DBD7B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11BC35081B5D620100DBD7B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		11BC350A1B5D620100DBD7B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11BC350A1B5D620100DBD7B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resource/Info.plist; sourceTree = "<group>"; };
 		11BC350F1B5D620200DBD7B8 /* NutritionManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NutritionManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BC35131B5D620200DBD7B8 /* NutritionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionManagerTests.swift; sourceTree = "<group>"; };
 		11BC35151B5D620200DBD7B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -105,12 +105,11 @@
 			isa = PBXGroup;
 			children = (
 				1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */,
-				11BC350A1B5D620100DBD7B8 /* Info.plist */,
 				11BC35021B5D620100DBD7B8 /* Main.storyboard */,
 				11BC35051B5D620100DBD7B8 /* Assets.xcassets */,
 				11BC35071B5D620100DBD7B8 /* LaunchScreen.storyboard */,
 			);
-			name = Resource;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		11A0DC171B5ED85C00456C94 /* Source */ = {
@@ -147,8 +146,9 @@
 		11BC34FB1B5D620100DBD7B8 /* NutritionManager */ = {
 			isa = PBXGroup;
 			children = (
-				11A0DC171B5ED85C00456C94 /* Source */,
 				11A0DC161B5ECE0400456C94 /* Resource */,
+				11A0DC171B5ED85C00456C94 /* Source */,
+				11BC350A1B5D620100DBD7B8 /* Info.plist */,
 			);
 			path = NutritionManager;
 			sourceTree = "<group>";
