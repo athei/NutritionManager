@@ -94,31 +94,34 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		11A0DC141B5ECDC800456C94 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				11A0DC151B5ECDF400456C94 /* Entities */,
-				1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		11A0DC151B5ECDF400456C94 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Entities;
+			path = Entities;
 			sourceTree = "<group>";
 		};
-		11A0DC161B5ECE0400456C94 /* Resources */ = {
+		11A0DC161B5ECE0400456C94 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */,
 				11BC350A1B5D620100DBD7B8 /* Info.plist */,
 				11BC35021B5D620100DBD7B8 /* Main.storyboard */,
 				11BC35051B5D620100DBD7B8 /* Assets.xcassets */,
 				11BC35071B5D620100DBD7B8 /* LaunchScreen.storyboard */,
 			);
-			name = Resources;
+			name = Resource;
+			sourceTree = "<group>";
+		};
+		11A0DC171B5ED85C00456C94 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				11A0DC131B5ECDA500456C94 /* Views */,
+				119436091B5D9DAF001EDFF8 /* ViewController */,
+				11A0DC151B5ECDF400456C94 /* Entities */,
+				11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		11BC34F01B5D620100DBD7B8 = {
@@ -144,11 +147,8 @@
 		11BC34FB1B5D620100DBD7B8 /* NutritionManager */ = {
 			isa = PBXGroup;
 			children = (
-				11A0DC161B5ECE0400456C94 /* Resources */,
-				11A0DC141B5ECDC800456C94 /* Model */,
-				11A0DC131B5ECDA500456C94 /* Views */,
-				119436091B5D9DAF001EDFF8 /* ViewController */,
-				11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */,
+				11A0DC171B5ED85C00456C94 /* Source */,
+				11A0DC161B5ECE0400456C94 /* Resource */,
 			);
 			path = NutritionManager;
 			sourceTree = "<group>";
