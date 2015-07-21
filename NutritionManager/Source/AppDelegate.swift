@@ -16,20 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        let url = NSFileManager.defaultManager().URLsForDirectory(.LibraryDirectory, inDomains: .UserDomainMask)[0]
-        print(url)
-        
-        if let modelFile = NSBundle.mainBundle().URLForResource("model", withExtension: "momd") {
-            if let model = NSManagedObjectModel(contentsOfURL: modelFile) {
-                let coord = NSPersistentStoreCoordinator(managedObjectModel:model)
-                try! coord.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url.URLByAppendingPathComponent("database.sqlite"), options: nil)
-                let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-                context.persistentStoreCoordinator = coord
-                let _ = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: context)
-                try! context.save();
-            }
-        }
-        
+        // initialize the database
+        Database.get()
         
         // Override point for customization after application launch.
         return true

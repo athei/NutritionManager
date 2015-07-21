@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8154.4" systemVersion="14E46" minimumToolsVersion="Xcode 7.0">
-    <entity name="Ingredient" representedClassName="" syncable="YES">
+    <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">
         <attribute name="carbohydrates" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="energy" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="fat" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="proteins" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="name"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
         <element name="Ingredient" positionX="-63" positionY="-18" width="128" height="135"/>
