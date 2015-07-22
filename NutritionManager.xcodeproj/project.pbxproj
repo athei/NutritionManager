@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */; };
 		1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1194360A1B5DB416001EDFF8 /* IngredientCell.swift */; };
-		11A3EC131B5EF2320054A3A0 /* Ingredient+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3EC111B5EF2320054A3A0 /* Ingredient+CoreDataProperties.swift */; };
-		11A3EC141B5EF2320054A3A0 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3EC121B5EF2320054A3A0 /* Ingredient.swift */; };
 		11A3EC171B5EF3AB0054A3A0 /* Pathes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3EC161B5EF3AB0054A3A0 /* Pathes.swift */; };
 		11A3EC191B5EF91A0054A3A0 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3EC181B5EF91A0054A3A0 /* Database.swift */; };
 		11BC34FD1B5D620100DBD7B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */; };
@@ -20,6 +18,8 @@
 		11BC35091B5D620100DBD7B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BC35071B5D620100DBD7B8 /* LaunchScreen.storyboard */; };
 		11BC35141B5D620200DBD7B8 /* NutritionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC35131B5D620200DBD7B8 /* NutritionManagerTests.swift */; };
 		11BC351F1B5D620200DBD7B8 /* NutritionManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC351E1B5D620200DBD7B8 /* NutritionManagerUITests.swift */; };
+		11F3D2271B5F89C40052516C /* Ingredient+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F3D2251B5F89C40052516C /* Ingredient+CoreDataProperties.swift */; };
+		11F3D2281B5F89C40052516C /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F3D2261B5F89C40052516C /* Ingredient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +43,6 @@
 		1122E8431B5E0D7600BCDB8F /* model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = model.xcdatamodel; sourceTree = "<group>"; };
 		1194360A1B5DB416001EDFF8 /* IngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		11A0DC251B5EDF7B00456C94 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		11A3EC111B5EF2320054A3A0 /* Ingredient+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		11A3EC121B5EF2320054A3A0 /* Ingredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		11A3EC161B5EF3AB0054A3A0 /* Pathes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pathes.swift; sourceTree = "<group>"; };
 		11A3EC181B5EF91A0054A3A0 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		11BC34F91B5D620100DBD7B8 /* NutritionManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NutritionManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +57,8 @@
 		11BC351A1B5D620200DBD7B8 /* NutritionManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NutritionManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BC351E1B5D620200DBD7B8 /* NutritionManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionManagerUITests.swift; sourceTree = "<group>"; };
 		11BC35201B5D620200DBD7B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11F3D2251B5F89C40052516C /* Ingredient+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		11F3D2261B5F89C40052516C /* Ingredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +105,8 @@
 		11A0DC151B5ECDF400456C94 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				11A3EC111B5EF2320054A3A0 /* Ingredient+CoreDataProperties.swift */,
-				11A3EC121B5EF2320054A3A0 /* Ingredient.swift */,
+				11F3D2251B5F89C40052516C /* Ingredient+CoreDataProperties.swift */,
+				11F3D2261B5F89C40052516C /* Ingredient.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -321,13 +321,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				11A3EC171B5EF3AB0054A3A0 /* Pathes.swift in Sources */,
+				11F3D2271B5F89C40052516C /* Ingredient+CoreDataProperties.swift in Sources */,
 				11BC34FD1B5D620100DBD7B8 /* AppDelegate.swift in Sources */,
 				11BC34FF1B5D620100DBD7B8 /* IngredientList.swift in Sources */,
-				11A3EC141B5EF2320054A3A0 /* Ingredient.swift in Sources */,
+				11F3D2281B5F89C40052516C /* Ingredient.swift in Sources */,
 				1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */,
 				1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */,
 				11A3EC191B5EF91A0054A3A0 /* Database.swift in Sources */,
-				11A3EC131B5EF2320054A3A0 /* Ingredient+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

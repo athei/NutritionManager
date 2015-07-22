@@ -39,7 +39,7 @@ class Database {
             }
         } while(tries < 2)
         
-        assert(coordinator.persistentStores.count == 1, "Adding persistent store failed")
+        assert(coordinator.persistentStores.count == 1, "Adding persistent store failed")        
     }
     
     static func get() -> Database {

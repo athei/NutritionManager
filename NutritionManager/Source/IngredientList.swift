@@ -7,12 +7,28 @@
 //
 
 import UIKit
+import CoreData
 
-class IngredientList: UITableViewController {
+class IngredientList: UITableViewController, NSFetchedResultsControllerDelegate {
+    
+    private let fetchedResultsController: NSFetchedResultsController
+    
+    required init?(coder aDecoder: NSCoder) {
+        let fetchRequest = NSFetchRequest(entityName: "Ingredient")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: Database.get().moc, sectionNameKeyPath: nil, cacheName: "IngredientsList")
+        try! fetchedResultsController.performFetch()
+    
+        super.init(coder: aDecoder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        fetchedResultsController.delegate = self
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,17 +38,22 @@ class IngredientList: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Ingredient", forIndexPath: indexPath) as! IngredientCell
-        cell.ingredientEnergy.text = "9000 kcal";
+        let ingredient = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
+        cell.ingredientName.text = ingredient.name
+        cell.ingredientEnergy.text = "\(ingredient.energy) kcal"
+        cell.ingredientProteins.text = "\(ingredient.proteins)g prot"
+        cell.ingredientFat.text = "\(ingredient.fat)g fat"
+        cell.ingredientCarbohydrates.text = "\(ingredient.carbohydrates)g carb"
+        
         return cell;
-    
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return (fetchedResultsController.sections?.count)!
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return (fetchedResultsController.sections?[section].numberOfObjects)!
     }
 
 
