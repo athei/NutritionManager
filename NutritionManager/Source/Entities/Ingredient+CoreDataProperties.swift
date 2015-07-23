@@ -2,7 +2,7 @@
 //  Ingredient+CoreDataProperties.swift
 //  NutritionManager
 //
-//  Created by Alexander Theißen on 22.07.15.
+//  Created by Alexander Theißen on 23.07.15.
 //
 //
 //  Delete this file and regenerate it using "Create NSManagedObject Subclass…"
@@ -14,11 +14,11 @@ import CoreData
 
 extension Ingredient {
 
-    @NSManaged var carbohydrates: NSNumber
-    @NSManaged var category: NSNumber
-    @NSManaged var energy: NSNumber
-    @NSManaged var fat: NSNumber
+    @NSManaged var carbohydrates: NSDecimalNumber
+    @NSManaged var category: NSDecimalNumber
+    @NSManaged var energy: NSDecimalNumber
+    @NSManaged var fat: NSDecimalNumber
     @NSManaged var name: String
-    @NSManaged var proteins: NSNumber
+    @NSManaged var proteins: NSDecimalNumber
 
 }

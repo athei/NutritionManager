@@ -43,8 +43,17 @@ class Database {
         
         let ei = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc) as! Ingredient
         let quark = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc) as! Ingredient
-        ei.name = "Ei"
-        quark.name = "Quark"
+        ei.name = "Ei, vom Huhn"
+        ei.energy = 137
+        ei.proteins = 11.9
+        ei.fat = 9.3
+        ei.carbohydrates = 1.5
+        
+        quark.name = "Quark (40%)"
+        quark.energy = 143
+        quark.proteins = 11.1
+        quark.fat = 11.4
+        quark.carbohydrates = 2.6
     }
     
     static func get() -> Database {
