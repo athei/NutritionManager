@@ -9,12 +9,12 @@
 import UIKit
 
 class IngredientDetail: UITableViewController {
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var energyLabel: UILabel!
-    @IBOutlet weak var proteinLabel: UILabel!
-    @IBOutlet weak var fatLabel: UILabel!
-    @IBOutlet weak var carbohydrateLabel: UILabel!
-    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var energyField: UITextField!
+    @IBOutlet weak var proteinField: UITextField!
+    @IBOutlet weak var fatField: UITextField!
+    @IBOutlet weak var carbohydrateField: UITextField!
+    
     
     private var presentingIngredient: Ingredient?
     
@@ -32,11 +32,11 @@ class IngredientDetail: UITableViewController {
         
         // load the values from the model to the view
         if let ingredient = presentingIngredient {
-            nameLabel.text = ingredient.name
-            energyLabel.text = Units.formattedEnergy(energyInKcal: ingredient.energy, to: Units.Energy.Kcal)
-            proteinLabel.text = Units.formattedMass(massInGram: ingredient.proteins, to: Units.Mass.Gram)
-            fatLabel.text = Units.formattedMass(massInGram: ingredient.fat, to: Units.Mass.Gram)
-            carbohydrateLabel.text = Units.formattedMass(massInGram: ingredient.carbohydrates, to: Units.Mass.Gram)
+            nameField.text = ingredient.name
+            energyField.text = Units.formattedEnergy(energyInKcal: ingredient.energy, to: Units.Energy.Kcal)
+            proteinField.text = Units.formattedMass(massInGram: ingredient.proteins, to: Units.Mass.Gram)
+            fatField.text = Units.formattedMass(massInGram: ingredient.fat, to: Units.Mass.Gram)
+            carbohydrateField.text = Units.formattedMass(massInGram: ingredient.carbohydrates, to: Units.Mass.Gram)
         }
     }
 }
