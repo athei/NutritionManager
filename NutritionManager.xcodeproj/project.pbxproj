@@ -19,6 +19,7 @@
 		11BC35141B5D620200DBD7B8 /* NutritionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC35131B5D620200DBD7B8 /* NutritionManagerTests.swift */; };
 		11BC351F1B5D620200DBD7B8 /* NutritionManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC351E1B5D620200DBD7B8 /* NutritionManagerUITests.swift */; };
 		11C8A7B61B60E42D004409B4 /* IngredientDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C8A7B51B60E42D004409B4 /* IngredientDetail.swift */; };
+		11C8A7B81B613F44004409B4 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C8A7B71B613F44004409B4 /* Units.swift */; };
 		11F3D2271B5F89C40052516C /* Ingredient+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F3D2251B5F89C40052516C /* Ingredient+CoreDataProperties.swift */; };
 		11F3D2281B5F89C40052516C /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F3D2261B5F89C40052516C /* Ingredient.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		11BC351E1B5D620200DBD7B8 /* NutritionManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionManagerUITests.swift; sourceTree = "<group>"; };
 		11BC35201B5D620200DBD7B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11C8A7B51B60E42D004409B4 /* IngredientDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientDetail.swift; sourceTree = "<group>"; };
+		11C8A7B71B613F44004409B4 /* Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		11F3D2251B5F89C40052516C /* Ingredient+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11F3D2261B5F89C40052516C /* Ingredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,6 +144,7 @@
 			children = (
 				11A3EC161B5EF3AB0054A3A0 /* Pathes.swift */,
 				11A3EC181B5EF91A0054A3A0 /* Database.swift */,
+				11C8A7B71B613F44004409B4 /* Units.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */,
 				1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */,
 				11A3EC191B5EF91A0054A3A0 /* Database.swift in Sources */,
+				11C8A7B81B613F44004409B4 /* Units.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
