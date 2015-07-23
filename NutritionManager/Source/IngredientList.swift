@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+protocol IngredientDetailViewProtocol: class {
+    func ingredientSelected(ingredient: Ingredient)
+}
+
 class IngredientList: UITableViewController {
     
     private let fetchedResultsController: NSFetchedResultsController
@@ -28,12 +32,18 @@ class IngredientList: UITableViewController {
         
         fetchedResultsController.delegate = self
         splitViewController?.delegate = self;
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ingredientDetail") {
+            let destination = (segue.destinationViewController as! UINavigationController).viewControllers.first as! IngredientDetailViewProtocol
+            let ingredient = fetchedResultsController.objectAtIndexPath(tableView.indexPathForSelectedRow!) as! Ingredient
+            destination.ingredientSelected(ingredient)
+        }
     }
     
     // MARK: UITableViewDataSource Implementation
@@ -64,6 +74,10 @@ class IngredientList: UITableViewController {
 extension IngredientList: UISplitViewControllerDelegate {
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         return tableView.indexPathForSelectedRow == nil
+    }
+    
+    func splitViewController(svc: UISplitViewController, shouldHideViewController vc: UIViewController, inOrientation orientation: UIInterfaceOrientation) -> Bool {
+        return false
     }
 }
 

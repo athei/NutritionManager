@@ -41,8 +41,11 @@ class Database {
         
         assert(coordinator.persistentStores.count == 1, "Adding persistent store failed")
         
-        NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc)
-        NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc)
+        let ei = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc) as! Ingredient
+        let quark = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc) as! Ingredient
+        ei.name = "Ei"
+        quark.name = "Quark"
+        
 
     }
     

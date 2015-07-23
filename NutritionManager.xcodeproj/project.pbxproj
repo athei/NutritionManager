@@ -18,6 +18,7 @@
 		11BC35091B5D620100DBD7B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11BC35071B5D620100DBD7B8 /* LaunchScreen.storyboard */; };
 		11BC35141B5D620200DBD7B8 /* NutritionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC35131B5D620200DBD7B8 /* NutritionManagerTests.swift */; };
 		11BC351F1B5D620200DBD7B8 /* NutritionManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BC351E1B5D620200DBD7B8 /* NutritionManagerUITests.swift */; };
+		11C8A7B61B60E42D004409B4 /* IngredientDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C8A7B51B60E42D004409B4 /* IngredientDetail.swift */; };
 		11F3D2271B5F89C40052516C /* Ingredient+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F3D2251B5F89C40052516C /* Ingredient+CoreDataProperties.swift */; };
 		11F3D2281B5F89C40052516C /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F3D2261B5F89C40052516C /* Ingredient.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		11BC351A1B5D620200DBD7B8 /* NutritionManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NutritionManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11BC351E1B5D620200DBD7B8 /* NutritionManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionManagerUITests.swift; sourceTree = "<group>"; };
 		11BC35201B5D620200DBD7B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11C8A7B51B60E42D004409B4 /* IngredientDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientDetail.swift; sourceTree = "<group>"; };
 		11F3D2251B5F89C40052516C /* Ingredient+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11F3D2261B5F89C40052516C /* Ingredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				11BC34FE1B5D620100DBD7B8 /* IngredientList.swift */,
+				11C8A7B51B60E42D004409B4 /* IngredientDetail.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				11A3EC171B5EF3AB0054A3A0 /* Pathes.swift in Sources */,
 				11F3D2271B5F89C40052516C /* Ingredient+CoreDataProperties.swift in Sources */,
 				11BC34FD1B5D620100DBD7B8 /* AppDelegate.swift in Sources */,
+				11C8A7B61B60E42D004409B4 /* IngredientDetail.swift in Sources */,
 				11BC34FF1B5D620100DBD7B8 /* IngredientList.swift in Sources */,
 				11F3D2281B5F89C40052516C /* Ingredient.swift in Sources */,
 				1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */,
