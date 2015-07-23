@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class IngredientList: UITableViewController, NSFetchedResultsControllerDelegate, UISplitViewControllerDelegate {
+class IngredientList: UITableViewController {
     
     private let fetchedResultsController: NSFetchedResultsController
     
@@ -36,6 +36,8 @@ class IngredientList: UITableViewController, NSFetchedResultsControllerDelegate,
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: UITableViewDataSource Implementation
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Ingredient", forIndexPath: indexPath) as! IngredientCell
         let ingredient = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
@@ -55,11 +57,18 @@ class IngredientList: UITableViewController, NSFetchedResultsControllerDelegate,
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (fetchedResultsController.sections?[section].numberOfObjects)!
     }
-    
+}
+
+// MARK: UISplitViewControllerDelegate Implementation
+
+extension IngredientList: UISplitViewControllerDelegate {
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         return tableView.indexPathForSelectedRow == nil
     }
-
-
 }
 
+// MARK: NSFetchedResultsControllerDelegate Implementation
+
+extension IngredientList: NSFetchedResultsControllerDelegate {
+    
+}
