@@ -45,8 +45,6 @@ class Database {
         let quark = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc) as! Ingredient
         ei.name = "Ei"
         quark.name = "Quark"
-        
-
     }
     
     static func get() -> Database {
