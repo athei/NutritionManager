@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class IngredientList: UITableViewController, NSFetchedResultsControllerDelegate {
+class IngredientList: UITableViewController, NSFetchedResultsControllerDelegate, UISplitViewControllerDelegate {
     
     private let fetchedResultsController: NSFetchedResultsController
     
@@ -27,7 +27,7 @@ class IngredientList: UITableViewController, NSFetchedResultsControllerDelegate 
         super.viewDidLoad()
         
         fetchedResultsController.delegate = self
-        
+        splitViewController?.delegate = self;
         
     }
 
@@ -54,6 +54,10 @@ class IngredientList: UITableViewController, NSFetchedResultsControllerDelegate 
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (fetchedResultsController.sections?[section].numberOfObjects)!
+    }
+    
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+        return tableView.indexPathForSelectedRow == nil
     }
 
 

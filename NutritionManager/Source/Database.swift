@@ -39,7 +39,11 @@ class Database {
             }
         } while(tries < 2)
         
-        assert(coordinator.persistentStores.count == 1, "Adding persistent store failed")        
+        assert(coordinator.persistentStores.count == 1, "Adding persistent store failed")
+        
+        NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc)
+        NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc)
+
     }
     
     static func get() -> Database {
