@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8152.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="S6w-Ab-9Ke">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8152.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="aqr-TH-HY1">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8124.4"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -100,7 +100,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TOg-kq-dfa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1268" y="-392"/>
+            <point key="canvasLocation" x="1124" y="-816"/>
         </scene>
         <!--Detail-->
         <scene sceneID="F19-0l-xJu">
@@ -118,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cL6-c8-geX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="468" y="423"/>
+            <point key="canvasLocation" x="324" y="-1"/>
         </scene>
         <!--Master-->
         <scene sceneID="mku-MC-dQN">
@@ -134,12 +134,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n7o-2T-bXQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="468" y="-392"/>
+            <point key="canvasLocation" x="324" y="-816"/>
         </scene>
         <!--Root-->
         <scene sceneID="ZGZ-p7-nbx">
             <objects>
                 <splitViewController title="Root" id="S6w-Ab-9Ke" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Ingredients" image="first" id="kIe-AR-NqO"/>
                     <connections>
                         <segue destination="EJX-7o-rrd" kind="relationship" relationship="masterViewController" id="WrO-y6-9N0"/>
                         <segue destination="jBX-hA-hRq" kind="relationship" relationship="detailViewController" id="dHl-UF-gme"/>
@@ -147,13 +148,32 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qD3-Mg-fJp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-372" y="66"/>
+            <point key="canvasLocation" x="-516" y="-326"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="7ms-XA-EDt">
+            <objects>
+                <tabBarController id="aqr-TH-HY1" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="7lx-6W-YUM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="S6w-Ab-9Ke" kind="relationship" relationship="viewControllers" id="gJg-6s-iBa"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gyv-1B-nRr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1224" y="755"/>
         </scene>
     </scenes>
     <resources>
         <image name="egg" width="500" height="375"/>
+        <image name="first" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DoQ-q5-p00"/>
+        <segue reference="dHl-UF-gme"/>
     </inferredMetricsTieBreakers>
 </document>
