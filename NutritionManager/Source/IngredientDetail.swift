@@ -32,7 +32,6 @@ class IngredientDetail: UITableViewController {
         
         // load the values from the model to the view
         if let ingredient = presentingIngredient {
-            navigationItem.title = ingredient.name
             nameLabel.text = ingredient.name
             energyLabel.text = Units.formattedEnergy(energyInKcal: ingredient.energy, to: Units.Energy.Kcal)
             proteinLabel.text = Units.formattedMass(massInGram: ingredient.proteins, to: Units.Mass.Gram)
@@ -44,6 +43,7 @@ class IngredientDetail: UITableViewController {
 
 extension IngredientDetail: IngredientDetailViewProtocol {
     func ingredientSelected(ingredient: Ingredient) {
+        navigationItem.title = ingredient.name
         presentingIngredient = ingredient
     }
 }
