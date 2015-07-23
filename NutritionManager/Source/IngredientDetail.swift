@@ -26,6 +26,8 @@ class IngredientDetail: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.rightBarButtonItem = editButtonItem()
+        
         // show control to show/close master view on iPad/iPhone+
         navigationItem.leftItemsSupplementBackButton = true
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
@@ -38,6 +40,38 @@ class IngredientDetail: UITableViewController {
             fatField.text = Units.formattedMass(massInGram: ingredient.fat, to: Units.Mass.Gram)
             carbohydrateField.text = Units.formattedMass(massInGram: ingredient.carbohydrates, to: Units.Mass.Gram)
         }
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if (editing) {
+            enableTextField(nameField)
+            enableTextField(energyField)
+            enableTextField(proteinField)
+            enableTextField(fatField)
+            enableTextField(carbohydrateField)
+        } else {
+            disableTextField(nameField)
+            disableTextField(energyField)
+            disableTextField(proteinField)
+            disableTextField(fatField)
+            disableTextField(carbohydrateField)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    
+    private func enableTextField(field: UITextField) {
+        field.borderStyle = UITextBorderStyle.RoundedRect
+        field.enabled = true
+    }
+    
+    private func disableTextField(field: UITextField) {
+        field.borderStyle = UITextBorderStyle.None
+        field.enabled = false
     }
 }
 
