@@ -35,7 +35,11 @@ class IngredientList: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        // select the first ingredient if there is one
+        if (tableView.numberOfRowsInSection(0) > 0) {
+            tableView.selectRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.Top)
+            performSegueWithIdentifier("ingredientDetail", sender: nil)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
