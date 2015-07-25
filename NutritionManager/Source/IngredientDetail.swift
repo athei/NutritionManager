@@ -16,8 +16,12 @@ class IngredientDetail: UITableViewController {
     @IBOutlet weak var carbohydrateField: UITextField!
     @IBOutlet weak var valueScaleControl: UISegmentedControl!
     
+    @IBOutlet var nonEditableConstraints: [NSLayoutConstraint]!
+    @IBOutlet var editableConstraints: [NSLayoutConstraint]!
+    
     
     private var presentingIngredient: Ingredient?
+    private var initialLayoutDone: Bool = false
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,22 +38,47 @@ class IngredientDetail: UITableViewController {
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
         
         // load the values from the model to the view
-        setControlsEditable(presentingIngredient == nil)
+        // and set the controls to the appropriate mode (editing vs inspecting)
+        setControlsEditing(presentingIngredient == nil)
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // the constraints can only be changed set after the initial layout
+        // of the view is done
+        if (!initialLayoutDone) {
+            setContraintsEditing(presentingIngredient == nil)
+            self.view.layoutIfNeeded()
+            initialLayoutDone = true
+        }
+    }
+    
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        setControlsEditable(editing)
+        
+        if (animated) {
+            UIView.animateWithDuration(1.0) { () -> Void in
+                self.setControlsEditing(editing)
+                self.setContraintsEditing(editing)
+                self.view.layoutIfNeeded()
+            }
+        } else {
+            setControlsEditing(editing)
+            setContraintsEditing(editing)
+            view.layoutIfNeeded()
+        }
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return false
     }
     
-    private func setControlsEditable(editable: Bool) {
-        if (editable) {
-            fillControlsWithValues(withUnit: !editable)
-            
+    private func setControlsEditing(editing: Bool) {
+        fillControlsWithValues(withUnit: !editing)
+        
+        if (editing) {
             enableTextField(nameField)
             enableTextField(energyField)
             enableTextField(proteinField)
@@ -64,8 +93,17 @@ class IngredientDetail: UITableViewController {
             disableTextField(fatField)
             disableTextField(carbohydrateField)
             valueScaleControl.enabled = false
-            
-            fillControlsWithValues(withUnit: !editable)
+            fillControlsWithValues(withUnit: !editing)
+        }
+    }
+    
+    private func setContraintsEditing(editing: Bool) {
+        for constraint in nonEditableConstraints {
+            constraint.active = !editing
+        }
+        
+        for constraint in editableConstraints {
+            constraint.active = editing
         }
     }
     
