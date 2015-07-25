@@ -35,10 +35,10 @@ class IngredientDetail: UITableViewController {
         // load the values from the model to the view
         if let ingredient = presentingIngredient {
             nameField.text = ingredient.name
-            energyField.text = Units.formattedEnergy(energyInKcal: ingredient.energy, to: Units.Energy.Kcal)
-            proteinField.text = Units.formattedMass(massInGram: ingredient.proteins, to: Units.Mass.Gram)
-            fatField.text = Units.formattedMass(massInGram: ingredient.fat, to: Units.Mass.Gram)
-            carbohydrateField.text = Units.formattedMass(massInGram: ingredient.carbohydrates, to: Units.Mass.Gram)
+            energyField.text = ingredient.formattedEnergy(withUnit: true, to: nil)
+            proteinField.text = ingredient.formattedProteins(withUnit: true, to: nil)
+            fatField.text = ingredient.formattedFat(withUnit: true, to: nil)
+            carbohydrateField.text = ingredient.formattedCarbohydrates(withUnit: true, to: nil)
         }
     }
     

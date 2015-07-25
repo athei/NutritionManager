@@ -52,10 +52,10 @@ class IngredientList: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Ingredient", forIndexPath: indexPath) as! IngredientCell
         let ingredient = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
         cell.ingredientName.text = ingredient.name
-        cell.ingredientEnergy.text = Units.formattedEnergy(energyInKcal: ingredient.energy, to: Units.Energy.Kcal)
-        cell.ingredientProteins.text = "\(Units.formattedMass(massInGram: ingredient.proteins, to: Units.Mass.Gram)) prot"
-        cell.ingredientFat.text = "\(Units.formattedMass(massInGram: ingredient.fat, to: Units.Mass.Gram)) fat"
-        cell.ingredientCarbohydrates.text = "\(Units.formattedMass(massInGram: ingredient.carbohydrates, to: Units.Mass.Gram)) carb"
+        cell.ingredientEnergy.text = ingredient.formattedEnergy(withUnit: true, to: nil)
+        cell.ingredientProteins.text = "\(ingredient.formattedProteins(withUnit: true, to: nil)) prot"
+        cell.ingredientFat.text = "\(ingredient.formattedFat(withUnit: true, to: nil)) fat"
+        cell.ingredientCarbohydrates.text = "\(ingredient.formattedCarbohydrates(withUnit: true, to: nil)) carb"
         
         return cell;
     }
