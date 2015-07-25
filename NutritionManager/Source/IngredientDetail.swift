@@ -30,7 +30,7 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     required init?(coder aDecoder: NSCoder) {
         // load the categories from the database
         let categoryFetch = NSFetchRequest(entityName: "Category")
-        let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         categoryFetch.sortDescriptors = [sortDescriptor]
         try! categories = Database.get().moc.executeFetchRequest(categoryFetch) as! [Category]
         
