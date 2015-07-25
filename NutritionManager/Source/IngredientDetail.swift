@@ -25,7 +25,6 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     
     private let categories: [Category]
     private var presentingIngredient: Ingredient?
-    private var initialLayoutDone: Bool = false
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,36 +49,27 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
         // load the values from the model to the view
         // and set the controls to the appropriate mode (editing vs inspecting)
         super.setEditing(presentingIngredient == nil, animated: false)
-        setControlsEditing(presentingIngredient == nil)
+        setControlsEditing(editing)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        // the constraints can only be changed set after the initial layout
-        // of the view is done
-        view.layoutIfNeeded()
-        if (!initialLayoutDone) {
-            setContraintsEditing(presentingIngredient == nil)
-            initialLayoutDone = true
-            view.layoutIfNeeded()
-        }
+        setContraintsEditing(editing)
     }
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
-        view.layoutIfNeeded()
-        
         if (animated) {
+            view.layoutIfNeeded()
             UIView.animateWithDuration(1.0) { () -> Void in
                 self.setControlsEditing(editing)
-                self.setContraintsEditing(editing)
+                self.view.setNeedsLayout()
                 self.view.layoutIfNeeded()
             }
         } else {
             setControlsEditing(editing)
-            setContraintsEditing(editing)
+            view.setNeedsLayout()
         }
     }
     
