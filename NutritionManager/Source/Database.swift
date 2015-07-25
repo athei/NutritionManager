@@ -56,6 +56,22 @@ class Database {
         quark.fat = 11.4
         quark.carbohydrates = 2.6
         quark.valueScale = .Mass
+        
+        var cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
+        cat.name = "Gemüse"
+        cat.order = 0
+        
+        cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
+        cat.name = "Putzmittel"
+        cat.order = 1
+        
+        cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
+        cat.name = "Fleisch"
+        cat.order = 2
+        
+        cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
+        cat.name = "Käse"
+        cat.order = 3
     }
     
     static func get() -> Database {

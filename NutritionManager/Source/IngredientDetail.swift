@@ -7,24 +7,34 @@
 //
 
 import UIKit
+import CoreData
 
-class IngredientDetail: UITableViewController {
+class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, IngredientDetailViewProtocol {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var energyField: UITextField!
     @IBOutlet weak var proteinField: UITextField!
     @IBOutlet weak var fatField: UITextField!
     @IBOutlet weak var carbohydrateField: UITextField!
     @IBOutlet weak var valueScaleControl: UISegmentedControl!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var categoryPicker: UIPickerView!
+    @IBOutlet weak var categoryCell: UITableViewCell!
     
     @IBOutlet var nonEditableConstraints: [NSLayoutConstraint]!
     @IBOutlet var editableConstraints: [NSLayoutConstraint]!
     
-    
+    private let categories: [Category]
     private var presentingIngredient: Ingredient?
     private var initialLayoutDone: Bool = false
     
     
     required init?(coder aDecoder: NSCoder) {
+        // load the categories from the database
+        let categoryFetch = NSFetchRequest(entityName: "Category")
+        let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
+        categoryFetch.sortDescriptors = [sortDescriptor]
+        try! categories = Database.get().moc.executeFetchRequest(categoryFetch) as! [Category]
+        
         super.init(coder: aDecoder)
     }
     
@@ -39,6 +49,7 @@ class IngredientDetail: UITableViewController {
         
         // load the values from the model to the view
         // and set the controls to the appropriate mode (editing vs inspecting)
+        super.setEditing(presentingIngredient == nil, animated: false)
         setControlsEditing(presentingIngredient == nil)
     }
     
@@ -47,14 +58,18 @@ class IngredientDetail: UITableViewController {
         
         // the constraints can only be changed set after the initial layout
         // of the view is done
+        view.layoutIfNeeded()
         if (!initialLayoutDone) {
             setContraintsEditing(presentingIngredient == nil)
             initialLayoutDone = true
+            view.layoutIfNeeded()
         }
     }
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
+        
+        view.layoutIfNeeded()
         
         if (animated) {
             UIView.animateWithDuration(1.0) { () -> Void in
@@ -72,6 +87,31 @@ class IngredientDetail: UITableViewController {
         return false
     }
     
+    // Mark: UIPickerViewDelegate
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categories[row].name
+    }
+    
+    // Mark: UIPickerViewDataSource
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categories.count
+    }
+    
+    // Mark: IngredientDetailViewProtocol
+    
+    func ingredientSelected(ingredient: Ingredient) {
+        navigationItem.title = ingredient.name
+        presentingIngredient = ingredient
+    }
+    
+    // Mark: Private helper
+    
     private func setControlsEditing(editing: Bool) {
         fillControlsWithValues(withUnit: !editing)
         
@@ -81,8 +121,9 @@ class IngredientDetail: UITableViewController {
             enableTextField(proteinField)
             enableTextField(fatField)
             enableTextField(carbohydrateField)
-            valueScaleControl.enabled = true;
-            
+            valueScaleControl.enabled = true
+            categoryLabel.hidden = true
+            categoryPicker.hidden = false
         } else {
             disableTextField(nameField)
             disableTextField(energyField)
@@ -90,7 +131,8 @@ class IngredientDetail: UITableViewController {
             disableTextField(fatField)
             disableTextField(carbohydrateField)
             valueScaleControl.enabled = false
-            fillControlsWithValues(withUnit: !editing)
+            categoryLabel.hidden = false
+            categoryPicker.hidden = true
         }
     }
     
@@ -134,12 +176,5 @@ class IngredientDetail: UITableViewController {
     private func disableTextField(field: UITextField) {
         field.borderStyle = UITextBorderStyle.None
         field.enabled = false
-    }
-}
-
-extension IngredientDetail: IngredientDetailViewProtocol {
-    func ingredientSelected(ingredient: Ingredient) {
-        navigationItem.title = ingredient.name
-        presentingIngredient = ingredient
     }
 }

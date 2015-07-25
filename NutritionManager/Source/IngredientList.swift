@@ -40,7 +40,8 @@ class IngredientList: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ingredientDetail") {
-            let destination = (segue.destinationViewController as! UINavigationController).viewControllers.first as! IngredientDetailViewProtocol
+            let navi = segue.destinationViewController as! UINavigationController
+            let destination = navi.viewControllers.first as! IngredientDetailViewProtocol
             let ingredient = fetchedResultsController.objectAtIndexPath(tableView.indexPathForSelectedRow!) as! Ingredient
             destination.ingredientSelected(ingredient)
         }

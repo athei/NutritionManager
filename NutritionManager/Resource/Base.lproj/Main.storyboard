@@ -161,7 +161,7 @@
             <objects>
                 <tableViewController title="IngredientDetail" id="ueX-aF-3dy" customClass="IngredientDetail" customModule="NutritionManager" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" allowsSelection="NO" rowHeight="50" sectionHeaderHeight="10" sectionFooterHeight="10" id="Wvs-ww-HaE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.86453721075952839" green="0.86329219369400156" blue="0.88503954068011048" alpha="1" colorSpace="calibratedRGB"/>
@@ -362,23 +362,36 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Category" id="NtQ-en-G7Z">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="49" id="uyp-Q8-Wbc">
-                                        <rect key="frame" x="0.0" y="531" width="600" height="49"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="uyp-Q8-Wbc">
+                                        <rect key="frame" x="0.0" y="531" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uyp-Q8-Wbc" id="IDA-4b-PBB">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAE-F6-zsx">
-                                                    <rect key="frame" x="265" y="13" width="71" height="21"/>
+                                                    <rect key="frame" x="265" y="39" width="71" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MiU-ZL-jD7">
+                                                    <rect key="frame" x="8" y="8" width="584" height="83"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="ueX-aF-3dy" id="iKq-FK-ZCY"/>
+                                                        <outlet property="delegate" destination="ueX-aF-3dy" id="vMZ-Kb-Rco"/>
+                                                    </connections>
+                                                </pickerView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="MiU-ZL-jD7" firstAttribute="centerX" secondItem="IDA-4b-PBB" secondAttribute="centerX" id="JJO-Q2-VdT"/>
                                                 <constraint firstItem="hAE-F6-zsx" firstAttribute="centerX" secondItem="IDA-4b-PBB" secondAttribute="centerX" id="Ptp-gb-szd"/>
                                                 <constraint firstItem="hAE-F6-zsx" firstAttribute="centerY" secondItem="IDA-4b-PBB" secondAttribute="centerY" id="df9-Mm-dcO"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="MiU-ZL-jD7" secondAttribute="trailing" id="hhq-uz-f6t"/>
+                                                <constraint firstItem="MiU-ZL-jD7" firstAttribute="top" secondItem="IDA-4b-PBB" secondAttribute="topMargin" id="rXa-v8-bsE"/>
+                                                <constraint firstItem="MiU-ZL-jD7" firstAttribute="centerY" secondItem="IDA-4b-PBB" secondAttribute="centerY" id="vZv-68-tJF"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="MiU-ZL-jD7" secondAttribute="bottom" id="w0c-f1-I8d"/>
+                                                <constraint firstItem="MiU-ZL-jD7" firstAttribute="leading" secondItem="IDA-4b-PBB" secondAttribute="leadingMargin" id="wOR-nI-eNf"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -391,8 +404,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="4bR-cn-jqf"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="800"/>
                     <connections>
                         <outlet property="carbohydrateField" destination="eDk-Ap-ZWA" id="Jep-qi-4v8"/>
+                        <outlet property="categoryCell" destination="uyp-Q8-Wbc" id="lk4-pb-XEl"/>
+                        <outlet property="categoryLabel" destination="hAE-F6-zsx" id="coR-pe-ecQ"/>
+                        <outlet property="categoryPicker" destination="MiU-ZL-jD7" id="nTJ-ze-siW"/>
                         <outlet property="energyField" destination="psw-WE-kwD" id="y5h-7M-0hk"/>
                         <outlet property="fatField" destination="aWE-xA-l7w" id="ViI-Ja-NzG"/>
                         <outlet property="nameField" destination="aA0-Wv-bMA" id="6yY-9H-Suo"/>
@@ -420,7 +438,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TIE-QJ-iCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1134" y="-376"/>
+            <point key="canvasLocation" x="1134" y="-276"/>
         </scene>
         <!--IngredientSplit-->
         <scene sceneID="ZGZ-p7-nbx">
