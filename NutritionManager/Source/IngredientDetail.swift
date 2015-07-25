@@ -49,11 +49,9 @@ class IngredientDetail: UITableViewController {
         // of the view is done
         if (!initialLayoutDone) {
             setContraintsEditing(presentingIngredient == nil)
-            self.view.layoutIfNeeded()
             initialLayoutDone = true
         }
     }
-    
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -67,7 +65,6 @@ class IngredientDetail: UITableViewController {
         } else {
             setControlsEditing(editing)
             setContraintsEditing(editing)
-            view.layoutIfNeeded()
         }
     }
     
@@ -98,12 +95,23 @@ class IngredientDetail: UITableViewController {
     }
     
     private func setContraintsEditing(editing: Bool) {
-        for constraint in nonEditableConstraints {
-            constraint.active = !editing
-        }
-        
-        for constraint in editableConstraints {
-            constraint.active = editing
+        // we need to make sure to deakcivate constraints before activating new ones
+        if (editing) {
+            for constraint in nonEditableConstraints {
+                constraint.active = false
+            }
+            
+            for constraint in editableConstraints {
+                constraint.active = true
+            }
+        } else {
+            for constraint in editableConstraints {
+                constraint.active = false
+            }
+            
+            for constraint in nonEditableConstraints {
+                constraint.active = true
+            }
         }
     }
     
