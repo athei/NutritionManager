@@ -176,14 +176,14 @@
                                         <constraint firstAttribute="width" secondItem="B9m-hz-w7F" secondAttribute="height" multiplier="1:1" id="yzN-Gv-ltw"/>
                                     </constraints>
                                 </imageView>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aA0-Wv-bMA">
-                                    <rect key="frame" x="132" y="15" width="68" height="29"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aA0-Wv-bMA">
+                                    <rect key="frame" x="132" y="15" width="460" height="29"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0 kcal" placeholder="Energy" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="psw-WE-kwD">
-                                    <rect key="frame" x="132" y="52" width="58" height="21"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Energy" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="psw-WE-kwD">
+                                    <rect key="frame" x="132" y="52" width="460" height="21"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -195,9 +195,11 @@
                                 <constraint firstItem="aA0-Wv-bMA" firstAttribute="leading" secondItem="B9m-hz-w7F" secondAttribute="trailing" constant="8" id="IPo-7y-jgK"/>
                                 <constraint firstItem="B9m-hz-w7F" firstAttribute="top" secondItem="2rg-gu-o6E" secondAttribute="top" constant="10" id="LsK-Vm-kxq"/>
                                 <constraint firstItem="psw-WE-kwD" firstAttribute="leading" secondItem="aA0-Wv-bMA" secondAttribute="leading" id="SxZ-IW-xXD"/>
+                                <constraint firstAttribute="trailing" secondItem="psw-WE-kwD" secondAttribute="trailing" constant="8" id="qbf-yX-RgU"/>
                                 <constraint firstItem="B9m-hz-w7F" firstAttribute="leading" secondItem="2rg-gu-o6E" secondAttribute="leading" constant="8" id="sFM-r4-17b"/>
                                 <constraint firstItem="B9m-hz-w7F" firstAttribute="centerY" secondItem="2rg-gu-o6E" secondAttribute="centerY" id="tcD-Yg-tSR"/>
                                 <constraint firstItem="aA0-Wv-bMA" firstAttribute="top" secondItem="B9m-hz-w7F" secondAttribute="top" constant="5" id="uE9-uV-adB"/>
+                                <constraint firstAttribute="trailing" secondItem="aA0-Wv-bMA" secondAttribute="trailing" constant="8" id="ydR-Ll-Wun"/>
                             </constraints>
                         </view>
                         <sections>
@@ -243,8 +245,8 @@
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0 g" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ED5-gI-Mbe">
-                                                    <rect key="frame" x="23" y="23" width="29" height="21"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Protein Value" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ED5-gI-Mbe">
+                                                    <rect key="frame" x="23" y="23" width="569" height="21"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -254,6 +256,7 @@
                                                 <constraint firstItem="LPf-rO-Xyf" firstAttribute="top" secondItem="XZZ-QP-Efa" secondAttribute="topMargin" id="3mv-YM-spX"/>
                                                 <constraint firstItem="LPf-rO-Xyf" firstAttribute="leading" secondItem="XZZ-QP-Efa" secondAttribute="leadingMargin" constant="15" id="Lze-2U-2dU"/>
                                                 <constraint firstItem="ED5-gI-Mbe" firstAttribute="leading" secondItem="LPf-rO-Xyf" secondAttribute="leading" id="THh-Z9-8yZ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ED5-gI-Mbe" secondAttribute="trailing" id="cXM-9U-BjB"/>
                                                 <constraint firstItem="ED5-gI-Mbe" firstAttribute="bottom" secondItem="XZZ-QP-Efa" secondAttribute="bottomMargin" constant="4" id="gTX-dw-a4d"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -271,8 +274,8 @@
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0 g" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tgj-vW-FeJ">
-                                                    <rect key="frame" x="23" y="23" width="29" height="21"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Fat Value" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tgj-vW-FeJ">
+                                                    <rect key="frame" x="23" y="23" width="569" height="21"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -283,6 +286,7 @@
                                                 <constraint firstItem="6Sc-Sc-q1u" firstAttribute="top" secondItem="Aee-Yr-Sfc" secondAttribute="topMargin" id="ciz-kD-2d1"/>
                                                 <constraint firstItem="Tgj-vW-FeJ" firstAttribute="bottom" secondItem="Aee-Yr-Sfc" secondAttribute="bottomMargin" constant="4" id="mDw-96-BUT"/>
                                                 <constraint firstItem="Tgj-vW-FeJ" firstAttribute="leading" secondItem="6Sc-Sc-q1u" secondAttribute="leading" id="mk7-Sj-cJp"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Tgj-vW-FeJ" secondAttribute="trailing" id="rLe-Rr-uK8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -299,8 +303,8 @@
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0 g" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xM1-sm-CHo">
-                                                    <rect key="frame" x="23" y="23" width="29" height="21"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Carbohydrate Value" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xM1-sm-CHo">
+                                                    <rect key="frame" x="23" y="23" width="569" height="21"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -311,6 +315,7 @@
                                                 <constraint firstItem="xM1-sm-CHo" firstAttribute="leading" secondItem="wTL-zG-0FN" secondAttribute="leading" id="MLY-aP-xnn"/>
                                                 <constraint firstItem="wTL-zG-0FN" firstAttribute="top" secondItem="NPQ-8g-Zx3" secondAttribute="topMargin" id="UUQ-To-AGV"/>
                                                 <constraint firstItem="wTL-zG-0FN" firstAttribute="leading" secondItem="NPQ-8g-Zx3" secondAttribute="leadingMargin" constant="15" id="d1g-U1-OdG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="xM1-sm-CHo" secondAttribute="trailing" id="nBj-ta-bZy"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -398,6 +403,6 @@
         <image name="placeholder" width="116" height="116"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Z9z-A7-7rA"/>
+        <segue reference="gkp-P7-8ba"/>
     </inferredMetricsTieBreakers>
 </document>

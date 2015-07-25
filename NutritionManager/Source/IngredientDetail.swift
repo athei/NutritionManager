@@ -34,36 +34,50 @@ class IngredientDetail: UITableViewController {
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
         
         // load the values from the model to the view
-        if let ingredient = presentingIngredient {
-            nameField.text = ingredient.name
-            energyField.text = ingredient.formattedEnergy(withUnit: true, to: nil)
-            proteinField.text = ingredient.formattedProteins(withUnit: true, to: nil)
-            fatField.text = ingredient.formattedFat(withUnit: true, to: nil)
-            carbohydrateField.text = ingredient.formattedCarbohydrates(withUnit: true, to: nil)
-            valueScaleControl.selectedSegmentIndex = ingredient.valueScale.rawValue
-        }
+        setControlsEditable(presentingIngredient == nil)
     }
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        
-        if (editing) {
+        setControlsEditable(editing)
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    
+    private func setControlsEditable(editable: Bool) {
+        if (editable) {
+            fillControlsWithValues(withUnit: !editable)
+            
             enableTextField(nameField)
             enableTextField(energyField)
             enableTextField(proteinField)
             enableTextField(fatField)
             enableTextField(carbohydrateField)
+            valueScaleControl.enabled = true;
+            
         } else {
             disableTextField(nameField)
             disableTextField(energyField)
             disableTextField(proteinField)
             disableTextField(fatField)
             disableTextField(carbohydrateField)
+            valueScaleControl.enabled = false
+            
+            fillControlsWithValues(withUnit: !editable)
         }
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
+    private func fillControlsWithValues(withUnit withUnit: Bool) {
+        if let ingredient = presentingIngredient {
+            nameField.text = ingredient.name
+            energyField.text = ingredient.formattedEnergy(withUnit: withUnit, to: nil)
+            proteinField.text = ingredient.formattedProteins(withUnit: withUnit, to: nil)
+            fatField.text = ingredient.formattedFat(withUnit: withUnit, to: nil)
+            carbohydrateField.text = ingredient.formattedCarbohydrates(withUnit: withUnit, to: nil)
+            valueScaleControl.selectedSegmentIndex = ingredient.valueScale.rawValue
+        }
     }
     
     private func enableTextField(field: UITextField) {
