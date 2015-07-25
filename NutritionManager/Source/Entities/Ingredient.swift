@@ -11,6 +11,20 @@ import CoreData
 
 @objc(Ingredient)
 class Ingredient: NSManagedObject {
+    enum ValueScale: Int {
+        case Mass = 0
+        case Volume = 1
+        case Unit = 2
+    }
+    
+    var valueScale: ValueScale {
+        get {
+            return ValueScale(rawValue: valueScale_.integerValue)!
+        }
+        set {
+            valueScale_ = newValue.rawValue
+        }
+    }
     
     func formattedEnergy(withUnit withUnit: Bool, to: Units.Energy?) -> String {
         let dest = Units.choosenUnitOrDefault(to)

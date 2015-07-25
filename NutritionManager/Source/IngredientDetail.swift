@@ -14,6 +14,7 @@ class IngredientDetail: UITableViewController {
     @IBOutlet weak var proteinField: UITextField!
     @IBOutlet weak var fatField: UITextField!
     @IBOutlet weak var carbohydrateField: UITextField!
+    @IBOutlet weak var valueScaleControl: UISegmentedControl!
     
     
     private var presentingIngredient: Ingredient?
@@ -39,6 +40,7 @@ class IngredientDetail: UITableViewController {
             proteinField.text = ingredient.formattedProteins(withUnit: true, to: nil)
             fatField.text = ingredient.formattedFat(withUnit: true, to: nil)
             carbohydrateField.text = ingredient.formattedCarbohydrates(withUnit: true, to: nil)
+            valueScaleControl.selectedSegmentIndex = ingredient.valueScale.rawValue
         }
     }
     

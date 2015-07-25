@@ -20,5 +20,6 @@ extension Ingredient {
     @NSManaged var fat: NSDecimalNumber
     @NSManaged var name: String
     @NSManaged var proteins: NSDecimalNumber
+    @NSManaged var valueScale_: NSNumber
 
 }

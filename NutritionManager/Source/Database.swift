@@ -48,12 +48,14 @@ class Database {
         ei.proteins = 11.9
         ei.fat = 9.3
         ei.carbohydrates = 1.5
+        ei.valueScale = .Unit
         
         quark.name = "Quark (40%)"
         quark.energy = 143
         quark.proteins = 11.1
         quark.fat = 11.4
         quark.carbohydrates = 2.6
+        quark.valueScale = .Mass
     }
     
     static func get() -> Database {

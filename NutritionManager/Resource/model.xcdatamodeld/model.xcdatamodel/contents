@@ -7,6 +7,7 @@
         <attribute name="fat" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="proteins" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
+        <attribute name="valueScale_" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="name"/>
@@ -14,6 +15,6 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Ingredient" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Ingredient" positionX="-63" positionY="-18" width="128" height="150"/>
     </elements>
 </model>

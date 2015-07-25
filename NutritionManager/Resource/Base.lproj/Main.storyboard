@@ -176,14 +176,14 @@
                                         <constraint firstAttribute="width" secondItem="B9m-hz-w7F" secondAttribute="height" multiplier="1:1" id="yzN-Gv-ltw"/>
                                     </constraints>
                                 </imageView>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aA0-Wv-bMA">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aA0-Wv-bMA">
                                     <rect key="frame" x="132" y="15" width="68" height="29"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0 kcal" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="psw-WE-kwD">
-                                    <rect key="frame" x="132" y="52" width="50" height="21"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0 kcal" placeholder="Energy" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="psw-WE-kwD">
+                                    <rect key="frame" x="132" y="52" width="58" height="21"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -201,10 +201,37 @@
                             </constraints>
                         </view>
                         <sections>
+                            <tableViewSection headerTitle="Values are per" id="iFj-IO-XuM">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="49" id="IeA-CO-WPD">
+                                        <rect key="frame" x="0.0" y="249" width="600" height="49"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IeA-CO-WPD" id="hWV-Lc-a5J">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZEK-LZ-Yzk">
+                                                    <rect key="frame" x="8" y="10" width="584" height="29"/>
+                                                    <segments>
+                                                        <segment title="100 g"/>
+                                                        <segment title="100 ml"/>
+                                                        <segment title="Unit"/>
+                                                    </segments>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="leadingMargin" secondItem="ZEK-LZ-Yzk" secondAttribute="leading" id="2NF-GG-2ZS"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ZEK-LZ-Yzk" secondAttribute="trailing" id="XOi-vf-7f2"/>
+                                                <constraint firstItem="ZEK-LZ-Yzk" firstAttribute="centerY" secondItem="hWV-Lc-a5J" secondAttribute="centerY" id="Xyb-YB-uk7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Macro Nutritions" id="mlT-t1-BCj">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="49" id="FR1-rD-YuU">
-                                        <rect key="frame" x="0.0" y="249" width="600" height="49"/>
+                                        <rect key="frame" x="0.0" y="341" width="600" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FR1-rD-YuU" id="XZZ-QP-Efa">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
@@ -232,7 +259,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="49" id="T95-2j-Bcg">
-                                        <rect key="frame" x="0.0" y="298" width="600" height="49"/>
+                                        <rect key="frame" x="0.0" y="390" width="600" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T95-2j-Bcg" id="Aee-Yr-Sfc">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
@@ -260,7 +287,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="49" id="CeI-gA-tD5">
-                                        <rect key="frame" x="0.0" y="347" width="600" height="49"/>
+                                        <rect key="frame" x="0.0" y="439" width="600" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CeI-gA-tD5" id="NPQ-8g-Zx3">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
@@ -292,7 +319,7 @@
                             <tableViewSection headerTitle="Category" id="NtQ-en-G7Z">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="49" id="uyp-Q8-Wbc">
-                                        <rect key="frame" x="0.0" y="439" width="600" height="49"/>
+                                        <rect key="frame" x="0.0" y="531" width="600" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uyp-Q8-Wbc" id="IDA-4b-PBB">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
@@ -326,6 +353,7 @@
                         <outlet property="fatField" destination="Tgj-vW-FeJ" id="Kcj-5I-uxV"/>
                         <outlet property="nameField" destination="aA0-Wv-bMA" id="6yY-9H-Suo"/>
                         <outlet property="proteinField" destination="ED5-gI-Mbe" id="wiv-H6-M4S"/>
+                        <outlet property="valueScaleControl" destination="ZEK-LZ-Yzk" id="kJW-lj-A17"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TIE-QJ-iCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
