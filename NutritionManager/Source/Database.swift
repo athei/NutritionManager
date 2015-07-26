@@ -60,6 +60,7 @@ class Database {
         var cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
         cat.name = "Gemüse"
         cat.order = 0
+        ei.category = cat
         
         cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
         cat.name = "Putzmittel"
@@ -72,6 +73,7 @@ class Database {
         cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
         cat.name = "Käse"
         cat.order = 3
+        quark.category = cat
     }
     
     static func get() -> Database {

@@ -18,7 +18,6 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var valueScaleControl: UISegmentedControl!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var categoryPicker: UIPickerView!
-    @IBOutlet weak var categoryCell: UITableViewCell!
     
     @IBOutlet var nonEditableConstraints: [NSLayoutConstraint]!
     @IBOutlet var editableConstraints: [NSLayoutConstraint]!
@@ -75,13 +74,13 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
         return false
     }
     
-    // Mark: UIPickerViewDelegate
+    // MARK: UIPickerViewDelegate
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categories[row].name
     }
     
-    // Mark: UIPickerViewDataSource
+    // MARK: UIPickerViewDataSource
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -91,14 +90,14 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
         return categories.count
     }
     
-    // Mark: IngredientDetailViewProtocol
+    // MARK: IngredientDetailViewProtocol
     
     func ingredientSelected(ingredient: Ingredient) {
         navigationItem.title = ingredient.name
         presentingIngredient = ingredient
     }
     
-    // Mark: Private helper
+    // MARK: Private helper
     
     private func setControlsEditing(editing: Bool) {
         fillControlsWithValues(withUnit: !editing)
@@ -153,6 +152,13 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
             fatField.text = ingredient.formattedFat(withUnit: withUnit, to: nil)
             carbohydrateField.text = ingredient.formattedCarbohydrates(withUnit: withUnit, to: nil)
             valueScaleControl.selectedSegmentIndex = ingredient.valueScale.rawValue
+            categoryLabel.text = ingredient.category.name
+            for i in 0..<categories.count {
+                if (categories[i] == ingredient.category) {
+                    categoryPicker.selectRow(i, inComponent: 0, animated: false)
+                    break
+                }
+            }
         }
     }
     
