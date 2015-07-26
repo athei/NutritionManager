@@ -62,14 +62,12 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
         
         if (animated) {
             view.layoutIfNeeded()
-            UIView.animateWithDuration(1.0) { () -> Void in
+            UIView.animateWithDuration(0.4) { () -> Void in
                 self.setControlsEditing(editing)
-                self.view.setNeedsLayout()
                 self.view.layoutIfNeeded()
             }
         } else {
             setControlsEditing(editing)
-            view.setNeedsLayout()
         }
     }
     
