@@ -17,6 +17,32 @@ class Ingredient: NSManagedObject {
         case Unit = 2
     }
     
+    enum ValidationError: ErrorType {
+        enum NameValidationError {
+            case Invalid, NotUnique
+        }
+        case Name(NameValidationError), Energy, ValueScale, Proteins, Fat, Carbohydrates
+        
+        func description() -> String {
+            switch (self) {
+            case .Name(.Invalid):
+                return "Name must be between 1 and 100 characters"
+            case .Name(.NotUnique):
+                return "Name must be unique"
+            case .Energy:
+                return "Energy must be an positive integer"
+            case .ValueScale:
+                return "Value scale out of range (this should not happen)"
+            case .Proteins:
+                return "Proteins must be a decimal number."
+            case .Fat:
+                return "Fat must be a decimal number."
+            case .Carbohydrates:
+                return "Carbohydrates must be a decimal number."
+            }
+        }
+    }
+    
     var valueScale: ValueScale {
         get {
             return ValueScale(rawValue: valueScale_.integerValue)!
@@ -44,6 +70,18 @@ class Ingredient: NSManagedObject {
     func formattedCarbohydrates(withUnit withUnit: Bool, to: Units.Mass?) -> String {
         let dest = Units.choosenUnitOrDefault(to)
         return Units.formattedMass(massInGram: carbohydrates, to: dest, withUnit: withUnit)
+    }
+    
+    // MARK: Validation
+    
+    func checkName(name: String?) throws -> String {
+        guard let value = name else {
+            throw ValidationError.Name(.Invalid)
+        }
+        guard 1...100 ~= value.characters.count else {
+            throw ValidationError.Name(.Invalid)
+        }
+        return value
     }
 }
 
