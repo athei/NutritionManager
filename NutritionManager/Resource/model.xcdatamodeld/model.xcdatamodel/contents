@@ -11,11 +11,11 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">
-        <attribute name="carbohydrates" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
-        <attribute name="energy" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
-        <attribute name="fat" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
+        <attribute name="carbohydrates" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="energy" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="fat" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="proteins" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
+        <attribute name="proteins" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="valueScale_" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="ingredients" inverseEntity="Category" syncable="YES"/>
         <uniquenessConstraints>

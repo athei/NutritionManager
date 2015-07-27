@@ -66,21 +66,21 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
                 ingredient = pendingIngredient!
             }
             
-            ingredient.name = nameField.text ?? ""
-            ingredient.energy = NSDecimalNumber(string: energyField.text ?? "0")
-            ingredient.valueScale = Ingredient.ValueScale(rawValue: valueScaleControl.selectedSegmentIndex)!
-            ingredient.proteins = NSDecimalNumber(string: proteinField.text ?? "0")
-            ingredient.fat = NSDecimalNumber(string: fatField.text ?? "0")
-            ingredient.carbohydrates = NSDecimalNumber(string: carbohydrateField.text ?? "0")
-            ingredient.category = categories[categoryPicker.selectedRowInComponent(0)]
-            
             do {
+                try ingredient.name = Ingredient.checkName(nameField.text)
+                try ingredient.energy = Ingredient.checkEnergy(energyField.text)
+                try ingredient.valueScale = Ingredient.checkValueScale(valueScaleControl.selectedSegmentIndex)
+                try ingredient.proteins = Ingredient.checkProteins(proteinField.text)
+                try ingredient.fat = Ingredient.checkFat(fatField.text)
+                try ingredient.carbohydrates = Ingredient.checkCarbohydrates(carbohydrateField.text)
+                ingredient.category = categories[categoryPicker.selectedRowInComponent(0)]
+                
                 try Database.get().moc.save()
                 if (presentingIngredient == nil) {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
             } catch {
-                print("Could not persist changes: \(error)")
+                print(error)
                 return
             }
         }

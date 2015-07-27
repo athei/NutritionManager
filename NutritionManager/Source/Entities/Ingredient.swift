@@ -17,13 +17,13 @@ class Ingredient: NSManagedObject {
         case Unit = 2
     }
     
-    enum ValidationError: ErrorType {
+    enum ValidationError: ErrorType, CustomStringConvertible {
         enum NameValidationError {
             case Invalid, NotUnique
         }
         case Name(NameValidationError), Energy, ValueScale, Proteins, Fat, Carbohydrates
         
-        func description() -> String {
+        var description: String  {
             switch (self) {
             case .Name(.Invalid):
                 return "Name must be between 1 and 100 characters"
@@ -42,6 +42,23 @@ class Ingredient: NSManagedObject {
             }
         }
     }
+    
+    static let energyNumberFormatter: NSNumberFormatter = {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .NoStyle
+        formatter.allowsFloats = false
+        formatter.maximum = NSNumber(int: Int32.max)
+        return formatter
+    }()
+    
+    static let massNumberFormatter: NSNumberFormatter = {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .DecimalStyle
+        formatter.usesSignificantDigits = false
+        formatter.maximumIntegerDigits = 100000
+        formatter.maximumFractionDigits = 1
+        return formatter
+    }()
     
     var valueScale: ValueScale {
         get {
@@ -74,7 +91,7 @@ class Ingredient: NSManagedObject {
     
     // MARK: Validation
     
-    func checkName(name: String?) throws -> String {
+    static func checkName(name: String?) throws -> String {
         guard let value = name else {
             throw ValidationError.Name(.Invalid)
         }
@@ -83,16 +100,64 @@ class Ingredient: NSManagedObject {
         }
         return value
     }
+    
+    static func checkValueScale(valueScale: Int) throws -> ValueScale {
+        guard let result = ValueScale(rawValue: valueScale) else {
+            throw ValidationError.ValueScale
+        }
+        return result
+    }
+    
+    static func checkEnergy(energy: String?) throws -> NSNumber {
+        guard let value = energy else {
+            throw ValidationError.Energy
+        }
+        guard let number = Ingredient.energyNumberFormatter.numberFromString(value) else {
+            throw ValidationError.Energy
+        }
+        return number
+    }
+    
+    static func checkProteins(mass: String?) throws -> NSNumber {
+        guard let value = mass else {
+            throw ValidationError.Proteins
+        }
+        guard let number = Ingredient.massNumberFormatter.numberFromString(value) else {
+            throw ValidationError.Proteins
+        }
+        return number
+    }
+    
+    static func checkFat(mass: String?) throws -> NSNumber {
+        guard let value = mass else {
+            throw ValidationError.Fat
+        }
+        guard let number = Ingredient.massNumberFormatter.numberFromString(value) else {
+            throw ValidationError.Fat
+        }
+        return number
+    }
+    
+    static func checkCarbohydrates(mass: String?) throws -> NSNumber {
+        guard let value = mass else {
+            throw ValidationError.Carbohydrates
+        }
+        guard let number = Ingredient.massNumberFormatter.numberFromString(value) else {
+            throw ValidationError.Carbohydrates
+        }
+        return number
+    }
+    
 }
 
 
 extension Ingredient {
     
-    @NSManaged var carbohydrates: NSDecimalNumber
-    @NSManaged var energy: NSDecimalNumber
-    @NSManaged var fat: NSDecimalNumber
+    @NSManaged var carbohydrates: NSNumber
+    @NSManaged var energy: NSNumber
+    @NSManaged var fat: NSNumber
     @NSManaged var name: String
-    @NSManaged var proteins: NSDecimalNumber
+    @NSManaged var proteins: NSNumber
     @NSManaged private var valueScale_: NSNumber
     @NSManaged var category: Category
     

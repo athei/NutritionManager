@@ -22,19 +22,19 @@ class Units {
         case Kcal
     }
     
-    static func formattedMass(massInGram mass: NSDecimalNumber, to: Mass, withUnit: Bool) -> String {
+    static func formattedMass(massInGram mass: NSNumber, to: Mass, withUnit: Bool) -> String {
         return massProcessors[to]!.formattedMass(massInGram: mass, withUnit: withUnit)
     }
     
-    static func normalizedMass(mass: NSDecimalNumber, from: Mass) -> NSDecimalNumber {
+    static func normalizedMass(mass: NSNumber, from: Mass) -> NSNumber {
         return massProcessors[from]!.normalizedMass(mass)
     }
     
-    static func formattedEnergy(energyInKcal energy: NSDecimalNumber, to: Energy, withUnit: Bool) -> String {
+    static func formattedEnergy(energyInKcal energy: NSNumber, to: Energy, withUnit: Bool) -> String {
         return energyProcesors[to]!.formattedEnergy(energyInKcal: energy, withUnit: withUnit)
     }
     
-    static func normalizedEnergy(energy: NSDecimalNumber, from: Energy) -> NSDecimalNumber {
+    static func normalizedEnergy(energy: NSNumber, from: Energy) -> NSNumber {
         return energyProcesors[from]!.normalizedEnergy(energy)
     }
     
@@ -60,38 +60,38 @@ class Units {
 
 
 private protocol MassProcessor {
-    func formattedMass(massInGram mass: NSDecimalNumber, withUnit: Bool) -> String
-    func normalizedMass(mass: NSDecimalNumber) -> NSDecimalNumber
+    func formattedMass(massInGram mass: NSNumber, withUnit: Bool) -> String
+    func normalizedMass(mass: NSNumber) -> NSNumber
 }
 
 private protocol EnergyProcessor {
-    func formattedEnergy(energyInKcal energy: NSDecimalNumber, withUnit: Bool) -> String
-    func normalizedEnergy(energy: NSDecimalNumber) -> NSDecimalNumber
+    func formattedEnergy(energyInKcal energy: NSNumber, withUnit: Bool) -> String
+    func normalizedEnergy(energy: NSNumber) -> NSNumber
 }
 
 
 private class GramProcessor: MassProcessor {
-    func formattedMass(massInGram mass: NSDecimalNumber, withUnit: Bool) -> String {
+    func formattedMass(massInGram mass: NSNumber, withUnit: Bool) -> String {
         if (withUnit) {
             return "\(mass) g"
         } else {
             return "\(mass)"
         }
     }
-    func normalizedMass(mass: NSDecimalNumber) -> NSDecimalNumber {
+    func normalizedMass(mass: NSNumber) -> NSNumber {
         return mass
     }
 }
 
 private class KcalProcessor: EnergyProcessor {
-    func formattedEnergy(energyInKcal energy: NSDecimalNumber, withUnit: Bool) -> String {
+    func formattedEnergy(energyInKcal energy: NSNumber, withUnit: Bool) -> String {
         if (withUnit) {
             return "\(energy) kcal"
         } else {
             return "\(energy)"
         }
     }
-    func normalizedEnergy(energy: NSDecimalNumber) -> NSDecimalNumber {
+    func normalizedEnergy(energy: NSNumber) -> NSNumber {
         return energy
     }
 }
