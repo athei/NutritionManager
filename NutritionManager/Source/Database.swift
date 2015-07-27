@@ -10,15 +10,13 @@ import Foundation
 import CoreData
 
 class Database {
-    static private var once = dispatch_once_t()
-    static private var instance: Database?
+    static private let instance: Database = Database()
     
     let moc: NSManagedObjectContext
     
     var storeCoordinator: NSPersistentStoreCoordinator {
         return moc.persistentStoreCoordinator!
     }
-    
     
     private init() {
         let model = NSManagedObjectModel(contentsOfURL: Pathes.modelURL()!)!
@@ -79,9 +77,6 @@ class Database {
     }
     
     static func get() -> Database {
-        dispatch_once(&Database.once) {
-            Database.instance = Database()
-        }
-        return Database.instance!
+        return Database.instance
     }
 }
