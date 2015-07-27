@@ -13,7 +13,7 @@ protocol IngredientDetailViewProtocol: class {
     func ingredientSelected(ingredient: Ingredient)
 }
 
-class IngredientList: UITableViewController {
+class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFetchedResultsControllerDelegate {
     
     private let fetchedResultsController: NSFetchedResultsController
     
@@ -68,11 +68,22 @@ class IngredientList: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (fetchedResultsController.sections?[section].numberOfObjects)!
     }
-}
-
-// MARK: UISplitViewControllerDelegate Implementation
-
-extension IngredientList: UISplitViewControllerDelegate {
+    
+    // MARK: NSFetchedResultsControllerDelegate Implementation
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Insert:
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
+            break
+        default:
+            break
+        }
+    }
+    
+    
+    // MARK: UISplitViewControllerDelegate Implementation
+    
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         return tableView.indexPathForSelectedRow == nil
     }
@@ -80,10 +91,4 @@ extension IngredientList: UISplitViewControllerDelegate {
     func splitViewController(svc: UISplitViewController, shouldHideViewController vc: UIViewController, inOrientation orientation: UIInterfaceOrientation) -> Bool {
         return false
     }
-}
-
-// MARK: NSFetchedResultsControllerDelegate Implementation
-
-extension IngredientList: NSFetchedResultsControllerDelegate {
-    
 }

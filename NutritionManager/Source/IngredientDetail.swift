@@ -24,6 +24,7 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     
     private let categories: [Category]
     private var presentingIngredient: Ingredient?
+    private var pendingIngredient: Ingredient?
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,10 +42,6 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
         
         self.navigationItem.rightBarButtonItem = editButtonItem()
         
-        // show control to show/close master view on iPad/iPhone+
-        navigationItem.leftItemsSupplementBackButton = true
-        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
-        
         // load the values from the model to the view
         // and set the controls to the appropriate mode (editing vs inspecting)
         super.setEditing(presentingIngredient == nil, animated: false)
@@ -57,21 +54,53 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     }
     
     override func setEditing(editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        
-        if (animated) {
-            view.layoutIfNeeded()
-            UIView.animateWithDuration(0.4) { () -> Void in
-                self.setControlsEditing(editing)
-                self.view.layoutIfNeeded()
+        // end editing mode -> save changes or new entity
+        if (!editing) {
+            let ingredient: Ingredient
+            if (presentingIngredient == nil && pendingIngredient == nil) {
+                ingredient = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: Database.get().moc) as! Ingredient
+                pendingIngredient = ingredient
+            } else if (presentingIngredient != nil) {
+                ingredient = presentingIngredient!
+            } else {
+                ingredient = pendingIngredient!
             }
-        } else {
-            setControlsEditing(editing)
+            
+            ingredient.name = nameField.text ?? ""
+            ingredient.energy = NSDecimalNumber(string: energyField.text ?? "0")
+            ingredient.proteins = NSDecimalNumber(string: proteinField.text ?? "0")
+            ingredient.fat = NSDecimalNumber(string: fatField.text ?? "0")
+            ingredient.carbohydrates = NSDecimalNumber(string: carbohydrateField.text ?? "0")
+            ingredient.category = categories[categoryPicker.selectedRowInComponent(0)]
+            
+            do {
+                try Database.get().moc.save()
+                if (presentingIngredient == nil) {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            } catch {
+                print("Could not persist changes: \(error)")
+                return
+            }
+        }
+        
+        if (presentingIngredient != nil) {
+            super.setEditing(editing, animated: animated)
+            transitToEditing(editing, animated: animated)
         }
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return false
+    }
+    
+    func cancelEditing() {
+        if (presentingIngredient == nil) {
+            dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            super.setEditing(false, animated: true)
+            transitToEditing(false, animated: true)
+        }
     }
     
     // MARK: UIPickerViewDelegate
@@ -99,7 +128,29 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     
     // MARK: Private helper
     
+    private func transitToEditing(editing: Bool, animated: Bool) {
+        if (animated) {
+            view.layoutIfNeeded()
+            UIView.animateWithDuration(0.4) { () -> Void in
+                self.setControlsEditing(editing)
+                self.view.layoutIfNeeded()
+            }
+        } else {
+            setControlsEditing(editing)
+        }
+    }
+    
     private func setControlsEditing(editing: Bool) {
+        // show control to show/close master view on iPad/iPhone+
+        // hide when editing
+        if (editing) {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "cancelEditing")
+            navigationItem.leftItemsSupplementBackButton = false
+        } else {
+            navigationItem.leftItemsSupplementBackButton = true
+            navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
+        }
+        
         fillControlsWithValues(withUnit: !editing)
         
         if (editing) {

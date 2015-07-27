@@ -30,7 +30,7 @@ class Database {
         var tries = 0;
         repeat {
             do {
-                try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: Pathes.databaseURL(), options: nil)
+                try coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: Pathes.databaseURL(), options: nil)
                 break;
             }
             catch {
@@ -74,6 +74,8 @@ class Database {
         cat.name = "Käse"
         cat.order = 3
         quark.category = cat
+        
+        try! moc.save()
     }
     
     static func get() -> Database {
