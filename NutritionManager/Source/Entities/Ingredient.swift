@@ -47,3 +47,15 @@ class Ingredient: NSManagedObject {
     }
 }
 
+
+extension Ingredient {
+    
+    @NSManaged var carbohydrates: NSDecimalNumber
+    @NSManaged var energy: NSDecimalNumber
+    @NSManaged var fat: NSDecimalNumber
+    @NSManaged var name: String
+    @NSManaged var proteins: NSDecimalNumber
+    @NSManaged private var valueScale_: NSNumber
+    @NSManaged var category: Category
+    
+}

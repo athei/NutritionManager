@@ -15,3 +15,12 @@ class Category: NSManagedObject {
 // Insert code here to add functionality to your managed object subclass
 
 }
+
+
+extension Category {
+    
+    @NSManaged var name: String
+    @NSManaged var order: NSNumber
+    @NSManaged var ingredients: NSSet?
+    
+}
