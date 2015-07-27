@@ -68,6 +68,7 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
             
             ingredient.name = nameField.text ?? ""
             ingredient.energy = NSDecimalNumber(string: energyField.text ?? "0")
+            ingredient.valueScale = Ingredient.ValueScale(rawValue: valueScaleControl.selectedSegmentIndex)!
             ingredient.proteins = NSDecimalNumber(string: proteinField.text ?? "0")
             ingredient.fat = NSDecimalNumber(string: fatField.text ?? "0")
             ingredient.carbohydrates = NSDecimalNumber(string: carbohydrateField.text ?? "0")
