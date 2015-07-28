@@ -18,6 +18,7 @@ class Units {
     static let energyNumberFormatter: NSNumberFormatter = {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .NoStyle
+        formatter.usesGroupingSeparator = false
         formatter.allowsFloats = false
         formatter.maximum = NSNumber(int: Int32.max)
         return formatter
@@ -26,8 +27,9 @@ class Units {
     static let massNumberFormatter: NSNumberFormatter = {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .DecimalStyle
+        formatter.usesGroupingSeparator = false
         formatter.usesSignificantDigits = false
-        formatter.maximum = 100000
+        formatter.maximum = 1000000
         formatter.maximumFractionDigits = 1
         return formatter
         }()
