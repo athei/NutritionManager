@@ -43,23 +43,6 @@ class Ingredient: NSManagedObject {
         }
     }
     
-    static let energyNumberFormatter: NSNumberFormatter = {
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .NoStyle
-        formatter.allowsFloats = false
-        formatter.maximum = NSNumber(int: Int32.max)
-        return formatter
-    }()
-    
-    static let massNumberFormatter: NSNumberFormatter = {
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .DecimalStyle
-        formatter.usesSignificantDigits = false
-        formatter.maximumIntegerDigits = 100000
-        formatter.maximumFractionDigits = 1
-        return formatter
-    }()
-    
     var valueScale: ValueScale {
         get {
             return ValueScale(rawValue: valueScale_.integerValue)!
@@ -112,7 +95,7 @@ class Ingredient: NSManagedObject {
         guard let value = energy else {
             throw ValidationError.Energy
         }
-        guard let number = Ingredient.energyNumberFormatter.numberFromString(value) else {
+        guard let number = Units.energyNumberFormatter.numberFromString(value) else {
             throw ValidationError.Energy
         }
         return number
@@ -122,7 +105,7 @@ class Ingredient: NSManagedObject {
         guard let value = mass else {
             throw ValidationError.Proteins
         }
-        guard let number = Ingredient.massNumberFormatter.numberFromString(value) else {
+        guard let number = Units.massNumberFormatter.numberFromString(value) else {
             throw ValidationError.Proteins
         }
         return number
@@ -132,7 +115,7 @@ class Ingredient: NSManagedObject {
         guard let value = mass else {
             throw ValidationError.Fat
         }
-        guard let number = Ingredient.massNumberFormatter.numberFromString(value) else {
+        guard let number = Units.massNumberFormatter.numberFromString(value) else {
             throw ValidationError.Fat
         }
         return number
@@ -142,7 +125,7 @@ class Ingredient: NSManagedObject {
         guard let value = mass else {
             throw ValidationError.Carbohydrates
         }
-        guard let number = Ingredient.massNumberFormatter.numberFromString(value) else {
+        guard let number = Units.massNumberFormatter.numberFromString(value) else {
             throw ValidationError.Carbohydrates
         }
         return number

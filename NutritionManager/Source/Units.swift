@@ -15,6 +15,23 @@ private let energyProcesors = [Units.Energy.Kcal: KcalProcessor()]
 // MARK: Units Utility class
 
 class Units {
+    static let energyNumberFormatter: NSNumberFormatter = {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .NoStyle
+        formatter.allowsFloats = false
+        formatter.maximum = NSNumber(int: Int32.max)
+        return formatter
+        }()
+    
+    static let massNumberFormatter: NSNumberFormatter = {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .DecimalStyle
+        formatter.usesSignificantDigits = false
+        formatter.maximum = 100000
+        formatter.maximumFractionDigits = 1
+        return formatter
+        }()
+    
     enum Mass: Int {
         case Gram
     }
@@ -64,18 +81,31 @@ private protocol MassProcessor {
     func normalizedMass(mass: NSNumber) -> NSNumber
 }
 
+extension MassProcessor {
+    func formattedNumber(number: NSNumber) -> String {
+        return Units.massNumberFormatter.stringFromNumber(number)!
+    }
+}
+
 private protocol EnergyProcessor {
     func formattedEnergy(energyInKcal energy: NSNumber, withUnit: Bool) -> String
     func normalizedEnergy(energy: NSNumber) -> NSNumber
 }
 
+extension EnergyProcessor {
+    func formattedNumber(number: NSNumber) -> String {
+        return Units.energyNumberFormatter.stringFromNumber(number)!
+    }
+}
+
 
 private class GramProcessor: MassProcessor {
     func formattedMass(massInGram mass: NSNumber, withUnit: Bool) -> String {
+        let number = formattedNumber(mass)
         if (withUnit) {
-            return "\(mass) g"
+            return "\(number) g"
         } else {
-            return "\(mass)"
+            return "\(number)"
         }
     }
     func normalizedMass(mass: NSNumber) -> NSNumber {
@@ -85,10 +115,11 @@ private class GramProcessor: MassProcessor {
 
 private class KcalProcessor: EnergyProcessor {
     func formattedEnergy(energyInKcal energy: NSNumber, withUnit: Bool) -> String {
+        let number = formattedNumber(energy)
         if (withUnit) {
-            return "\(energy) kcal"
+            return "\(number) kcal"
         } else {
-            return "\(energy)"
+            return "\(number)"
         }
     }
     func normalizedEnergy(energy: NSNumber) -> NSNumber {

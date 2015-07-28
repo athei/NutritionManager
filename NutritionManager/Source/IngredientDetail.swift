@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, IngredientDetailViewProtocol {
+class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, IngredientDetailViewProtocol {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var energyField: UITextField!
     @IBOutlet weak var proteinField: UITextField!
@@ -125,6 +125,48 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     func ingredientSelected(ingredient: Ingredient) {
         navigationItem.title = ingredient.name
         presentingIngredient = ingredient
+    }
+    
+    // MARK: UITextFieldDelegate
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        guard let swiftRange = textField.text?.rangeFromNSRange(range) else {
+            return false
+        }
+        guard let newString = textField.text?.stringByReplacingCharactersInRange(swiftRange, withString: string) else {
+            return false
+        }
+        
+        // always allow the user to backspace the whole field
+        if (newString.characters.count == 0) {
+            return true
+        }
+        
+        do {
+            switch textField {
+            case nameField:
+                try Ingredient.checkName(newString)
+                break
+            case energyField:
+                try Ingredient.checkEnergy(newString)
+                break
+            case proteinField:
+                try Ingredient.checkProteins(newString)
+                break
+            case fatField:
+                try Ingredient.checkFat(newString)
+                break
+            case carbohydrateField:
+                try Ingredient.checkCarbohydrates(newString)
+                break
+            default:
+                break
+            }
+            // when no method has thrown -> accept the input
+            return true
+        } catch {
+            return false
+        }
     }
     
     // MARK: Private helper
