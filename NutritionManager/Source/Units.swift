@@ -15,7 +15,7 @@ private let energyProcesors = [Units.Energy.Kcal: KcalProcessor()]
 // MARK: Units Utility class
 
 class Units {
-    static let energyNumberFormatter: NSNumberFormatter = {
+    private static let energyNumberFormatter: NSNumberFormatter = {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .NoStyle
         formatter.usesGroupingSeparator = false
@@ -24,7 +24,7 @@ class Units {
         return formatter
         }()
     
-    static let massNumberFormatter: NSNumberFormatter = {
+    private static let massNumberFormatter: NSNumberFormatter = {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .DecimalStyle
         formatter.usesGroupingSeparator = false
@@ -55,6 +55,14 @@ class Units {
     
     static func normalizedEnergy(energy: NSNumber, from: Energy) -> NSNumber {
         return energyProcesors[from]!.normalizedEnergy(energy)
+    }
+    
+    static func validateInputEnergy(input: String) -> NSNumber? {
+        return energyNumberFormatter.numberFromString(input)
+    }
+    
+    static func validateInputMass(input: String) -> NSNumber? {
+        return massNumberFormatter.numberFromString(input)
     }
     
     static func choosenUnitOrDefault(choosenUnit: Units.Mass?) -> Units.Mass {
