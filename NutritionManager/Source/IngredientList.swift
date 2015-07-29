@@ -32,10 +32,7 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         
         fetchedResultsController.delegate = self
         splitViewController?.delegate = self;
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        
+        splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.AllVisible
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -86,9 +83,5 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         return tableView.indexPathForSelectedRow == nil
-    }
-    
-    func splitViewController(svc: UISplitViewController, shouldHideViewController vc: UIViewController, inOrientation orientation: UIInterfaceOrientation) -> Bool {
-        return false
     }
 }
