@@ -24,7 +24,6 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     
     private let categories: [Category]
     private var presentingIngredient: Ingredient?
-    private var pendingIngredient: Ingredient?
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,7 +43,7 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
         
         // load the values from the model to the view
         // and set the controls to the appropriate mode (editing vs inspecting)
-        super.setEditing(presentingIngredient == nil, animated: false)
+        super.setEditing(isNewIngredient(), animated: false)
         setControlsEditing(editing)
     }
     
@@ -56,14 +55,13 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     override func setEditing(editing: Bool, animated: Bool) {
         // end editing mode -> save changes or new entity
         if (!editing) {
-            let ingredient: Ingredient
-            if (presentingIngredient == nil && pendingIngredient == nil) {
-                ingredient = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: Database.get().moc) as! Ingredient
-                pendingIngredient = ingredient
-            } else if (presentingIngredient != nil) {
-                ingredient = presentingIngredient!
+            var temporaryContext: NSManagedObjectContext? // used to store a temporary entity while validating
+            let ingredient: Ingredient  // the ingredient which is subject to editing
+            if (isNewIngredient()) {
+                temporaryContext = Database.get().createChildContext()
+                ingredient = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: temporaryContext!) as! Ingredient
             } else {
-                ingredient = pendingIngredient!
+                ingredient = presentingIngredient!
             }
             
             do {
@@ -73,19 +71,33 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
                 try ingredient.proteins = Ingredient.checkProteins(proteinField.text)
                 try ingredient.fat = Ingredient.checkFat(fatField.text)
                 try ingredient.carbohydrates = Ingredient.checkCarbohydrates(carbohydrateField.text)
-                ingredient.category = categories[categoryPicker.selectedRowInComponent(0)]
+                let category = categories[categoryPicker.selectedRowInComponent(0)]
+                
+                // new entity was saved to temporary context -> apply to main context by saving
+                if (isNewIngredient()) {
+                    // since we are using a childcontext we can't use a category
+                    // object from the parent context
+                    ingredient.category = temporaryContext!.objectWithID(category.objectID) as! Category
+                    try temporaryContext!.save()
+                } else {
+                    ingredient.category = category
+                }
                 
                 try Database.get().moc.save()
-                if (presentingIngredient == nil) {
+                
+                // all ok
+                if (isNewIngredient()) {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
             } catch {
-                print(error)
-                return
+                print(error) // TODO: show error to user
+                return // do not progress further (change state) when error occured
             }
         }
         
-        if (presentingIngredient != nil) {
+        // when no error occured while editing && view was not dissmissed (when it is a new ingredient)
+        //  -> change state to editing/non editing
+        if (!isNewIngredient()) {
             super.setEditing(editing, animated: animated)
             transitToEditing(editing, animated: animated)
         }
@@ -96,7 +108,7 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     }
     
     func cancelEditing() {
-        if (presentingIngredient == nil) {
+        if (isNewIngredient()) {
             dismissViewControllerAnimated(true, completion: nil)
         } else {
             super.setEditing(false, animated: true)
@@ -259,5 +271,9 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     private func disableTextField(field: UITextField) {
         field.borderStyle = UITextBorderStyle.None
         field.enabled = false
+    }
+    
+    private func isNewIngredient() -> Bool {
+        return presentingIngredient == nil;
     }
 }

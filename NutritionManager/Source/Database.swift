@@ -79,4 +79,10 @@ class Database {
     static func get() -> Database {
         return Database.instance
     }
+    
+    func createChildContext() -> NSManagedObjectContext {
+        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        context.parentContext = moc
+        return context
+    }
 }
