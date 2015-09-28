@@ -130,12 +130,7 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     // MARK: UITextFieldDelegate
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        guard let swiftRange = textField.text?.rangeFromNSRange(range) else {
-            return false
-        }
-        guard let newString = textField.text?.stringByReplacingCharactersInRange(swiftRange, withString: string) else {
-            return false
-        }
+        let newString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
         // always allow the user to backspace the whole field
         if (newString.characters.count == 0) {

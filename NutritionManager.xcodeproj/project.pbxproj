@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */; };
-		112A4C2B1B66F76800D422C7 /* String+NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112A4C2A1B66F76800D422C7 /* String+NSRange.swift */; };
 		1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1194360A1B5DB416001EDFF8 /* IngredientCell.swift */; };
 		11A3EC171B5EF3AB0054A3A0 /* Pathes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3EC161B5EF3AB0054A3A0 /* Pathes.swift */; };
 		11A3EC191B5EF91A0054A3A0 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3EC181B5EF91A0054A3A0 /* Database.swift */; };
@@ -44,7 +43,6 @@
 
 /* Begin PBXFileReference section */
 		1122E8431B5E0D7600BCDB8F /* model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = model.xcdatamodel; sourceTree = "<group>"; };
-		112A4C2A1B66F76800D422C7 /* String+NSRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+NSRange.swift"; sourceTree = "<group>"; };
 		1194360A1B5DB416001EDFF8 /* IngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		11A0DC251B5EDF7B00456C94 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11A3EC161B5EF3AB0054A3A0 /* Pathes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pathes.swift; sourceTree = "<group>"; };
@@ -147,7 +145,6 @@
 				11A3EC161B5EF3AB0054A3A0 /* Pathes.swift */,
 				11A3EC181B5EF91A0054A3A0 /* Database.swift */,
 				11C8A7B71B613F44004409B4 /* Units.swift */,
-				112A4C2A1B66F76800D422C7 /* String+NSRange.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -337,7 +334,6 @@
 				1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */,
 				1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */,
 				11A3EC191B5EF91A0054A3A0 /* Database.swift in Sources */,
-				112A4C2B1B66F76800D422C7 /* String+NSRange.swift in Sources */,
 				11C8A7B81B613F44004409B4 /* Units.swift in Sources */,
 				11F709841B63DFC600177ADE /* Category.swift in Sources */,
 			);
