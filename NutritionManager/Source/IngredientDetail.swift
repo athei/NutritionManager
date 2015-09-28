@@ -89,9 +89,15 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
                 if (isNewIngredient()) {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
-            } catch {
+            } catch let error as Ingredient.ValidationError { // this error is okay (put invalid chars in field)
                 print(error) // TODO: show error to user
                 return // do not progress further (change state) when error occured
+            } catch { // this error should not happen
+                if (!isNewIngredient()) {
+                    assert(false, "Persisting an existing ingredient should never fail. Terminating to prevent data corruption (invalid entity). Error Message: \(error)")
+                }
+                print(error)
+                return
             }
         }
         
