@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-protocol IngredientDetailViewProtocol: class {
+protocol IngredientListProtocol: class {
     func ingredientSelected(ingredient: Ingredient)
 }
 
@@ -38,7 +38,7 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ingredientDetail") {
             let navi = segue.destinationViewController as! UINavigationController
-            let destination = navi.viewControllers.first as! IngredientDetailViewProtocol
+            let destination = navi.viewControllers.first as! IngredientListProtocol
             let ingredient = fetchedResultsController.objectAtIndexPath(tableView.indexPathForSelectedRow!) as! Ingredient
             destination.ingredientSelected(ingredient)
         }

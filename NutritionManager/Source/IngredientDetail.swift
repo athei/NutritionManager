@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, IngredientDetailViewProtocol {
+class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientListProtocol, CategoryListProtocol {
     // MARK: Outlets
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var energyField: UITextField!
@@ -17,26 +17,18 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var fatField: UITextField!
     @IBOutlet weak var carbohydrateField: UITextField!
     @IBOutlet weak var valueScaleControl: UISegmentedControl!
-    @IBOutlet weak var categoryLabel: UILabel!
-    @IBOutlet weak var categoryPicker: UIPickerView!
+    @IBOutlet weak var categoryCell: UITableViewCell!
     
     @IBOutlet var nonEditableConstraints: [NSLayoutConstraint]!
     @IBOutlet var editableConstraints: [NSLayoutConstraint]!
     
     // MARK: Private properties
-    private let categories: [Category]
     private var presentingIngredient: Ingredient?
-    
+    private var selectedCategory: Category?
     
     // MARK: Controller lifecycle
     
     required init?(coder aDecoder: NSCoder) {
-        // load the categories from the database
-        let categoryFetch = NSFetchRequest(entityName: "Category")
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        categoryFetch.sortDescriptors = [sortDescriptor]
-        try! categories = Database.get().moc.executeFetchRequest(categoryFetch) as! [Category]
-        
         super.init(coder: aDecoder)
     }
     
@@ -75,7 +67,8 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
                 try ingredient.proteins = Ingredient.checkProteins(proteinField.text)
                 try ingredient.fat = Ingredient.checkFat(fatField.text)
                 try ingredient.carbohydrates = Ingredient.checkCarbohydrates(carbohydrateField.text)
-                let category = categories[categoryPicker.selectedRowInComponent(0)]
+                
+                let category = try Ingredient.checkCategory(selectedCategory)
                 
                 // new entity was saved to temporary context -> apply to main context by saving
                 if (isNewIngredient()) {
@@ -85,6 +78,7 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
                     try temporaryContext!.save()
                 } else {
                     ingredient.category = category
+                    
                 }
                 
                 try Database.get().moc.save()
@@ -113,10 +107,6 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
         }
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-    
     func cancelEditing() {
         if (isNewIngredient()) {
             dismissViewControllerAnimated(true, completion: nil)
@@ -126,27 +116,47 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
         }
     }
     
-    // MARK: UIPickerViewDelegate
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories[row].name
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch (segue.identifier!) {
+        case "CategoryPicker":
+            let categoryPicker = segue.destinationViewController as! CategoryList
+            categoryPicker.delegate = self
+            break;
+            
+        default:
+            assert(false, "Unknown Segue")
+            break
+        }
     }
     
-    // MARK: UIPickerViewDataSource
+    // MARK: UITableViewDelegate
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return categories.count
+    // we only allow highlight and select of the category cell when editingmode is on
+    
+    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return editing
     }
+    
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        
+        if (editing) {
+            return indexPath
+        } else {
+            return nil
+        }
+    }
+    
     
     // MARK: IngredientDetailViewProtocol
     
     func ingredientSelected(ingredient: Ingredient) {
         navigationItem.title = ingredient.name
         presentingIngredient = ingredient
+        selectedCategory = ingredient.category
     }
     
     // MARK: UITextFieldDelegate
@@ -186,6 +196,14 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
         }
     }
     
+    // MARK: CategoryList Protocol
+    
+    func categoryList(categoryList: CategoryList, didSelectCategory category: Category) {
+        selectedCategory = category
+        categoryCell.textLabel?.text = category.name
+    }
+    
+    
     // MARK: Private helper
     
     private func transitToEditing(editing: Bool, animated: Bool) {
@@ -220,8 +238,7 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
             enableTextField(fatField)
             enableTextField(carbohydrateField)
             valueScaleControl.enabled = true
-            categoryLabel.hidden = true
-            categoryPicker.hidden = false
+            categoryCell.accessoryType = .DisclosureIndicator
         } else {
             disableTextField(nameField)
             disableTextField(energyField)
@@ -229,8 +246,7 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
             disableTextField(fatField)
             disableTextField(carbohydrateField)
             valueScaleControl.enabled = false
-            categoryLabel.hidden = false
-            categoryPicker.hidden = true
+            categoryCell.accessoryType = .None
         }
     }
     
@@ -263,13 +279,7 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
             fatField.text = ingredient.formattedFat(withUnit: withUnit, to: nil)
             carbohydrateField.text = ingredient.formattedCarbohydrates(withUnit: withUnit, to: nil)
             valueScaleControl.selectedSegmentIndex = ingredient.valueScale.rawValue
-            categoryLabel.text = ingredient.category.name
-            for i in 0..<categories.count {
-                if (categories[i] == ingredient.category) {
-                    categoryPicker.selectRow(i, inComponent: 0, animated: false)
-                    break
-                }
-            }
+            categoryCell.textLabel?.text = ingredient.category.name
         }
     }
     

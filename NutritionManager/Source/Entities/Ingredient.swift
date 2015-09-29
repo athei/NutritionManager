@@ -21,7 +21,7 @@ class Ingredient: NSManagedObject {
         enum NameValidationError {
             case Invalid, NotUnique
         }
-        case Name(NameValidationError), Energy, ValueScale, Proteins, Fat, Carbohydrates
+        case Name(NameValidationError), Energy, ValueScale, Proteins, Fat, Carbohydrates, Category
         
         var description: String  {
             switch (self) {
@@ -39,6 +39,8 @@ class Ingredient: NSManagedObject {
                 return "Fat must be a decimal number."
             case .Carbohydrates:
                 return "Carbohydrates must be a decimal number."
+            case .Category:
+                return "You must select a category."
             }
         }
     }
@@ -129,6 +131,13 @@ class Ingredient: NSManagedObject {
             throw ValidationError.Carbohydrates
         }
         return number
+    }
+    
+    static func checkCategory(category: Category?) throws -> Category {
+        guard let cat = category else {
+            throw ValidationError.Category
+        }
+        return cat
     }
     
 }

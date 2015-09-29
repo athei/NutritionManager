@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */; };
+		1181E22D1BBB00A20037E520 /* CategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1181E22C1BBB00A20037E520 /* CategoryList.swift */; settings = {ASSET_TAGS = (); }; };
 		1194360B1B5DB416001EDFF8 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1194360A1B5DB416001EDFF8 /* IngredientCell.swift */; };
 		11A3EC171B5EF3AB0054A3A0 /* Pathes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3EC161B5EF3AB0054A3A0 /* Pathes.swift */; };
 		11A3EC191B5EF91A0054A3A0 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A3EC181B5EF91A0054A3A0 /* Database.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		1122E8431B5E0D7600BCDB8F /* model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = model.xcdatamodel; sourceTree = "<group>"; };
+		1181E22C1BBB00A20037E520 /* CategoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryList.swift; sourceTree = "<group>"; };
 		1194360A1B5DB416001EDFF8 /* IngredientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		11A0DC251B5EDF7B00456C94 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11A3EC161B5EF3AB0054A3A0 /* Pathes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pathes.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				11BC34FE1B5D620100DBD7B8 /* IngredientList.swift */,
 				11C8A7B51B60E42D004409B4 /* IngredientDetail.swift */,
+				1181E22C1BBB00A20037E520 /* CategoryList.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1181E22D1BBB00A20037E520 /* CategoryList.swift in Sources */,
 				11A3EC171B5EF3AB0054A3A0 /* Pathes.swift in Sources */,
 				11BC34FD1B5D620100DBD7B8 /* AppDelegate.swift in Sources */,
 				11C8A7B61B60E42D004409B4 /* IngredientDetail.swift in Sources */,
