@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, IngredientDetailViewProtocol {
+    // MARK: Outlets
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var energyField: UITextField!
     @IBOutlet weak var proteinField: UITextField!
@@ -22,9 +23,12 @@ class IngredientDetail: UITableViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet var nonEditableConstraints: [NSLayoutConstraint]!
     @IBOutlet var editableConstraints: [NSLayoutConstraint]!
     
+    // MARK: Private properties
     private let categories: [Category]
     private var presentingIngredient: Ingredient?
     
+    
+    // MARK: Controller lifecycle
     
     required init?(coder aDecoder: NSCoder) {
         // load the categories from the database
