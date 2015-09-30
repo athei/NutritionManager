@@ -106,15 +106,6 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         }
     }
     
-    func cancelEditing() {
-        if (isNewIngredient()) {
-            dismissViewControllerAnimated(true, completion: nil)
-        } else {
-            super.setEditing(false, animated: true)
-            transitToEditing(false, animated: true)
-        }
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch (segue.identifier!) {
         case "CategoryPicker":
@@ -127,6 +118,18 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
             break
         }
     }
+    
+    // MARK: - Actions
+    
+    func cancelEditing() {
+        if (isNewIngredient()) {
+            dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            super.setEditing(false, animated: true)
+            transitToEditing(false, animated: true)
+        }
+    }
+
     
     // MARK: - UITableViewDelegate
     
