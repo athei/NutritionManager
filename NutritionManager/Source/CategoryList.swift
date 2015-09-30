@@ -21,8 +21,10 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
         let fetchRequest = NSFetchRequest(entityName: "Category")
         let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: Database.get().moc, sectionNameKeyPath: nil, cacheName: "CategoryList")
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: Database.get().moc, sectionNameKeyPath: nil, cacheName: nil)
         try! fetchedResultsController.performFetch()
+        
+        print(fetchedResultsController.fetchedObjects!)
         
         super.init(coder: aDecoder)
     }
