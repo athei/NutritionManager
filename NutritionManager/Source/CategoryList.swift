@@ -9,15 +9,13 @@
 import UIKit
 import CoreData
 
-protocol CategoryListProtocol: class {
-    func categoryList(categoryList: CategoryList, didSelectCategory category: Category)
-}
-
 class CategoryList: UITableViewController {
-    
+    // MARK: - Properties
     weak var delegate: CategoryListProtocol?
-    
     private let fetchedResultsController: NSFetchedResultsController
+    
+    
+    // MARK: - Controller Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
         let fetchRequest = NSFetchRequest(entityName: "Category")
@@ -35,12 +33,7 @@ class CategoryList: UITableViewController {
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
+    // MARK: - UITableViewDelegate
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return (fetchedResultsController.sections?.count)!
@@ -57,8 +50,6 @@ class CategoryList: UITableViewController {
         cell.textLabel!.text = category.name
         return cell
     }
-    
-    // MARK: - Table view delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         delegate?.categoryList(self, didSelectCategory: fetchedResultsController.objectAtIndexPath(indexPath) as! Category)
@@ -99,4 +90,10 @@ class CategoryList: UITableViewController {
         return true
     }
     */
+}
+
+// MARK: - Protocols
+
+protocol CategoryListProtocol: class {
+    func categoryList(categoryList: CategoryList, didSelectCategory category: Category)
 }

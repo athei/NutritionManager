@@ -9,13 +9,11 @@
 import UIKit
 import CoreData
 
-protocol IngredientListProtocol: class {
-    func ingredientSelected(ingredient: Ingredient)
-}
-
 class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFetchedResultsControllerDelegate {
-    
+    // MARK: - Properties
     private let fetchedResultsController: NSFetchedResultsController
+    
+    // MARK: - Controller Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
         let fetchRequest = NSFetchRequest(entityName: "Ingredient")
@@ -44,7 +42,7 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         }
     }
     
-    // MARK: UITableViewDataSource Implementation
+    // MARK: - UITableViewDelegate
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Ingredient", forIndexPath: indexPath) as! IngredientCell
@@ -66,7 +64,7 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         return (fetchedResultsController.sections?[section].numberOfObjects)!
     }
     
-    // MARK: NSFetchedResultsControllerDelegate Implementation
+    // MARK: - NSFetchedResultsControllerDelegate
     
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
@@ -88,9 +86,15 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
     }
     
     
-    // MARK: UISplitViewControllerDelegate Implementation
+    // MARK: - UISplitViewControllerDelegate
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
         return tableView.indexPathForSelectedRow == nil
     }
+}
+
+// MARK: - Protocols
+
+protocol IngredientListProtocol: class {
+    func ingredientSelected(ingredient: Ingredient)
 }

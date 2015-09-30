@@ -11,6 +11,7 @@ import CoreData
 
 @objc(Ingredient)
 class Ingredient: NSManagedObject {
+    // MARK: - Enums
     enum ValueScale: Int {
         case Mass = 0
         case Volume = 1
@@ -45,6 +46,8 @@ class Ingredient: NSManagedObject {
         }
     }
     
+    // MARK: - Unit Conversion
+    
     var valueScale: ValueScale {
         get {
             return ValueScale(rawValue: valueScale_.integerValue)!
@@ -74,7 +77,7 @@ class Ingredient: NSManagedObject {
         return Units.formattedMass(massInGram: carbohydrates, to: dest, withUnit: withUnit)
     }
     
-    // MARK: Validation
+    // MARK: - Validation
     
     static func checkName(name: String?) throws -> String {
         guard let value = name else {
@@ -141,6 +144,8 @@ class Ingredient: NSManagedObject {
     }
     
 }
+
+// MARK: - CoreData Extension
 
 
 extension Ingredient {

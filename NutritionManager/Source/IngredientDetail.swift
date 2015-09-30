@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientListProtocol, CategoryListProtocol {
-    // MARK: Outlets
+    // MARK: - Outlets
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var energyField: UITextField!
     @IBOutlet weak var proteinField: UITextField!
@@ -18,15 +18,14 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     @IBOutlet weak var carbohydrateField: UITextField!
     @IBOutlet weak var valueScaleControl: UISegmentedControl!
     @IBOutlet weak var categoryCell: UITableViewCell!
-    
     @IBOutlet var nonEditableConstraints: [NSLayoutConstraint]!
     @IBOutlet var editableConstraints: [NSLayoutConstraint]!
     
-    // MARK: Private properties
+    // MARK: - Properties
     private var presentingIngredient: Ingredient?
     private var selectedCategory: Category?
     
-    // MARK: Controller lifecycle
+    // MARK: - Controller Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -129,7 +128,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         }
     }
     
-    // MARK: UITableViewDelegate
+    // MARK: - UITableViewDelegate
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return false
@@ -151,15 +150,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     }
     
     
-    // MARK: IngredientDetailViewProtocol
-    
-    func ingredientSelected(ingredient: Ingredient) {
-        navigationItem.title = ingredient.name
-        presentingIngredient = ingredient
-        selectedCategory = ingredient.category
-    }
-    
-    // MARK: UITextFieldDelegate
+    // MARK: - UITextFieldDelegate
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let newString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
@@ -196,7 +187,16 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         }
     }
     
-    // MARK: CategoryList Protocol
+    // MARK: - IngredientDetailViewProtocol
+    
+    func ingredientSelected(ingredient: Ingredient) {
+        navigationItem.title = ingredient.name
+        presentingIngredient = ingredient
+        selectedCategory = ingredient.category
+    }
+
+    
+    // MARK: - CategoryListProtocol
     
     func categoryList(categoryList: CategoryList, didSelectCategory category: Category) {
         selectedCategory = category
@@ -204,7 +204,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     }
     
     
-    // MARK: Private helper
+    // MARK: - Private Helper
     
     private func transitToEditing(editing: Bool, animated: Bool) {
         if (animated) {

@@ -16,6 +16,7 @@ class Category: NSManagedObject {
 
 }
 
+// MARK: - CoreData Extension
 
 extension Category {
     
