@@ -83,7 +83,7 @@ class Units {
 }
 
 
-// MARK: Private Implementation of the unit system
+// MARK: - Private Implementation of the unit system
 
 
 private protocol MassProcessor {
