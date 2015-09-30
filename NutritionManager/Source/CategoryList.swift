@@ -94,15 +94,19 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     }
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return .Delete
+        let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
+        if (category.ingredients?.count > 0) {
+            return .None
+        } else {
+            return .Delete
+        }
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
+            Database.get().moc.deleteObject(category)
+            try! Database.get().moc.save()
         }
     }
     
