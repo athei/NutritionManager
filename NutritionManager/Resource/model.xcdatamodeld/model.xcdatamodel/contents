@@ -2,7 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A282b" minimumToolsVersion="Xcode 7.0">
     <entity name="Category" representedClassName="Category" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="order" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="order" attributeType="Integer 32" syncable="YES"/>
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Ingredient" inverseName="category" inverseEntity="Ingredient" syncable="YES"/>
     </entity>
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">

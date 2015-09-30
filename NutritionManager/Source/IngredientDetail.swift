@@ -74,27 +74,20 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
                     // since we are using a childcontext we can't use a category
                     // object from the parent context
                     ingredient.category = temporaryContext!.objectWithID(category.objectID) as! Category
-                    try temporaryContext!.save()
+                    try! temporaryContext!.save()
                 } else {
                     ingredient.category = category
-                    
                 }
                 
-                try Database.get().moc.save()
+                try! Database.get().moc.save()
                 
                 // all ok
                 if (isNewIngredient()) {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
-            } catch let error as Ingredient.ValidationError { // this error is okay (put invalid chars in field)
+            } catch {
                 print(error) // TODO: show error to user
                 return // do not progress further (change state) when error occured
-            } catch { // this error should not happen
-                if (!isNewIngredient()) {
-                    assert(false, "Persisting an existing ingredient should never fail. Terminating to prevent data corruption (invalid entity). Error Message: \(error)")
-                }
-                print(error)
-                return
             }
         }
         
@@ -129,7 +122,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
             transitToEditing(false, animated: true)
         }
     }
-
+    
     
     // MARK: - UITableViewDelegate
     
@@ -197,7 +190,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         presentingIngredient = ingredient
         selectedCategory = ingredient.category
     }
-
+    
     
     // MARK: - CategoryListProtocol
     
@@ -206,6 +199,11 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         categoryCell.textLabel?.text = category.name
     }
     
+    func categoryList(categoryList: CategoryList, didChangeCategory category: Category) {
+        if (selectedCategory == category) {
+            categoryCell.textLabel?.text = category.name
+        }
+    }
     
     // MARK: - Private Helper
     
