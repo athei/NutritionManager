@@ -70,10 +70,19 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
     
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
-        case .Insert:
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
+        case .Move:
+            tableView.beginUpdates()
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
+            tableView.endUpdates()
+        case .Delete:
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
             break
-        default:
+        case .Update:
+            tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+            break
+        case .Insert:
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
             break
         }
     }
