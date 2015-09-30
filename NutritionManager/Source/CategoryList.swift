@@ -24,8 +24,6 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: Database.get().moc, sectionNameKeyPath: nil, cacheName: nil)
         try! fetchedResultsController.performFetch()
         
-        print(fetchedResultsController.fetchedObjects!)
-        
         super.init(coder: aDecoder)
     }
     
