@@ -31,6 +31,7 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         fetchedResultsController.delegate = self
         splitViewController?.delegate = self;
         splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.AllVisible
+        navigationItem.leftBarButtonItem = editButtonItem()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -40,6 +41,10 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
             let ingredient = fetchedResultsController.objectAtIndexPath(tableView.indexPathForSelectedRow!) as! Ingredient
             destination.ingredientSelected(ingredient)
         }
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
     }
     
     // MARK: - UITableViewDelegate
@@ -59,6 +64,10 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (fetchedResultsController.sections?[section].numberOfObjects)!
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
