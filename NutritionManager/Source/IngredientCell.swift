@@ -12,7 +12,4 @@ class IngredientCell: UITableViewCell {
     @IBOutlet weak var ingredientImage: UIImageView!
     @IBOutlet weak var ingredientEnergy: UILabel!
     @IBOutlet weak var ingredientName: UILabel!
-    @IBOutlet weak var ingredientProteins: UILabel!
-    @IBOutlet weak var ingredientFat: UILabel!
-    @IBOutlet weak var ingredientCarbohydrates: UILabel!
 }

@@ -49,9 +49,6 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         let ingredient = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
         cell.ingredientName.text = ingredient.name
         cell.ingredientEnergy.text = ingredient.formattedEnergy(withUnit: true, to: nil)
-        cell.ingredientProteins.text = "\(ingredient.formattedProteins(withUnit: true, to: nil)) prot"
-        cell.ingredientFat.text = "\(ingredient.formattedFat(withUnit: true, to: nil)) fat"
-        cell.ingredientCarbohydrates.text = "\(ingredient.formattedCarbohydrates(withUnit: true, to: nil)) carb"
         
         return cell;
     }
