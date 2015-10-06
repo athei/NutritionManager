@@ -238,16 +238,16 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
             enableTextField(proteinField)
             enableTextField(fatField)
             enableTextField(carbohydrateField)
-            valueScaleControl.enabled = true
             categoryCell.accessoryType = .DisclosureIndicator
+            valueScaleControl.enabled = true // TODO: Only allow editing when in no recipe
         } else {
             disableTextField(nameField)
             disableTextField(energyField)
             disableTextField(proteinField)
             disableTextField(fatField)
             disableTextField(carbohydrateField)
-            valueScaleControl.enabled = false
             categoryCell.accessoryType = .None
+            valueScaleControl.enabled = false
         }
     }
     
