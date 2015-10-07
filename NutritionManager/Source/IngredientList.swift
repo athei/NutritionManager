@@ -74,6 +74,14 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         return .Delete // TODO: only allow when not in use by dish
     }
     
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
+            Database.get().moc.deleteObject(category)
+            try! Database.get().moc.save()
+        }
+    }
+    
     // MARK: - NSFetchedResultsControllerDelegate
     
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
