@@ -31,7 +31,18 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
         super.viewDidLoad()
         
         fetchedResultsController.delegate = self
-        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        navigationItem.rightBarButtonItem = editButtonItem()
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if (editing) {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "newCategory:")
+        } else {
+            navigationItem.leftBarButtonItem = nil
+        }
+        
     }
     
     // MARK: - Actions

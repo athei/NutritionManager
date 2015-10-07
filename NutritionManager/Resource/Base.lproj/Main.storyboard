@@ -73,7 +73,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Ingredients" id="DSg-th-799">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="BpB-RI-nOq">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="BpB-RI-nOq">
                             <connections>
                                 <segue destination="QWi-E2-H4X" kind="presentation" id="gkp-P7-8ba"/>
                             </connections>
@@ -451,29 +451,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="uCh-FU-cNF">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5j-Jk-aMu">
-                                    <rect key="frame" x="231" y="7" width="139" height="30"/>
-                                    <animations/>
-                                    <state key="normal" title="Add a new Category"/>
-                                    <connections>
-                                        <action selector="newCategory:" destination="J0h-lq-E61" eventType="primaryActionTriggered" id="UzL-hk-uhl"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <animations/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="I5j-Jk-aMu" firstAttribute="centerX" secondItem="uCh-FU-cNF" secondAttribute="centerX" id="kYg-uQ-Meu"/>
-                                <constraint firstItem="I5j-Jk-aMu" firstAttribute="centerY" secondItem="uCh-FU-cNF" secondAttribute="centerY" id="opN-VX-fE9"/>
-                            </constraints>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Category" editingAccessoryType="detailButton" textLabel="Cqb-Tf-oZn" style="IBUITableViewCellStyleDefault" id="cgq-u6-ShR">
-                                <rect key="frame" x="0.0" y="136" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cgq-u6-ShR" id="KPd-7I-Xxb">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>

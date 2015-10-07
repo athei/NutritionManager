@@ -31,7 +31,7 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         fetchedResultsController.delegate = self
         splitViewController?.delegate = self;
         splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.AllVisible
-        navigationItem.leftBarButtonItem = editButtonItem()
+        navigationItem.rightBarButtonItem = editButtonItem()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
