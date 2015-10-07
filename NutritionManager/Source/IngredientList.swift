@@ -70,6 +70,10 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         return true
     }
     
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .Delete // TODO: only allow when not in use by dish
+    }
+    
     // MARK: - NSFetchedResultsControllerDelegate
     
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
