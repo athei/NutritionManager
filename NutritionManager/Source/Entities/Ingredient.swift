@@ -157,5 +157,6 @@ extension Ingredient {
     @NSManaged var proteins: NSNumber
     @NSManaged private var valueScale_: NSNumber
     @NSManaged var category: Category
+    @NSManaged var dishes: NSSet
     
 }

@@ -71,7 +71,14 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
     }
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return .Delete // TODO: only allow when not in use by dish
+        
+        let ingredient = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
+        
+        if (ingredient.dishes.count > 0) {
+            return .None
+        } else {
+           return .Delete
+        }
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
