@@ -106,7 +106,7 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
-        if (category.ingredients?.count > 0) {
+        if (category.ingredients.count > 0) {
             return .None
         } else {
             return .Delete

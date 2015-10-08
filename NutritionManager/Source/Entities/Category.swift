@@ -60,6 +60,6 @@ extension Category {
     
     @NSManaged var name: String
     @NSManaged var order: NSNumber
-    @NSManaged var ingredients: NSSet?
+    @NSManaged var ingredients: NSSet
     
 }
