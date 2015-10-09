@@ -60,7 +60,7 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
                 try! Database.get().moc.save()
                 delegate?.categoryList(self, didChangeCategory: category)
             } else {
-                let newCategory = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: Database.get().moc) as! Category
+                let newCategory = Category(context: Database.get().moc)
                 newCategory.name = name
                 newCategory.order = try! Category.nextOrderNumber()
                 try! Database.get().moc.save()

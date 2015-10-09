@@ -10,7 +10,14 @@ import Foundation
 import CoreData
 
 @objc(Category)
-class Category: NSManagedObject {
+class Category: NSManagedObject, Insertable {
+    
+    // MARK: - Initializing
+    
+    required init(context: NSManagedObjectContext) {
+        super.init(entity: NSEntityDescription.entityForName("Category", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
+    }
+    
     // MARK: - Enums
     
     enum ValidationError: ErrorType, CustomStringConvertible {

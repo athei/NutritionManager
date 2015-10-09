@@ -54,7 +54,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
             let ingredient: Ingredient  // the ingredient which is subject to editing
             if (isNewIngredient()) {
                 temporaryContext = Database.get().createMainQueueChild()
-                ingredient = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: temporaryContext!) as! Ingredient
+                ingredient = Ingredient(context: temporaryContext!)
             } else {
                 ingredient = presentingIngredient!
             }

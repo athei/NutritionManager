@@ -10,7 +10,15 @@ import Foundation
 import CoreData
 
 @objc(Ingredient)
-class Ingredient: NSManagedObject {
+class Ingredient: NSManagedObject, Insertable {
+    
+    // MARK: - Initializing
+    
+    required init(context: NSManagedObjectContext) {
+        super.init(entity: NSEntityDescription.entityForName("Ingredient", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
+    }
+    
+    
     // MARK: - Enums
     enum ValueScale: Int {
         case Mass = 0

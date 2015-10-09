@@ -58,8 +58,8 @@ class Database {
     }
     
     private func insertTestData() {
-        let ei = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc) as! Ingredient
-        let quark = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc) as! Ingredient
+        let ei = Ingredient(context: moc)
+        let quark = Ingredient(context: moc)
         ei.name = "Ei, vom Huhn"
         ei.energy = 137
         ei.proteins = 11.9
@@ -74,20 +74,20 @@ class Database {
         quark.carbohydrates = 2.6
         quark.valueScale = .Mass
         
-        var cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
+        var cat = Category(context: moc)
         cat.name = "Gemüse"
         cat.order = 0
         ei.category = cat
         
-        cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
+        cat = Category(context: moc)
         cat.name = "Putzmittel"
         cat.order = 1
         
-        cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
+        cat = Category(context: moc)
         cat.name = "Fleisch"
         cat.order = 2
         
-        cat = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: moc) as! Category
+        cat = Category(context: moc)
         cat.name = "Käse"
         cat.order = 3
         quark.category = cat

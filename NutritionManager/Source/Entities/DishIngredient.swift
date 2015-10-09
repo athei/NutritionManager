@@ -9,10 +9,13 @@
 import Foundation
 import CoreData
 
-class DishIngredient: NSManagedObject {
+class DishIngredient: NSManagedObject, Insertable {
 
-// Insert code here to add functionality to your managed object subclass
-
+    // MARK: - Initializing
+    
+    required init(context: NSManagedObjectContext) {
+        super.init(entity: NSEntityDescription.entityForName("DishIngredient", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
+    }
 }
 
 // MARK: - CoreData Extension

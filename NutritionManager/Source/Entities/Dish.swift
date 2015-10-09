@@ -9,9 +9,13 @@
 import Foundation
 import CoreData
 
-class Dish: NSManagedObject {
+class Dish: NSManagedObject, Insertable {
 
-// Insert code here to add functionality to your managed object subclass
+    // MARK: - Initializing
+    
+    required init(context: NSManagedObjectContext) {
+        super.init(entity: NSEntityDescription.entityForName("Dish", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
+    }
 
 }
 
