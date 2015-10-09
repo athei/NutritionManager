@@ -53,7 +53,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
             var temporaryContext: NSManagedObjectContext? // used to store a temporary entity while validating
             let ingredient: Ingredient  // the ingredient which is subject to editing
             if (isNewIngredient()) {
-                temporaryContext = Database.get().createChildContext()
+                temporaryContext = Database.get().createMainQueueChild()
                 ingredient = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: temporaryContext!) as! Ingredient
             } else {
                 ingredient = presentingIngredient!

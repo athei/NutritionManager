@@ -41,13 +41,21 @@ class Database {
     
     // MARK: - Public functions
     
-    func createChildContext() -> NSManagedObjectContext {
-        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        context.parentContext = moc
-        return context
+    func createMainQueueChild() -> NSManagedObjectContext {
+        return createChildContextOfType(.MainQueueConcurrencyType)
+    }
+    
+    func createPrivateQueueChild() -> NSManagedObjectContext {
+        return createChildContextOfType(.PrivateQueueConcurrencyType)
     }
     
     // MARK: - Private functions
+    
+    private func createChildContextOfType(type: NSManagedObjectContextConcurrencyType) -> NSManagedObjectContext {
+        let context = NSManagedObjectContext(concurrencyType: type)
+        context.parentContext = moc
+        return context
+    }
     
     private func insertTestData() {
         let ei = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc) as! Ingredient
