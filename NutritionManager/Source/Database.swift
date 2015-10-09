@@ -9,14 +9,16 @@
 import Foundation
 import CoreData
 
+private let DEVMODE = true
+
 class Database {
-    static private let instance: Database = Database()
-    
+    // MARK: - Properties
     let moc: NSManagedObjectContext
     
-    var storeCoordinator: NSPersistentStoreCoordinator {
-        return moc.persistentStoreCoordinator!
-    }
+    // MARK: - Private Variables
+    static private let instance: Database = Database()
+    
+    // MARK: - Initializing
     
     private init() {
         let model = NSManagedObjectModel(contentsOfURL: Pathes.modelURL()!)!
@@ -24,21 +26,30 @@ class Database {
         moc = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         moc.persistentStoreCoordinator = coordinator
         
-        // HACK: only for dev -> delete persistent store when loading failes
-        var tries = 0;
-        repeat {
-            do {
-                try coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: Pathes.databaseURL(), options: nil)
-                break;
-            }
-            catch {
-                try! coordinator.destroyPersistentStoreAtURL(Pathes.databaseURL(), withType: NSSQLiteStoreType, options: nil)
-                tries++;
-            }
-        } while(tries < 2)
+        if (DEVMODE) {
+            try! coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
+            insertTestData()
+        } else {
+            try! coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: Pathes.databaseURL(), options: nil)
+        }
         
-        assert(coordinator.persistentStores.count == 1, "Adding persistent store failed")
-        
+    }
+    
+    static func get() -> Database {
+        return Database.instance
+    }
+    
+    // MARK: - Public functions
+    
+    func createChildContext() -> NSManagedObjectContext {
+        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        context.parentContext = moc
+        return context
+    }
+    
+    // MARK: - Private functions
+    
+    private func insertTestData() {
         let ei = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc) as! Ingredient
         let quark = NSEntityDescription.insertNewObjectForEntityForName("Ingredient", inManagedObjectContext: moc) as! Ingredient
         ei.name = "Ei, vom Huhn"
@@ -76,13 +87,4 @@ class Database {
         try! moc.save()
     }
     
-    static func get() -> Database {
-        return Database.instance
-    }
-    
-    func createChildContext() -> NSManagedObjectContext {
-        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        context.parentContext = moc
-        return context
-    }
 }
