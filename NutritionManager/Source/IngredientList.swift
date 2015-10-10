@@ -86,8 +86,8 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
-            Database.get().moc.deleteObject(category)
+            let ingredient = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
+            Database.get().moc.deleteObject(ingredient)
             try! Database.get().moc.save()
         }
     }

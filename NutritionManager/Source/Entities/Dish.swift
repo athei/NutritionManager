@@ -13,8 +13,12 @@ class Dish: NSManagedObject, Insertable {
 
     // MARK: - Initializing
     
-    required init(context: NSManagedObjectContext) {
-        super.init(entity: NSEntityDescription.entityForName("Dish", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    }
+    
+    required convenience init(context: NSManagedObjectContext) {
+        self.init(entity: NSEntityDescription.entityForName("Dish", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
     }
 
 }
