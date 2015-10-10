@@ -92,6 +92,15 @@ class Database {
         cat.order = 3
         quark.category = cat
         
+        let dreieier = DishIngredient(context: moc)
+        dreieier.multiplier = 3
+        dreieier.ingredient = ei
+        
+        let spiegelei = Dish(context: moc)
+        spiegelei.name = "Spiegelei"
+        spiegelei.directions = "Alles in die Pfanne und gut"
+        spiegelei.ingredients = [dreieier]
+        
         try! moc.save()
     }
     
