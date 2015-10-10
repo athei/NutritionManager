@@ -26,6 +26,7 @@ extension Dish {
     @NSManaged var name: String
     @NSManaged var directions: String
     @NSManaged var ingredients: NSSet
+    @NSManaged var image: NSData?
     
 }
 

@@ -7,6 +7,7 @@
     </entity>
     <entity name="Dish" representedClassName=".Dish" syncable="YES">
         <attribute name="directions" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="ingredients" toMany="YES" deletionRule="Nullify" destinationEntity="DishIngredient" inverseName="dish" inverseEntity="DishIngredient" syncable="YES"/>
     </entity>
@@ -16,19 +17,20 @@
         <relationship name="ingredient" maxCount="1" deletionRule="Deny" destinationEntity="Ingredient" inverseName="dishes" inverseEntity="Ingredient" syncable="YES"/>
     </entity>
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">
-        <attribute name="carbohydrates" attributeType="Float" defaultValueString="0" syncable="YES"/>
-        <attribute name="energy" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="fat" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="carbohydrates" attributeType="Float" syncable="YES"/>
+        <attribute name="energy" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="fat" attributeType="Float" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="proteins" attributeType="Float" defaultValueString="0" syncable="YES"/>
-        <attribute name="valueScale_" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="proteins" attributeType="Float" syncable="YES"/>
+        <attribute name="valueScale_" attributeType="Integer 16" syncable="YES"/>
         <relationship name="category" maxCount="1" deletionRule="Deny" destinationEntity="Category" inverseName="ingredients" inverseEntity="Category" syncable="YES"/>
         <relationship name="dishes" toMany="YES" deletionRule="Nullify" destinationEntity="DishIngredient" inverseName="ingredient" inverseEntity="DishIngredient" syncable="YES"/>
     </entity>
     <elements>
         <element name="Category" positionX="-36" positionY="63" width="128" height="90"/>
-        <element name="Ingredient" positionX="-63" positionY="-18" width="128" height="165"/>
-        <element name="Dish" positionX="-45" positionY="54" width="128" height="90"/>
+        <element name="Dish" positionX="-45" positionY="54" width="128" height="105"/>
         <element name="DishIngredient" positionX="-36" positionY="63" width="128" height="90"/>
+        <element name="Ingredient" positionX="-63" positionY="-18" width="128" height="180"/>
     </elements>
 </model>

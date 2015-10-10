@@ -54,6 +54,9 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         let ingredient = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
         cell.ingredientName.text = ingredient.name
         cell.ingredientEnergy.text = ingredient.formattedEnergy(withUnit: true, to: nil)
+        if let imgData = ingredient.image {
+            cell.ingredientImage.image = UIImage(data: imgData)
+        }
         
         return cell;
     }

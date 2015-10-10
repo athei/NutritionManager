@@ -11,6 +11,7 @@ import CoreData
 
 class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientListProtocol, CategoryListProtocol {
     // MARK: - Outlets
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var energyField: UITextField!
     @IBOutlet weak var proteinField: UITextField!
@@ -20,8 +21,8 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     @IBOutlet weak var categoryCell: UITableViewCell!
     @IBOutlet var nonEditableConstraints: [NSLayoutConstraint]!
     @IBOutlet var editableConstraints: [NSLayoutConstraint]!
-    
-    // MARK: - Properties
+   
+    // MARK: - Private variables
     private var presentingIngredient: Ingredient?
     private var selectedCategory: Category?
     
@@ -276,6 +277,9 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     
     private func fillControlsWithValues(withUnit withUnit: Bool) {
         if let ingredient = presentingIngredient {
+            if let imgData = ingredient.image {
+                imageView.image = UIImage(data: imgData)
+            }
             nameField.text = ingredient.name
             energyField.text = ingredient.formattedEnergy(withUnit: withUnit, to: nil)
             proteinField.text = ingredient.formattedProteins(withUnit: withUnit, to: nil)
