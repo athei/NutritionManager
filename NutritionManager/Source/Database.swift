@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 private let DEVMODE = true
 
@@ -66,6 +67,7 @@ class Database {
         ei.fat = 9.3
         ei.carbohydrates = 1.5
         ei.valueScale = .Unit
+        ei.image = UIImageJPEGRepresentation(UIImage(named: "egg")!, 0.8)
         
         quark.name = "Quark (40%)"
         quark.energy = 143
@@ -73,6 +75,7 @@ class Database {
         quark.fat = 11.4
         quark.carbohydrates = 2.6
         quark.valueScale = .Mass
+        quark.image = UIImageJPEGRepresentation(UIImage(named: "quark")!, 0.8)
         
         var cat = Category(context: moc)
         cat.name = "Gemüse"
@@ -96,10 +99,11 @@ class Database {
         dreieier.multiplier = 3
         dreieier.ingredient = ei
         
-        let spiegelei = Dish(context: moc)
-        spiegelei.name = "Spiegelei"
-        spiegelei.directions = "Alles in die Pfanne und gut"
-        spiegelei.ingredients = [dreieier]
+        let curryh = Dish(context: moc)
+        curryh.name = "Curryhähnchen"
+        curryh.directions = "Alles in die Pfanne und gut"
+        curryh.ingredients = [dreieier]
+        curryh.image = UIImageJPEGRepresentation(UIImage(named: "curryh")!, 0.8)
         
         try! moc.save()
     }
