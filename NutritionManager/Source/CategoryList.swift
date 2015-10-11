@@ -12,8 +12,9 @@ import CoreData
 class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     // MARK: - Properties
     weak var delegate: CategoryListProtocol?
-    private let fetchedResultsController: NSFetchedResultsController
     
+    // MARK: - Private variables
+    private let fetchedResultsController: NSFetchedResultsController
     
     // MARK: - Controller Lifecycle
     

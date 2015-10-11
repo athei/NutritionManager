@@ -138,14 +138,33 @@
             </objects>
             <point key="canvasLocation" x="-506" y="32"/>
         </scene>
+        <!--DishesRoot-->
+        <scene sceneID="ele-yE-IMX">
+            <objects>
+                <navigationController title="DishesRoot" id="XyG-gY-aC7" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Dishes" image="second" id="n6D-6t-WNc"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v1u-v9-ur3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="U0Y-Pl-7Of" kind="relationship" relationship="rootViewController" id="JOw-ug-abJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vho-pj-VxU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-506" y="1238"/>
+        </scene>
         <!--DishesCollection-->
         <scene sceneID="PBi-AJ-a4m">
             <objects>
-                <collectionViewController title="DishesCollection" id="U0Y-Pl-7Of" sceneMemberID="viewController">
+                <collectionViewController title="DishesCollection" id="U0Y-Pl-7Of" customClass="DishCollection" customModule="NutritionManager" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="WA7-Yk-lRH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ffq-qz-Wcv">
                             <size key="itemSize" width="135" height="109"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -153,8 +172,8 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dish" id="VQl-ZJ-2su">
-                                <rect key="frame" x="0.0" y="0.0" width="116" height="116"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dish" id="VQl-ZJ-2su" customClass="DishCell" customModule="NutritionManager" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="116" height="116"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="116" height="116"/>
@@ -164,18 +183,31 @@
                                             <rect key="frame" x="0.0" y="0.0" width="116" height="116"/>
                                             <animations/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1m-Ng-s9x">
+                                            <rect key="frame" x="42" y="87" width="33" height="21"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <animations/>
                                 <constraints>
+                                    <constraint firstItem="Q1m-Ng-s9x" firstAttribute="bottom" secondItem="083-5a-SrQ" secondAttribute="bottomMargin" id="0nB-Lq-eVh"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="centerX" secondItem="VQl-ZJ-2su" secondAttribute="centerX" id="2tT-YZ-ae0"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="top" secondItem="VQl-ZJ-2su" secondAttribute="top" id="BdD-vD-LGT"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="centerY" secondItem="VQl-ZJ-2su" secondAttribute="centerY" id="O0Y-bM-c8i"/>
+                                    <constraint firstItem="Q1m-Ng-s9x" firstAttribute="centerX" secondItem="VQl-ZJ-2su" secondAttribute="centerX" id="Z0R-At-hoI"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="leading" secondItem="VQl-ZJ-2su" secondAttribute="leading" id="yn1-UQ-UMf"/>
                                 </constraints>
                                 <size key="customSize" width="116" height="116"/>
+                                <connections>
+                                    <outlet property="dishImage" destination="083-5a-SrQ" id="9mG-Jf-UvI"/>
+                                    <outlet property="dishName" destination="Q1m-Ng-s9x" id="RPP-2Q-KwG"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -184,10 +216,11 @@
                         </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Dishes" image="second" id="LwC-xr-5R8"/>
+                    <navigationItem key="navigationItem" title="Dishes" id="k5s-b9-y7A"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bf7-IE-lLj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-506" y="1332"/>
+            <point key="canvasLocation" x="188" y="1238"/>
         </scene>
         <!--IngredientDetail-->
         <scene sceneID="vY7-Ec-ZmG">
@@ -563,7 +596,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="S6w-Ab-9Ke" kind="relationship" relationship="viewControllers" id="gJg-6s-iBa"/>
-                        <segue destination="U0Y-Pl-7Of" kind="relationship" relationship="viewControllers" id="zkp-lG-ApW"/>
+                        <segue destination="XyG-gY-aC7" kind="relationship" relationship="viewControllers" id="jVv-aa-g5r"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gyv-1B-nRr" userLabel="First Responder" sceneMemberID="firstResponder"/>
