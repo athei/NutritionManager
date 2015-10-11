@@ -51,6 +51,10 @@ class DishCollection: UICollectionViewController {
         
         return cell
     }
-    
-    
+}
+
+// MARK: - Protocols
+
+protocol DishCollectionProtocol: class {
+    func dishSelected(dish: Dish)
 }

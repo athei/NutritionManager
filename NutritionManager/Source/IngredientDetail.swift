@@ -294,6 +294,8 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
             carbohydrateField.text = ingredient.formattedCarbohydrates(withUnit: withUnit, to: nil)
             valueScaleControl.selectedSegmentIndex = ingredient.valueScale.rawValue
             categoryCell.textLabel?.text = ingredient.category.name
+        } else {
+            imageView.image = UIImage(named: "placeholder")
         }
     }
     
