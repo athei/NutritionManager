@@ -56,6 +56,8 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         cell.ingredientEnergy.text = ingredient.formattedEnergy(withUnit: true, to: nil)
         if let imgData = ingredient.image {
             cell.ingredientImage.image = UIImage(data: imgData)
+        } else {
+            cell.ingredientImage.image = UIImage(named: "placeholder")
         }
         
         return cell;
