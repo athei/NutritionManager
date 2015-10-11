@@ -279,6 +279,8 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         if let ingredient = presentingIngredient {
             if let imgData = ingredient.image {
                 imageView.image = UIImage(data: imgData)
+            } else {
+                imageView.image = UIImage(named: "placeholder")
             }
             nameField.text = ingredient.name
             energyField.text = ingredient.formattedEnergy(withUnit: withUnit, to: nil)
