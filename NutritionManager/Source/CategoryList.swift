@@ -16,7 +16,7 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     // MARK: - Private variables
     private let fetchedResultsController: NSFetchedResultsController
     
-    // MARK: - Controller Lifecycle
+    // MARK: - Initializing
     
     required init?(coder aDecoder: NSCoder) {
         let fetchRequest = NSFetchRequest(entityName: "Category")
@@ -34,6 +34,8 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
         fetchedResultsController.delegate = self
         navigationItem.rightBarButtonItem = editButtonItem()
     }
+    
+    // MARK: - Editing
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)

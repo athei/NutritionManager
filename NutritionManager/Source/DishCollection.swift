@@ -13,7 +13,7 @@ class DishCollection: UICollectionViewController {
     // MARK: - Private variables
     private let fetchedResultsController: NSFetchedResultsController
     
-    // MARK: - Controller Lifecycle
+    // MARK: - Initializing
     
     required init?(coder aDecoder: NSCoder) {
         let fetchRequest = NSFetchRequest(entityName: "Dish")
@@ -27,7 +27,7 @@ class DishCollection: UICollectionViewController {
     }
     
     
-    // MARK: - UICollectionViewDataSource
+    // MARK: - UICollectionViewDelegate
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return fetchedResultsController.sections!.count

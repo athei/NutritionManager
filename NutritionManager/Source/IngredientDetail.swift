@@ -26,7 +26,8 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     private var presentingIngredient: Ingredient?
     private var selectedCategory: Category?
     
-    // MARK: - Controller Lifecycle
+    
+    // MARK: - Initializing
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -42,6 +43,23 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         super.setEditing(isNewIngredient(), animated: false)
         setControlsEditing(editing)
     }
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch (segue.identifier!) {
+        case "CategoryPicker":
+            let categoryPicker = segue.destinationViewController as! CategoryList
+            categoryPicker.delegate = self
+            break;
+            
+        default:
+            assert(false, "Unknown Segue")
+            break
+        }
+    }
+    
+    // MARK: - Editing
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -97,19 +115,6 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         if (!isNewIngredient()) {
             super.setEditing(editing, animated: animated)
             transitToEditing(editing, animated: animated)
-        }
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch (segue.identifier!) {
-        case "CategoryPicker":
-            let categoryPicker = segue.destinationViewController as! CategoryList
-            categoryPicker.delegate = self
-            break;
-            
-        default:
-            assert(false, "Unknown Segue")
-            break
         }
     }
     

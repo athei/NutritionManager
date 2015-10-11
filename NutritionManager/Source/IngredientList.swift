@@ -10,10 +10,11 @@ import UIKit
 import CoreData
 
 class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFetchedResultsControllerDelegate {
-    // MARK: - Properties
+    // MARK: - Private variables
     private let fetchedResultsController: NSFetchedResultsController
     
-    // MARK: - Controller Lifecycle
+    
+    // MARK: - Initializing
     
     required init?(coder aDecoder: NSCoder) {
         let fetchRequest = NSFetchRequest(entityName: "Ingredient")
@@ -34,6 +35,8 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         navigationItem.rightBarButtonItem = editButtonItem()
     }
     
+    // MARK: - Navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ingredientDetail") {
             let navi = segue.destinationViewController as! UINavigationController
@@ -42,6 +45,8 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
             destination.ingredientSelected(ingredient)
         }
     }
+    
+    // MARK: - Editing
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
