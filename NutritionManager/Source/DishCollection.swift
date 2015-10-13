@@ -26,13 +26,11 @@ class DishCollection: UICollectionViewController {
         super.init(coder: aDecoder)
     }
     
-    
     // MARK: - UICollectionViewDelegate
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return fetchedResultsController.sections!.count
     }
-    
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return fetchedResultsController.sections![section].numberOfObjects
