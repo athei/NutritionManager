@@ -190,6 +190,14 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gVf-aQ-wro" customClass="SSCheckMark">
+                                            <rect key="frame" x="78" y="8" width="30" height="30"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="FpK-Ab-S0B"/>
+                                                <constraint firstAttribute="height" constant="30" id="yeF-m7-lK8"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -199,13 +207,16 @@
                                 <constraints>
                                     <constraint firstItem="Q1m-Ng-s9x" firstAttribute="bottom" secondItem="083-5a-SrQ" secondAttribute="bottomMargin" id="0nB-Lq-eVh"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="centerX" secondItem="VQl-ZJ-2su" secondAttribute="centerX" id="2tT-YZ-ae0"/>
+                                    <constraint firstItem="gVf-aQ-wro" firstAttribute="trailing" secondItem="VQl-ZJ-2su" secondAttribute="trailingMargin" id="4cb-7i-lzi"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="top" secondItem="VQl-ZJ-2su" secondAttribute="top" constant="2" id="BdD-vD-LGT"/>
+                                    <constraint firstItem="gVf-aQ-wro" firstAttribute="top" secondItem="VQl-ZJ-2su" secondAttribute="topMargin" id="EXJ-qo-ooU"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="centerY" secondItem="VQl-ZJ-2su" secondAttribute="centerY" id="O0Y-bM-c8i"/>
                                     <constraint firstItem="Q1m-Ng-s9x" firstAttribute="centerX" secondItem="VQl-ZJ-2su" secondAttribute="centerX" id="Z0R-At-hoI"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="leading" secondItem="VQl-ZJ-2su" secondAttribute="leading" constant="2" id="yn1-UQ-UMf"/>
                                 </constraints>
                                 <size key="customSize" width="116" height="116"/>
                                 <connections>
+                                    <outlet property="checkMark" destination="gVf-aQ-wro" id="mDN-tK-bWD"/>
                                     <outlet property="dishImage" destination="083-5a-SrQ" id="9mG-Jf-UvI"/>
                                     <outlet property="dishName" destination="Q1m-Ng-s9x" id="RPP-2Q-KwG"/>
                                     <segue destination="vPj-ot-Bbe" kind="show" identifier="dishDetail" id="gty-Uh-Fl2"/>

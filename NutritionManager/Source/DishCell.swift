@@ -11,26 +11,23 @@ import UIKit
 class DishCell: UICollectionViewCell {
     @IBOutlet weak var dishName: UILabel!
     @IBOutlet weak var dishImage: UIImageView!
+    @IBOutlet weak var checkMark: SSCheckMark!
+    
+    var editing: Bool = false {
+        didSet {
+            checkMark.hidden = !editing
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        checkMark.checkMarkStyle = .GrayedOut
+    }
+    
     
     override var selected: Bool {
         didSet {
-            if (selected) {
-                backgroundColor = UIColor.blueColor()
-            } else {
-                backgroundColor = UIColor.blackColor()
-            }
+            checkMark.checked = selected
         }
     }
-    
-    override var highlighted: Bool {
-        didSet {
-            if (highlighted) {
-                backgroundColor = UIColor.blueColor()
-            } else {
-                backgroundColor = UIColor.blackColor()
-            }
-        }
-    }
-
-    
 }
