@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1122E8421B5E0D7600BCDB8F /* model.xcdatamodeld */; };
+		112563771BD29021001B94C8 /* SSCheckMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 112563761BD29021001B94C8 /* SSCheckMark.m */; settings = {ASSET_TAGS = (); }; };
 		1151FD641BC71DD1003DA3DF /* Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1151FD601BC71DD1003DA3DF /* Dish.swift */; settings = {ASSET_TAGS = (); }; };
 		1151FD661BC71DD1003DA3DF /* DishIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1151FD621BC71DD1003DA3DF /* DishIngredient.swift */; settings = {ASSET_TAGS = (); }; };
 		115B2C1C1BC9EE40001F16C1 /* DishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115B2C1B1BC9EE40001F16C1 /* DishCell.swift */; settings = {ASSET_TAGS = (); }; };
@@ -50,6 +51,9 @@
 
 /* Begin PBXFileReference section */
 		1122E8431B5E0D7600BCDB8F /* model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = model.xcdatamodel; sourceTree = "<group>"; };
+		112563741BD29021001B94C8 /* NutritionManager-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NutritionManager-Bridging-Header.h"; sourceTree = "<group>"; };
+		112563751BD29021001B94C8 /* SSCheckMark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCheckMark.h; sourceTree = "<group>"; };
+		112563761BD29021001B94C8 /* SSCheckMark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCheckMark.m; sourceTree = "<group>"; };
 		1151FD601BC71DD1003DA3DF /* Dish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dish.swift; sourceTree = "<group>"; };
 		1151FD621BC71DD1003DA3DF /* DishIngredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishIngredient.swift; sourceTree = "<group>"; };
 		115B2C1B1BC9EE40001F16C1 /* DishCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishCell.swift; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 			children = (
 				1194360A1B5DB416001EDFF8 /* IngredientCell.swift */,
 				115B2C1B1BC9EE40001F16C1 /* DishCell.swift */,
+				112563751BD29021001B94C8 /* SSCheckMark.h */,
+				112563761BD29021001B94C8 /* SSCheckMark.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -152,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				11BC34FC1B5D620100DBD7B8 /* AppDelegate.swift */,
+				112563741BD29021001B94C8 /* NutritionManager-Bridging-Header.h */,
 				11A0DC131B5ECDA500456C94 /* Views */,
 				119436091B5D9DAF001EDFF8 /* ViewController */,
 				11A0DC151B5ECDF400456C94 /* Entities */,
@@ -280,6 +287,7 @@
 		11BC34F11B5D620100DBD7B8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					11BC34F81B5D620100DBD7B8 = {
@@ -364,6 +372,7 @@
 				1151FD661BC71DD1003DA3DF /* DishIngredient.swift in Sources */,
 				1122E8441B5E0D7600BCDB8F /* model.xcdatamodeld in Sources */,
 				117D0C851BCA9971003C4F4D /* DishDetail.swift in Sources */,
+				112563771BD29021001B94C8 /* SSCheckMark.m in Sources */,
 				11A3EC191B5EF91A0054A3A0 /* Database.swift in Sources */,
 				11AC43761BC80BEF00364663 /* InsertableProtocol.swift in Sources */,
 				11C8A7B81B613F44004409B4 /* Units.swift in Sources */,
@@ -528,6 +537,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = NutritionManager/Info.plist;
@@ -536,6 +546,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.theissen.NutritionManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "NutritionManager/Source/NutritionManager-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -543,6 +555,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = NutritionManager/Info.plist;
@@ -551,6 +564,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.theissen.NutritionManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "NutritionManager/Source/NutritionManager-Bridging-Header.h";
 			};
 			name = Release;
 		};
