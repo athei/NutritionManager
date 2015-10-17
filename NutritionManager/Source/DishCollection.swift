@@ -26,6 +26,16 @@ class DishCollection: UICollectionViewController {
         super.init(coder: aDecoder)
     }
     
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "dishDetail") {
+            let dishDetail = segue.destinationViewController as! DishCollectionProtocol
+            let dish = fetchedResultsController.objectAtIndexPath(collectionView!.indexPathsForSelectedItems()![0]) as! Dish
+            dishDetail.dishSelected(dish)
+        }
+    }
+    
     // MARK: - UICollectionViewDelegate
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {

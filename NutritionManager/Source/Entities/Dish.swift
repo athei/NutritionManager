@@ -32,33 +32,33 @@ class Dish: NSManagedObject, Insertable {
     // MARK: - Properties
     
     var energy: NSNumber {
-        var sum = 0
-        for ingredient in ingredients as! Set<Ingredient> {
-            sum += ingredient.energy.integerValue
+        var sum: Float = 0
+        for dishIngredient in ingredients as! Set<DishIngredient> {
+            sum += dishIngredient.multiplier.floatValue * dishIngredient.ingredient.energy.floatValue
         }
         return sum
     }
     
     var proteins: NSNumber {
-        var sum = 0
-        for ingredient in ingredients as! Set<Ingredient> {
-            sum += ingredient.proteins.integerValue
+        var sum: Float = 0
+        for dishIngredient in ingredients as! Set<DishIngredient> {
+            sum += dishIngredient.multiplier.floatValue * dishIngredient.ingredient.proteins.floatValue
         }
         return sum
     }
     
     var fat: NSNumber {
-        var sum = 0
-        for ingredient in ingredients as! Set<Ingredient> {
-            sum += ingredient.fat.integerValue
+        var sum: Float = 0
+        for dishIngredient in ingredients as! Set<DishIngredient> {
+            sum += dishIngredient.multiplier.floatValue * dishIngredient.ingredient.fat.floatValue
         }
         return sum
     }
     
     var carbohydrates: NSNumber {
-        var sum = 0
-        for ingredient in ingredients as! Set<Ingredient> {
-            sum += ingredient.carbohydrates.integerValue
+        var sum: Float = 0
+        for dishIngredient in ingredients as! Set<DishIngredient> {
+            sum += dishIngredient.multiplier.floatValue * dishIngredient.ingredient.carbohydrates.floatValue
         }
         return sum
     }
