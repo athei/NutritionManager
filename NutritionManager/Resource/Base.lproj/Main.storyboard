@@ -180,11 +180,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="083-5a-SrQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="116" height="116"/>
+                                            <rect key="frame" x="2" y="2" width="112" height="112"/>
                                             <animations/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1m-Ng-s9x">
-                                            <rect key="frame" x="42" y="87" width="33" height="21"/>
+                                            <rect key="frame" x="42" y="85" width="33" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -195,13 +195,14 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Q1m-Ng-s9x" firstAttribute="bottom" secondItem="083-5a-SrQ" secondAttribute="bottomMargin" id="0nB-Lq-eVh"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="centerX" secondItem="VQl-ZJ-2su" secondAttribute="centerX" id="2tT-YZ-ae0"/>
-                                    <constraint firstItem="083-5a-SrQ" firstAttribute="top" secondItem="VQl-ZJ-2su" secondAttribute="top" id="BdD-vD-LGT"/>
+                                    <constraint firstItem="083-5a-SrQ" firstAttribute="top" secondItem="VQl-ZJ-2su" secondAttribute="top" constant="2" id="BdD-vD-LGT"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="centerY" secondItem="VQl-ZJ-2su" secondAttribute="centerY" id="O0Y-bM-c8i"/>
                                     <constraint firstItem="Q1m-Ng-s9x" firstAttribute="centerX" secondItem="VQl-ZJ-2su" secondAttribute="centerX" id="Z0R-At-hoI"/>
-                                    <constraint firstItem="083-5a-SrQ" firstAttribute="leading" secondItem="VQl-ZJ-2su" secondAttribute="leading" id="yn1-UQ-UMf"/>
+                                    <constraint firstItem="083-5a-SrQ" firstAttribute="leading" secondItem="VQl-ZJ-2su" secondAttribute="leading" constant="2" id="yn1-UQ-UMf"/>
                                 </constraints>
                                 <size key="customSize" width="116" height="116"/>
                                 <connections>

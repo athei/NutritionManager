@@ -99,11 +99,21 @@ class Database {
         dreieier.multiplier = 3
         dreieier.ingredient = ei
         
+        let dreieier2 = DishIngredient(context: moc)
+        dreieier2.multiplier = 3
+        dreieier2.ingredient = ei
+        
         let curryh = Dish(context: moc)
         curryh.name = "Curryhähnchen"
         curryh.directions = "Alles in die Pfanne und gut"
         curryh.ingredients = [dreieier]
         curryh.image = UIImageJPEGRepresentation(UIImage(named: "curryh")!, 0.8)
+        
+        let blub = Dish(context: moc)
+        blub.name = "Blub"
+        blub.directions = "Alles in die Pfanne und gut"
+        blub.ingredients = [dreieier2]
+        blub.image = UIImageJPEGRepresentation(UIImage(named: "curryh")!, 0.8)
         
         try! moc.save()
     }
