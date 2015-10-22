@@ -12,7 +12,6 @@ import CoreData
 class DishCollection: UICollectionViewController, NSFetchedResultsControllerDelegate {
     // MARK: - Private variables
     private let fetchedResultsController: NSFetchedResultsController
-    private var contextMenuPresenting = false
     
     // MARK: - Initializing
     
@@ -88,10 +87,6 @@ class DishCollection: UICollectionViewController, NSFetchedResultsControllerDele
         
         
         return cell
-    }
-    
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
