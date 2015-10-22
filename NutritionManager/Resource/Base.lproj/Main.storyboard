@@ -196,6 +196,7 @@
                                 </view>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="Q1m-Ng-s9x" firstAttribute="bottom" secondItem="083-5a-SrQ" secondAttribute="bottomMargin" id="0nB-Lq-eVh"/>
                                     <constraint firstItem="083-5a-SrQ" firstAttribute="centerX" secondItem="VQl-ZJ-2su" secondAttribute="centerX" id="2tT-YZ-ae0"/>

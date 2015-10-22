@@ -9,9 +9,10 @@
 import UIKit
 import CoreData
 
-class DishCollection: UICollectionViewController {
+class DishCollection: UICollectionViewController, NSFetchedResultsControllerDelegate {
     // MARK: - Private variables
     private let fetchedResultsController: NSFetchedResultsController
+    private var contextMenuPresenting = false
     
     // MARK: - Initializing
     
@@ -27,6 +28,8 @@ class DishCollection: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchedResultsController.delegate = self
     }
     
     // MARK: - Navigation
@@ -43,6 +46,27 @@ class DishCollection: UICollectionViewController {
         }
     }
     
+    // MARK: - Actions
+    
+    @IBAction func dishLongTap(sender: UILongPressGestureRecognizer) {
+        if (presentedViewController != nil) {
+            return
+        }
+        
+        let dish = (sender.view as! DishCell).dish!
+        
+        let deleteButton = UIAlertAction(title: "Delete", style: .Destructive) { (UIAlertAction) -> Void in
+            Database.get().moc.deleteObject(dish)
+            try! Database.get().moc.save()
+        }
+        let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        let sheet = UIAlertController(title: dish.name, message: nil, preferredStyle: .ActionSheet)
+        sheet.addAction(deleteButton)
+        sheet.addAction(cancelButton)
+        presentViewController(sheet, animated: true, completion: nil)
+    }
+    
     // MARK: - UICollectionViewDelegate
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -57,18 +81,39 @@ class DishCollection: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("dish", forIndexPath: indexPath) as! DishCell
         let dish = fetchedResultsController.objectAtIndexPath(indexPath) as! Dish
         
-        cell.dishName.text = dish.name
-        if let imgData = dish.image {
-            cell.dishImage.image = UIImage(data: imgData)
-        } else {
-            cell.dishImage.image = UIImage(named: "placeholder")
+        cell.dish = dish
+        if (cell.contextMenuGestureRecognizer == nil) {
+            cell.contextMenuGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "dishLongTap:")
         }
+        
         
         return cell
     }
     
     override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
+    }
+    
+    // MARK: - NSFetchedResultsControllerDelegate
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Move:
+            collectionView?.performBatchUpdates({ () -> Void in
+                self.collectionView?.deleteItemsAtIndexPaths([indexPath!])
+                self.collectionView?.insertItemsAtIndexPaths([newIndexPath!])
+                }, completion: nil)
+            break
+        case .Delete:
+            collectionView?.deleteItemsAtIndexPaths([indexPath!])
+            break
+        case .Update:
+            collectionView?.reloadItemsAtIndexPaths([indexPath!])
+            break
+        case .Insert:
+            collectionView?.insertItemsAtIndexPaths([indexPath!])
+            break
+        }
     }
 }
 
