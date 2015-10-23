@@ -9,8 +9,9 @@
 import UIKit
 import CoreData
 
-class DishCollection: UICollectionViewController, NSFetchedResultsControllerDelegate {
+class DishCollection: UICollectionViewController, NSFetchedResultsControllerDelegate, UICollectionViewDelegateFlowLayout {
     // MARK: - Private variables
+    
     private let fetchedResultsController: NSFetchedResultsController
     
     // MARK: - Initializing
@@ -29,7 +30,19 @@ class DishCollection: UICollectionViewController, NSFetchedResultsControllerDele
         super.viewDidLoad()
         
         fetchedResultsController.delegate = self
+        let layout = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.minimumInteritemSpacing = 0.0
+        layout.minimumLineSpacing = 0.0
+        adjustCellsToViewSize(view.bounds.size)
     }
+    
+    // MARK: - View lifecycle
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        adjustCellsToViewSize(size)
+    }
+    
     
     // MARK: - Navigation
     
@@ -66,7 +79,7 @@ class DishCollection: UICollectionViewController, NSFetchedResultsControllerDele
         presentViewController(sheet, animated: true, completion: nil)
     }
     
-    // MARK: - UICollectionViewDelegate
+    // MARK: - UICollectionViewDataSource
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return fetchedResultsController.sections!.count
@@ -84,7 +97,6 @@ class DishCollection: UICollectionViewController, NSFetchedResultsControllerDele
         if (cell.contextMenuGestureRecognizer == nil) {
             cell.contextMenuGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "dishLongTap:")
         }
-        
         
         return cell
     }
@@ -109,6 +121,14 @@ class DishCollection: UICollectionViewController, NSFetchedResultsControllerDele
             collectionView?.insertItemsAtIndexPaths([indexPath!])
             break
         }
+    }
+    
+    // MARK: - Private helpers
+    
+    private func adjustCellsToViewSize(size: CGSize) {
+        let layout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellSize =  size.width / 3
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
     }
 }
 
