@@ -27,6 +27,22 @@ class Database {
         moc = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         moc.persistentStoreCoordinator = coordinator
         
+        // when loading the store failed it is probably because of schema change
+        // we delete the data and try again
+        var tries = 0;
+        repeat {
+            do {
+                try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: Pathes.databaseURL(), options: nil)
+                break;
+            }
+            catch {
+                try! coordinator.destroyPersistentStoreAtURL(Pathes.databaseURL(), withType: NSSQLiteStoreType, options: nil)
+                tries += 1;
+            }
+        } while(tries < 2)
+        
+        assert(coordinator.persistentStores.count == 1, "Adding persistent store failed")
+        
         if (DEVMODE) {
             try! coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
             insertTestData()
