@@ -41,7 +41,7 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
         super.setEditing(editing, animated: animated)
         
         if (editing) {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "newCategory:")
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(CategoryList.newCategory(_:)))
         } else {
             navigationItem.leftBarButtonItem = nil
         }
@@ -140,7 +140,8 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
         fetchedResultsController.delegate = nil
         var i = 0
         for cat in categories {
-            cat.order = i++
+            cat.order = i
+            i += 1
         }
         try! Database.get().moc.save()
         fetchedResultsController.delegate = self

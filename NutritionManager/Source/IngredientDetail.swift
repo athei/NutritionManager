@@ -229,7 +229,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         // show control to show/close master view on iPad/iPhone+
         // hide when editing
         if (editing) {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "cancelEditing")
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: #selector(IngredientDetail.cancelEditing))
             navigationItem.leftItemsSupplementBackButton = false
         } else {
             navigationItem.leftItemsSupplementBackButton = true

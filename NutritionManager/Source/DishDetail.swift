@@ -161,7 +161,7 @@ class DishDetail: UITableViewController, UITextFieldDelegate, DishCollectionProt
         // show control to show/close master view on iPad/iPhone+
         // hide when editing
         if (editing) {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "cancelEditing")
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: #selector(DishDetail.cancelEditing))
         } else {
             navigationItem.leftBarButtonItem = nil
         }

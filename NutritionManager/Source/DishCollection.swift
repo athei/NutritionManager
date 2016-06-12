@@ -95,7 +95,7 @@ class DishCollection: UICollectionViewController, NSFetchedResultsControllerDele
         
         cell.dish = dish
         if (cell.contextMenuGestureRecognizer == nil) {
-            cell.contextMenuGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "dishLongTap:")
+            cell.contextMenuGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(DishCollection.dishLongTap(_:)))
         }
         
         return cell
