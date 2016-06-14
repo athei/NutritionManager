@@ -14,22 +14,22 @@ class Category: NSManagedObject, Insertable {
     
     // MARK: - Initializing
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
     
     required convenience init(context: NSManagedObjectContext) {
-        self.init(entity: NSEntityDescription.entityForName("Category", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
+        self.init(entity: NSEntityDescription.entity(forEntityName: "Category", in: context)!, insertInto: context)
     }
     
     // MARK: - Enums
     
-    enum ValidationError: ErrorType, CustomStringConvertible {
-        case Name
+    enum ValidationError: ErrorProtocol, CustomStringConvertible {
+        case name
         
         var description: String  {
             switch (self) {
-            case .Name:
+            case .name:
                 return "Name must be between 1 and 50 characters"
             }
         }
@@ -37,12 +37,12 @@ class Category: NSManagedObject, Insertable {
     
     // MARK: - Validation
     
-    static func checkName(name: String?) throws -> String {
+    static func checkName(_ name: String?) throws -> String {
         guard let value = name else {
-            throw ValidationError.Name
+            throw ValidationError.name
         }
         guard 1...100 ~= value.characters.count else {
-            throw ValidationError.Name
+            throw ValidationError.name
         }
         return value
     }
@@ -50,16 +50,16 @@ class Category: NSManagedObject, Insertable {
     // MARK: - Static Helper
     
     static func nextOrderNumber() throws -> Int {
-        let fetchRequest = NSFetchRequest(entityName: "Category")
-        let sortDescriptor = NSSortDescriptor(key: "order", ascending: false)
+        let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+        let sortDescriptor = SortDescriptor(key: "order", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = 1
         
-        let categories =  try Database.get().moc.executeFetchRequest(fetchRequest) as! [Category]
+        let categories =  try Database.get().moc.fetch(fetchRequest) 
         if (categories.count == 0) {
             return 0
         } else {
-            return categories[0].order.integerValue + 1
+            return categories[0].order.intValue + 1
         }
     }
 

@@ -9,15 +9,15 @@
 import Foundation
 
 class Pathes {
-    static func documentURL() -> NSURL {
-        return NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.LibraryDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask)[0]
+    static func documentURL() -> URL {
+        return FileManager.default().urlsForDirectory(FileManager.SearchPathDirectory.libraryDirectory, inDomains: FileManager.SearchPathDomainMask.userDomainMask)[0]
     }
     
-    static func databaseURL() -> NSURL {
-        return documentURL().URLByAppendingPathComponent("database.sqlite")
+    static func databaseURL() -> URL {
+        return try! documentURL().appendingPathComponent("database.sqlite")
     }
     
-    static func modelURL() -> NSURL? {
-        return NSBundle.mainBundle().URLForResource("model", withExtension: "momd")
+    static func modelURL() -> URL? {
+        return Bundle.main().urlForResource("model", withExtension: "momd")
     }
 }

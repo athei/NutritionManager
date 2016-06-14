@@ -13,17 +13,17 @@ class Dish: NSManagedObject, Insertable {
     
     // MARK: - Enums
     
-    enum ValidationError: ErrorType, CustomStringConvertible {
+    enum ValidationError: ErrorProtocol, CustomStringConvertible {
         enum NameValidationError {
-            case Invalid, NotUnique
+            case invalid, notUnique
         }
-        case Name(NameValidationError)
+        case name(NameValidationError)
         
         var description: String  {
             switch (self) {
-            case .Name(.Invalid):
+            case .name(.invalid):
                 return "Name must be between 1 and 100 characters"
-            case .Name(.NotUnique):
+            case .name(.notUnique):
                 return "Name must be unique"
             }
         }
@@ -65,44 +65,44 @@ class Dish: NSManagedObject, Insertable {
 
     // MARK: - Initializing
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
     
     required convenience init(context: NSManagedObjectContext) {
-        self.init(entity: NSEntityDescription.entityForName("Dish", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
+        self.init(entity: NSEntityDescription.entity(forEntityName: "Dish", in: context)!, insertInto: context)
     }
     
     // MARK: - Unit Conversion
     
-    func formattedEnergy(withUnit withUnit: Bool, to: Units.Energy?) -> String {
+    func formattedEnergy(withUnit: Bool, to: Units.Energy?) -> String {
         let dest = Units.choosenUnitOrDefault(to)
         return Units.formattedEnergy(energyInKcal: energy, to: dest, withUnit: withUnit)
     }
     
-    func formattedProteins(withUnit withUnit: Bool, to: Units.Mass?) -> String {
+    func formattedProteins(withUnit: Bool, to: Units.Mass?) -> String {
         let dest = Units.choosenUnitOrDefault(to)
         return Units.formattedMass(massInGram: proteins, to: dest, withUnit: withUnit)
     }
     
-    func formattedFat(withUnit withUnit: Bool, to: Units.Mass?) -> String {
+    func formattedFat(withUnit: Bool, to: Units.Mass?) -> String {
         let dest = Units.choosenUnitOrDefault(to)
         return Units.formattedMass(massInGram: fat, to: dest, withUnit: withUnit)
     }
     
-    func formattedCarbohydrates(withUnit withUnit: Bool, to: Units.Mass?) -> String {
+    func formattedCarbohydrates(withUnit: Bool, to: Units.Mass?) -> String {
         let dest = Units.choosenUnitOrDefault(to)
         return Units.formattedMass(massInGram: carbohydrates, to: dest, withUnit: withUnit)
     }
     
     // MARK: - Validation
     
-    static func checkName(name: String?) throws -> String {
+    static func checkName(_ name: String?) throws -> String {
         guard let value = name else {
-            throw ValidationError.Name(.Invalid)
+            throw ValidationError.name(.invalid)
         }
         guard 1...100 ~= value.characters.count else {
-            throw ValidationError.Name(.Invalid)
+            throw ValidationError.name(.invalid)
         }
         return value
     }
@@ -117,7 +117,7 @@ extension Dish {
     @NSManaged var name: String
     @NSManaged var directions: String
     @NSManaged var ingredients: NSSet
-    @NSManaged var image: NSData?
+    @NSManaged var image: Data?
     
 }
 

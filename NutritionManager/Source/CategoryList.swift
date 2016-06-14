@@ -14,13 +14,13 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     weak var delegate: CategoryListProtocol?
     
     // MARK: - Private variables
-    private let fetchedResultsController: NSFetchedResultsController
+    private let fetchedResultsController: NSFetchedResultsController<Category>
     
     // MARK: - Initializing
     
     required init?(coder aDecoder: NSCoder) {
-        let fetchRequest = NSFetchRequest(entityName: "Category")
-        let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
+        let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+        let sortDescriptor = SortDescriptor(key: "order", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: Database.get().moc, sectionNameKeyPath: nil, cacheName: nil)
         try! fetchedResultsController.performFetch()
@@ -37,11 +37,11 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     
     // MARK: - Editing
     
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
         if (editing) {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(CategoryList.newCategory(_:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(CategoryList.newCategory(_:)))
         } else {
             navigationItem.leftBarButtonItem = nil
         }
@@ -50,11 +50,11 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     
     // MARK: - Actions
     
-    @IBAction func newCategory(sender: UIButton) {
+    @IBAction func newCategory(_ sender: UIButton) {
         presentCategoryNameInputAlert("New Category", message: nil, modifyCategory: nil, withInputHandler: categoryAlertDidSave)
     }
     
-    func categoryAlertDidSave(fieldValue: String?, editedCategory: Category?) {
+    func categoryAlertDidSave(_ fieldValue: String?, editedCategory: Category?) {
         do {
             let name = try Category.checkName(fieldValue)
             
@@ -76,64 +76,64 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     
     // MARK: - UITableViewDelegate
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return (fetchedResultsController.sections?.count)!
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (fetchedResultsController.sections?[section].numberOfObjects)!
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Category", forIndexPath: indexPath)
-        let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Category", for: indexPath)
+        let category = fetchedResultsController.object(at: indexPath) 
         cell.textLabel!.text = category.name
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        delegate?.categoryList(self, didSelectCategory: fetchedResultsController.objectAtIndexPath(indexPath) as! Category)
-        self.navigationController?.popViewControllerAnimated(true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.categoryList(self, didSelectCategory: fetchedResultsController.object(at: indexPath))
+        self.navigationController?.popViewController(animated: true)
     }
     
-    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        let category = fetchedResultsController.object(at: indexPath) 
         presentCategoryNameInputAlert("Edit Category", message: nil, modifyCategory: category, withInputHandler: categoryAlertDidSave)
     }
     
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        let category = fetchedResultsController.object(at: indexPath) 
         if (category.ingredients.count > 0) {
-            return .None
+            return .none
         } else {
-            return .Delete
+            return .delete
         }
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
-            Database.get().moc.deleteObject(category)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let category = fetchedResultsController.object(at: indexPath) 
+            Database.get().moc.delete(category)
             try! Database.get().moc.save()
         }
     }
     
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
         // let a array do the index calculations for the reordering
-        var categories = fetchedResultsController.fetchedObjects as! [Category]
-        let category = fetchedResultsController.objectAtIndexPath(fromIndexPath) as! Category
-        categories.removeAtIndex(fromIndexPath.row)
-        categories.insert(category, atIndex: toIndexPath.row)
+        var categories = fetchedResultsController.fetchedObjects!
+        let category = fetchedResultsController.object(at: fromIndexPath)
+        categories.remove(at: (fromIndexPath as NSIndexPath).row)
+        categories.insert(category, at: (toIndexPath as NSIndexPath).row)
         
         // save the calculated indizes to coredata
         // we need to deactivate change tracking (the ui handles the changes itself)
@@ -150,21 +150,21 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     
     // MARK: - NSFetchedResultsControllerDelegate
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: AnyObject, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
-        case .Move:
+        case .move:
             tableView.beginUpdates()
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
             tableView.endUpdates()
-        case .Delete:
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
             break
-        case .Update:
-            tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .automatic)
             break
-        case .Insert:
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
             break
         }
     }
@@ -172,29 +172,29 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     
     // MARK: - Private helper
     
-    private func presentCategoryNameInputAlert(title: String?, message: String?, modifyCategory category: Category?, withInputHandler handler: (String?, Category?) -> Void) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        let okayButton = UIAlertAction(title: "Save", style: .Default) { (UIAlertAction) -> Void in
+    private func presentCategoryNameInputAlert(_ title: String?, message: String?, modifyCategory category: Category?, withInputHandler handler: (String?, Category?) -> Void) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let okayButton = UIAlertAction(title: "Save", style: .default) { (UIAlertAction) -> Void in
             handler(alert.textFields![0].text, category)
         }
         alert.addAction(cancelButton)
         alert.addAction(okayButton)
         alert.preferredAction = okayButton
-        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+        alert.addTextField { (textField) -> Void in
             textField.placeholder = "Enter name of the Category"
             if let category = category {
                 textField.text = category.name
             }
         }
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }
 
 // MARK: - Protocols
 
 protocol CategoryListProtocol: class {
-    func categoryList(categoryList: CategoryList, didSelectCategory category: Category)
-    func categoryList(categoryList: CategoryList, didChangeCategory category: Category)
+    func categoryList(_ categoryList: CategoryList, didSelectCategory category: Category)
+    func categoryList(_ categoryList: CategoryList, didChangeCategory category: Category)
     
 }

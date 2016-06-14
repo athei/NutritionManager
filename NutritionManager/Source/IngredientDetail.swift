@@ -41,12 +41,12 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         // load the values from the model to the view
         // and set the controls to the appropriate mode (editing vs inspecting)
         super.setEditing(isNewIngredient(), animated: false)
-        setControlsEditing(editing)
+        setControlsEditing(isEditing)
     }
     
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         switch (segue.identifier!) {
         case "CategoryPicker":
             let categoryPicker = segue.destinationViewController as! CategoryList
@@ -63,10 +63,10 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        setContraintsEditing(editing)
+        setContraintsEditing(isEditing)
     }
     
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         // end editing mode -> save changes or new entity
         if (!editing) {
             var temporaryContext: NSManagedObjectContext? // used to store a temporary entity while validating
@@ -92,7 +92,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
                 if (isNewIngredient()) {
                     // since we are using a childcontext we can't use a category
                     // object from the parent context
-                    ingredient.category = temporaryContext!.objectWithID(category.objectID) as! Category
+                    ingredient.category = temporaryContext!.object(with: category.objectID) as! Category
                     try! temporaryContext!.save()
                 } else {
                     ingredient.category = category
@@ -102,7 +102,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
                 
                 // all ok
                 if (isNewIngredient()) {
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 }
             } catch {
                 print(error) // TODO: show error to user
@@ -122,7 +122,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     
     func cancelEditing() {
         if (isNewIngredient()) {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         } else {
             super.setEditing(false, animated: true)
             transitToEditing(false, animated: true)
@@ -132,19 +132,19 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     
     // MARK: - UITableViewDelegate
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
     // we only allow highlight and select of the category cell when editingmode is on
     
-    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return editing
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return isEditing
     }
     
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         
-        if (editing) {
+        if (isEditing) {
             return indexPath
         } else {
             return nil
@@ -154,8 +154,8 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     
     // MARK: - UITextFieldDelegate
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        let newString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
         // always allow the user to backspace the whole field
         if (newString.characters.count == 0) {
@@ -191,7 +191,7 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     
     // MARK: - IngredientDetailViewProtocol
     
-    func ingredientSelected(ingredient: Ingredient) {
+    func ingredientSelected(_ ingredient: Ingredient) {
         navigationItem.title = ingredient.name
         presentingIngredient = ingredient
         selectedCategory = ingredient.category
@@ -200,12 +200,12 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     
     // MARK: - CategoryListProtocol
     
-    func categoryList(categoryList: CategoryList, didSelectCategory category: Category) {
+    func categoryList(_ categoryList: CategoryList, didSelectCategory category: Category) {
         selectedCategory = category
         categoryCell.textLabel?.text = category.name
     }
     
-    func categoryList(categoryList: CategoryList, didChangeCategory category: Category) {
+    func categoryList(_ categoryList: CategoryList, didChangeCategory category: Category) {
         if (selectedCategory == category) {
             categoryCell.textLabel?.text = category.name
         }
@@ -213,10 +213,10 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
     
     // MARK: - Private Helper
     
-    private func transitToEditing(editing: Bool, animated: Bool) {
+    private func transitToEditing(_ editing: Bool, animated: Bool) {
         if (animated) {
             view.layoutIfNeeded()
-            UIView.animateWithDuration(0.4) { () -> Void in
+            UIView.animate(withDuration: 0.4) { () -> Void in
                 self.setControlsEditing(editing)
                 self.view.layoutIfNeeded()
             }
@@ -225,11 +225,11 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         }
     }
     
-    private func setControlsEditing(editing: Bool) {
+    private func setControlsEditing(_ editing: Bool) {
         // show control to show/close master view on iPad/iPhone+
         // hide when editing
         if (editing) {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: #selector(IngredientDetail.cancelEditing))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(IngredientDetail.cancelEditing))
             navigationItem.leftItemsSupplementBackButton = false
         } else {
             navigationItem.leftItemsSupplementBackButton = true
@@ -244,9 +244,9 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
             enableTextField(proteinField)
             enableTextField(fatField)
             enableTextField(carbohydrateField)
-            categoryCell.accessoryType = .DisclosureIndicator
+            categoryCell.accessoryType = .disclosureIndicator
             if (isNewIngredient() || presentingIngredient!.dishes.count == 0) {
-               valueScaleControl.enabled = true
+               valueScaleControl.isEnabled = true
             }
         } else {
             disableTextField(nameField)
@@ -254,36 +254,36 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
             disableTextField(proteinField)
             disableTextField(fatField)
             disableTextField(carbohydrateField)
-            categoryCell.accessoryType = .None
-            valueScaleControl.enabled = false
+            categoryCell.accessoryType = .none
+            valueScaleControl.isEnabled = false
         }
     }
     
-    private func setContraintsEditing(editing: Bool) {
+    private func setContraintsEditing(_ editing: Bool) {
         // we need to make sure to deakcivate constraints before activating new ones
         if (editing) {
             for constraint in nonEditableConstraints {
-                constraint.active = false
+                constraint.isActive = false
             }
             
             for constraint in editableConstraints {
-                constraint.active = true
+                constraint.isActive = true
             }
         } else {
             for constraint in editableConstraints {
-                constraint.active = false
+                constraint.isActive = false
             }
             
             for constraint in nonEditableConstraints {
-                constraint.active = true
+                constraint.isActive = true
             }
         }
     }
     
-    private func fillControlsWithValues(withUnit withUnit: Bool) {
+    private func fillControlsWithValues(withUnit: Bool) {
         if let ingredient = presentingIngredient {
             if let imgData = ingredient.image {
-                imageView.image = UIImage(data: imgData)
+                imageView.image = UIImage(data: imgData as Data)
             } else {
                 imageView.image = UIImage(named: "placeholder")
             }
@@ -299,14 +299,14 @@ class IngredientDetail: UITableViewController, UITextFieldDelegate, IngredientLi
         }
     }
     
-    private func enableTextField(field: UITextField) {
-        field.borderStyle = UITextBorderStyle.RoundedRect
-        field.enabled = true
+    private func enableTextField(_ field: UITextField) {
+        field.borderStyle = UITextBorderStyle.roundedRect
+        field.isEnabled = true
     }
     
-    private func disableTextField(field: UITextField) {
-        field.borderStyle = UITextBorderStyle.None
-        field.enabled = false
+    private func disableTextField(_ field: UITextField) {
+        field.borderStyle = UITextBorderStyle.none
+        field.isEnabled = false
     }
     
     private func isNewIngredient() -> Bool {

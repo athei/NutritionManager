@@ -11,14 +11,14 @@ import CoreData
 
 class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFetchedResultsControllerDelegate {
     // MARK: - Private variables
-    private let fetchedResultsController: NSFetchedResultsController
+    private let fetchedResultsController: NSFetchedResultsController<Ingredient>
     
     
     // MARK: - Initializing
     
     required init?(coder aDecoder: NSCoder) {
-        let fetchRequest = NSFetchRequest(entityName: "Ingredient")
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        let fetchRequest = NSFetchRequest<Ingredient>(entityName: "Ingredient")
+        let sortDescriptor = SortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: Database.get().moc, sectionNameKeyPath: nil, cacheName: nil)
         try! fetchedResultsController.performFetch()
@@ -31,32 +31,32 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         
         fetchedResultsController.delegate = self
         splitViewController?.delegate = self;
-        splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.AllVisible
+        splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
         navigationItem.rightBarButtonItem = editButtonItem()
     }
     
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "ingredientDetail") {
             let navi = segue.destinationViewController as! UINavigationController
             let destination = navi.viewControllers.first as! IngredientListProtocol
-            let ingredient = fetchedResultsController.objectAtIndexPath(tableView.indexPathForSelectedRow!) as! Ingredient
+            let ingredient = fetchedResultsController.object(at: tableView.indexPathForSelectedRow!) 
             destination.ingredientSelected(ingredient)
         }
     }
     
     // MARK: - Editing
     
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
     }
     
     // MARK: - UITableViewDelegate
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Ingredient", forIndexPath: indexPath) as! IngredientCell
-        let ingredient = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Ingredient", for: indexPath) as! IngredientCell
+        let ingredient = fetchedResultsController.object(at: indexPath) 
         cell.ingredientName.text = ingredient.name
         cell.ingredientEnergy.text = ingredient.formattedEnergy(withUnit: true, to: nil)
         if let imgData = ingredient.image {
@@ -68,54 +68,54 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
         return cell;
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return (fetchedResultsController.sections?.count)!
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (fetchedResultsController.sections?[section].numberOfObjects)!
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         
-        let ingredient = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
+        let ingredient = fetchedResultsController.object(at: indexPath) 
         
         if (ingredient.dishes.count > 0) {
-            return .None
+            return .none
         } else {
-           return .Delete
+           return .delete
         }
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            let ingredient = fetchedResultsController.objectAtIndexPath(indexPath) as! Ingredient
-            Database.get().moc.deleteObject(ingredient)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let ingredient = fetchedResultsController.object(at: indexPath) 
+            Database.get().moc.delete(ingredient)
             try! Database.get().moc.save()
         }
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: AnyObject, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
-        case .Move:
+        case .move:
             tableView.beginUpdates()
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
             tableView.endUpdates()
-        case .Delete:
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
             break
-        case .Update:
-            tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .automatic)
             break
-        case .Insert:
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
             break
         }
     }
@@ -123,7 +123,7 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
     
     // MARK: - UISplitViewControllerDelegate
     
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return tableView.indexPathForSelectedRow == nil
     }
 }
@@ -131,5 +131,5 @@ class IngredientList: UITableViewController, UISplitViewControllerDelegate, NSFe
 // MARK: - Protocols
 
 protocol IngredientListProtocol: class {
-    func ingredientSelected(ingredient: Ingredient)
+    func ingredientSelected(_ ingredient: Ingredient)
 }

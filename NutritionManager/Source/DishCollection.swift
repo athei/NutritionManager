@@ -12,13 +12,13 @@ import CoreData
 class DishCollection: UICollectionViewController, NSFetchedResultsControllerDelegate, UICollectionViewDelegateFlowLayout {
     // MARK: - Private variables
     
-    private let fetchedResultsController: NSFetchedResultsController
+    private let fetchedResultsController: NSFetchedResultsController<Dish>
     
     // MARK: - Initializing
     
     required init?(coder aDecoder: NSCoder) {
-        let fetchRequest = NSFetchRequest(entityName: "Dish")
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        let fetchRequest = NSFetchRequest<Dish>(entityName: "Dish")
+        let sortDescriptor = SortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: Database.get().moc, sectionNameKeyPath: nil, cacheName: nil)
         try! fetchedResultsController.performFetch()
@@ -38,60 +38,60 @@ class DishCollection: UICollectionViewController, NSFetchedResultsControllerDele
     
     // MARK: - View lifecycle
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         adjustCellsToViewSize(size)
     }
     
     
     // MARK: - Navigation
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        return !editing
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: AnyObject?) -> Bool {
+        return !isEditing
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "dishDetail") {
             let dishDetail = segue.destinationViewController as! DishCollectionProtocol
-            let dish = fetchedResultsController.objectAtIndexPath(collectionView!.indexPathsForSelectedItems()![0]) as! Dish
+            let dish = fetchedResultsController.object(at: collectionView!.indexPathsForSelectedItems()![0]) 
             dishDetail.dishSelected(dish)
         }
     }
     
     // MARK: - Actions
     
-    @IBAction func dishLongTap(sender: UILongPressGestureRecognizer) {
+    @IBAction func dishLongTap(_ sender: UILongPressGestureRecognizer) {
         if (presentedViewController != nil) {
             return
         }
         
         let dish = (sender.view as! DishCell).dish!
         
-        let deleteButton = UIAlertAction(title: "Delete", style: .Destructive) { (UIAlertAction) -> Void in
-            Database.get().moc.deleteObject(dish)
+        let deleteButton = UIAlertAction(title: "Delete", style: .destructive) { (UIAlertAction) -> Void in
+            Database.get().moc.delete(dish)
             try! Database.get().moc.save()
         }
-        let cancelButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-        let sheet = UIAlertController(title: dish.name, message: nil, preferredStyle: .ActionSheet)
+        let sheet = UIAlertController(title: dish.name, message: nil, preferredStyle: .actionSheet)
         sheet.addAction(deleteButton)
         sheet.addAction(cancelButton)
-        presentViewController(sheet, animated: true, completion: nil)
+        present(sheet, animated: true, completion: nil)
     }
     
     // MARK: - UICollectionViewDataSource
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return fetchedResultsController.sections!.count
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return fetchedResultsController.sections![section].numberOfObjects
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("dish", forIndexPath: indexPath) as! DishCell
-        let dish = fetchedResultsController.objectAtIndexPath(indexPath) as! Dish
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dish", for: indexPath) as! DishCell
+        let dish = fetchedResultsController.object(at: indexPath) 
         
         cell.dish = dish
         if (cell.contextMenuGestureRecognizer == nil) {
@@ -103,29 +103,29 @@ class DishCollection: UICollectionViewController, NSFetchedResultsControllerDele
     
     // MARK: - NSFetchedResultsControllerDelegate
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: AnyObject, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
-        case .Move:
+        case .move:
             collectionView?.performBatchUpdates({ () -> Void in
-                self.collectionView?.deleteItemsAtIndexPaths([indexPath!])
-                self.collectionView?.insertItemsAtIndexPaths([newIndexPath!])
+                self.collectionView?.deleteItems(at: [indexPath!])
+                self.collectionView?.insertItems(at: [newIndexPath!])
                 }, completion: nil)
             break
-        case .Delete:
-            collectionView?.deleteItemsAtIndexPaths([indexPath!])
+        case .delete:
+            collectionView?.deleteItems(at: [indexPath!])
             break
-        case .Update:
-            collectionView?.reloadItemsAtIndexPaths([indexPath!])
+        case .update:
+            collectionView?.reloadItems(at: [indexPath!])
             break
-        case .Insert:
-            collectionView?.insertItemsAtIndexPaths([indexPath!])
+        case .insert:
+            collectionView?.insertItems(at: [indexPath!])
             break
         }
     }
     
     // MARK: - Private helpers
     
-    private func adjustCellsToViewSize(size: CGSize) {
+    private func adjustCellsToViewSize(_ size: CGSize) {
         let layout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
         let cellSize =  size.width / 3
         layout.itemSize = CGSize(width: cellSize, height: cellSize)
@@ -135,5 +135,5 @@ class DishCollection: UICollectionViewController, NSFetchedResultsControllerDele
 // MARK: - Protocols
 
 protocol DishCollectionProtocol: class {
-    func dishSelected(dish: Dish)
+    func dishSelected(_ dish: Dish)
 }

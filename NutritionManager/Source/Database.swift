@@ -22,9 +22,9 @@ class Database {
     // MARK: - Initializing
     
     private init() {
-        let model = NSManagedObjectModel(contentsOfURL: Pathes.modelURL()!)!
+        let model = NSManagedObjectModel(contentsOf: Pathes.modelURL()! as URL)!
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel:model)
-        moc = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         moc.persistentStoreCoordinator = coordinator
         
         // when loading the store failed it is probably because of schema change
@@ -32,11 +32,11 @@ class Database {
         var tries = 0;
         repeat {
             do {
-                try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: Pathes.databaseURL(), options: nil)
+                try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: Pathes.databaseURL() as URL, options: nil)
                 break;
             }
             catch {
-                try! coordinator.destroyPersistentStoreAtURL(Pathes.databaseURL(), withType: NSSQLiteStoreType, options: nil)
+                try! coordinator.destroyPersistentStore(at: Pathes.databaseURL() as URL, ofType: NSSQLiteStoreType, options: nil)
                 tries += 1;
             }
         } while(tries < 2)
@@ -44,10 +44,10 @@ class Database {
         assert(coordinator.persistentStores.count == 1, "Adding persistent store failed")
         
         if (DEVMODE) {
-            try! coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
+            try! coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
             insertTestData()
         } else {
-            try! coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: Pathes.databaseURL(), options: nil)
+            try! coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: Pathes.databaseURL() as URL, options: nil)
         }
         
     }
@@ -59,18 +59,18 @@ class Database {
     // MARK: - Public functions
     
     func createMainQueueChild() -> NSManagedObjectContext {
-        return createChildContextOfType(.MainQueueConcurrencyType)
+        return createChildContextOfType(.mainQueueConcurrencyType)
     }
     
     func createPrivateQueueChild() -> NSManagedObjectContext {
-        return createChildContextOfType(.PrivateQueueConcurrencyType)
+        return createChildContextOfType(.privateQueueConcurrencyType)
     }
     
     // MARK: - Private functions
     
-    private func createChildContextOfType(type: NSManagedObjectContextConcurrencyType) -> NSManagedObjectContext {
+    private func createChildContextOfType(_ type: NSManagedObjectContextConcurrencyType) -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: type)
-        context.parentContext = moc
+        context.parent = moc
         return context
     }
     
@@ -82,7 +82,7 @@ class Database {
         ei.proteins = 11.9
         ei.fat = 9.3
         ei.carbohydrates = 1.5
-        ei.valueScale = .Unit
+        ei.valueScale = .unit
         ei.image = UIImageJPEGRepresentation(UIImage(named: "egg")!, 0.8)
         
         quark.name = "Quark (40%)"
@@ -90,7 +90,7 @@ class Database {
         quark.proteins = 11.1
         quark.fat = 11.4
         quark.carbohydrates = 2.6
-        quark.valueScale = .Mass
+        quark.valueScale = .mass
         quark.image = UIImageJPEGRepresentation(UIImage(named: "quark")!, 0.8)
         
         var cat = Category(context: moc)

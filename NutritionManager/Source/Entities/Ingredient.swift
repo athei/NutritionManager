@@ -14,44 +14,44 @@ class Ingredient: NSManagedObject, Insertable {
     
     // MARK: - Initializing
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
     
     required convenience init(context: NSManagedObjectContext) {
-        self.init(entity: NSEntityDescription.entityForName("Ingredient", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
+        self.init(entity: NSEntityDescription.entity(forEntityName: "Ingredient", in: context)!, insertInto: context)
     }
     
     // MARK: - Enums
     enum ValueScale: Int {
-        case Mass = 0
-        case Volume = 1
-        case Unit = 2
+        case mass = 0
+        case volume = 1
+        case unit = 2
     }
     
-    enum ValidationError: ErrorType, CustomStringConvertible {
+    enum ValidationError: ErrorProtocol, CustomStringConvertible {
         enum NameValidationError {
-            case Invalid, NotUnique
+            case invalid, notUnique
         }
-        case Name(NameValidationError), Energy, ValueScale, Proteins, Fat, Carbohydrates, Category
+        case name(NameValidationError), energy, valueScale, proteins, fat, carbohydrates, category
         
         var description: String  {
             switch (self) {
-            case .Name(.Invalid):
+            case .name(.invalid):
                 return "Name must be between 1 and 100 characters"
-            case .Name(.NotUnique):
+            case .name(.notUnique):
                 return "Name must be unique"
-            case .Energy:
+            case .energy:
                 return "Energy must be an positive integer"
-            case .ValueScale:
+            case .valueScale:
                 return "Value scale out of range (this should not happen)"
-            case .Proteins:
+            case .proteins:
                 return "Proteins must be a decimal number."
-            case .Fat:
+            case .fat:
                 return "Fat must be a decimal number."
-            case .Carbohydrates:
+            case .carbohydrates:
                 return "Carbohydrates must be a decimal number."
-            case .Category:
+            case .category:
                 return "You must select a category."
             }
         }
@@ -61,95 +61,95 @@ class Ingredient: NSManagedObject, Insertable {
     
     var valueScale: ValueScale {
         get {
-            return ValueScale(rawValue: valueScale_.integerValue)!
+            return ValueScale(rawValue: valueScale_.intValue)!
         }
         set {
             valueScale_ = newValue.rawValue
         }
     }
     
-    func formattedEnergy(withUnit withUnit: Bool, to: Units.Energy?) -> String {
+    func formattedEnergy(withUnit: Bool, to: Units.Energy?) -> String {
         let dest = Units.choosenUnitOrDefault(to)
         return Units.formattedEnergy(energyInKcal: energy, to: dest, withUnit: withUnit)
     }
     
-    func formattedProteins(withUnit withUnit: Bool, to: Units.Mass?) -> String {
+    func formattedProteins(withUnit: Bool, to: Units.Mass?) -> String {
         let dest = Units.choosenUnitOrDefault(to)
         return Units.formattedMass(massInGram: proteins, to: dest, withUnit: withUnit)
     }
     
-    func formattedFat(withUnit withUnit: Bool, to: Units.Mass?) -> String {
+    func formattedFat(withUnit: Bool, to: Units.Mass?) -> String {
         let dest = Units.choosenUnitOrDefault(to)
         return Units.formattedMass(massInGram: fat, to: dest, withUnit: withUnit)
     }
     
-    func formattedCarbohydrates(withUnit withUnit: Bool, to: Units.Mass?) -> String {
+    func formattedCarbohydrates(withUnit: Bool, to: Units.Mass?) -> String {
         let dest = Units.choosenUnitOrDefault(to)
         return Units.formattedMass(massInGram: carbohydrates, to: dest, withUnit: withUnit)
     }
     
     // MARK: - Validation
     
-    static func checkName(name: String?) throws -> String {
+    static func checkName(_ name: String?) throws -> String {
         guard let value = name else {
-            throw ValidationError.Name(.Invalid)
+            throw ValidationError.name(.invalid)
         }
         guard 1...100 ~= value.characters.count else {
-            throw ValidationError.Name(.Invalid)
+            throw ValidationError.name(.invalid)
         }
         return value
     }
     
-    static func checkValueScale(valueScale: Int) throws -> ValueScale {
+    static func checkValueScale(_ valueScale: Int) throws -> ValueScale {
         guard let result = ValueScale(rawValue: valueScale) else {
-            throw ValidationError.ValueScale
+            throw ValidationError.valueScale
         }
         return result
     }
     
-    static func checkEnergy(energy: String?) throws -> NSNumber {
+    static func checkEnergy(_ energy: String?) throws -> NSNumber {
         guard let value = energy else {
-            throw ValidationError.Energy
+            throw ValidationError.energy
         }
         guard let number = Units.validateInputEnergy(value) else {
-            throw ValidationError.Energy
+            throw ValidationError.energy
         }
         return number
     }
     
-    static func checkProteins(mass: String?) throws -> NSNumber {
+    static func checkProteins(_ mass: String?) throws -> NSNumber {
         guard let value = mass else {
-            throw ValidationError.Proteins
+            throw ValidationError.proteins
         }
         guard let number = Units.validateInputMass(value) else {
-            throw ValidationError.Proteins
+            throw ValidationError.proteins
         }
         return number
     }
     
-    static func checkFat(mass: String?) throws -> NSNumber {
+    static func checkFat(_ mass: String?) throws -> NSNumber {
         guard let value = mass else {
-            throw ValidationError.Fat
+            throw ValidationError.fat
         }
         guard let number = Units.validateInputMass(value) else {
-            throw ValidationError.Fat
+            throw ValidationError.fat
         }
         return number
     }
     
-    static func checkCarbohydrates(mass: String?) throws -> NSNumber {
+    static func checkCarbohydrates(_ mass: String?) throws -> NSNumber {
         guard let value = mass else {
-            throw ValidationError.Carbohydrates
+            throw ValidationError.carbohydrates
         }
         guard let number = Units.validateInputMass(value) else {
-            throw ValidationError.Carbohydrates
+            throw ValidationError.carbohydrates
         }
         return number
     }
     
-    static func checkCategory(category: Category?) throws -> Category {
+    static func checkCategory(_ category: Category?) throws -> Category {
         guard let cat = category else {
-            throw ValidationError.Category
+            throw ValidationError.category
         }
         return cat
     }
@@ -169,6 +169,6 @@ extension Ingredient {
     @NSManaged private var valueScale_: NSNumber
     @NSManaged var category: Category
     @NSManaged var dishes: NSSet
-    @NSManaged var image: NSData?
+    @NSManaged var image: Data?
     
 }

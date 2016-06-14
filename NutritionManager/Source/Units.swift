@@ -9,24 +9,24 @@
 import Foundation
 
 
-private let massProcessors  = [Units.Mass.Gram: GramProcessor()]
-private let energyProcesors = [Units.Energy.Kcal: KcalProcessor()]
+private let massProcessors  = [Units.Mass.gram: GramProcessor()]
+private let energyProcesors = [Units.Energy.kcal: KcalProcessor()]
 
 // MARK: Units Utility class
 
 class Units {
-    private static let energyNumberFormatter: NSNumberFormatter = {
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .NoStyle
+    private static let energyNumberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
         formatter.usesGroupingSeparator = false
         formatter.allowsFloats = false
-        formatter.maximum = NSNumber(int: Int32.max)
+        formatter.maximum = NSNumber(value: Int32.max)
         return formatter
         }()
     
-    private static let massNumberFormatter: NSNumberFormatter = {
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .DecimalStyle
+    private static let massNumberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
         formatter.usesGroupingSeparator = false
         formatter.usesSignificantDigits = false
         formatter.maximum = 1000000
@@ -35,17 +35,17 @@ class Units {
         }()
     
     enum Mass: Int {
-        case Gram
+        case gram
     }
     enum Energy: Int {
-        case Kcal
+        case kcal
     }
     
     static func formattedMass(massInGram mass: NSNumber, to: Mass, withUnit: Bool) -> String {
         return massProcessors[to]!.formattedMass(massInGram: mass, withUnit: withUnit)
     }
     
-    static func normalizedMass(mass: NSNumber, from: Mass) -> NSNumber {
+    static func normalizedMass(_ mass: NSNumber, from: Mass) -> NSNumber {
         return massProcessors[from]!.normalizedMass(mass)
     }
     
@@ -53,30 +53,30 @@ class Units {
         return energyProcesors[to]!.formattedEnergy(energyInKcal: energy, withUnit: withUnit)
     }
     
-    static func normalizedEnergy(energy: NSNumber, from: Energy) -> NSNumber {
+    static func normalizedEnergy(_ energy: NSNumber, from: Energy) -> NSNumber {
         return energyProcesors[from]!.normalizedEnergy(energy)
     }
     
-    static func validateInputEnergy(input: String) -> NSNumber? {
-        return energyNumberFormatter.numberFromString(input)
+    static func validateInputEnergy(_ input: String) -> NSNumber? {
+        return energyNumberFormatter.number(from: input)
     }
     
-    static func validateInputMass(input: String) -> NSNumber? {
-        return massNumberFormatter.numberFromString(input)
+    static func validateInputMass(_ input: String) -> NSNumber? {
+        return massNumberFormatter.number(from: input)
     }
     
-    static func choosenUnitOrDefault(choosenUnit: Units.Mass?) -> Units.Mass {
+    static func choosenUnitOrDefault(_ choosenUnit: Units.Mass?) -> Units.Mass {
         var dest = choosenUnit
         if (dest == nil) {
-            dest = Units.Mass.Gram
+            dest = Units.Mass.gram
         }
         return dest!
     }
     
-    static func choosenUnitOrDefault(choosenUnit: Units.Energy?) -> Units.Energy {
+    static func choosenUnitOrDefault(_ choosenUnit: Units.Energy?) -> Units.Energy {
         var dest = choosenUnit
         if (dest == nil) {
-            dest = Units.Energy.Kcal
+            dest = Units.Energy.kcal
         }
         return dest!
     }
@@ -88,23 +88,23 @@ class Units {
 
 private protocol MassProcessor {
     func formattedMass(massInGram mass: NSNumber, withUnit: Bool) -> String
-    func normalizedMass(mass: NSNumber) -> NSNumber
+    func normalizedMass(_ mass: NSNumber) -> NSNumber
 }
 
 extension MassProcessor {
-    func formattedNumber(number: NSNumber) -> String {
-        return Units.massNumberFormatter.stringFromNumber(number)!
+    func formattedNumber(_ number: NSNumber) -> String {
+        return Units.massNumberFormatter.string(from: number)!
     }
 }
 
 private protocol EnergyProcessor {
     func formattedEnergy(energyInKcal energy: NSNumber, withUnit: Bool) -> String
-    func normalizedEnergy(energy: NSNumber) -> NSNumber
+    func normalizedEnergy(_ energy: NSNumber) -> NSNumber
 }
 
 extension EnergyProcessor {
-    func formattedNumber(number: NSNumber) -> String {
-        return Units.energyNumberFormatter.stringFromNumber(number)!
+    func formattedNumber(_ number: NSNumber) -> String {
+        return Units.energyNumberFormatter.string(from: number)!
     }
 }
 
@@ -118,7 +118,7 @@ private class GramProcessor: MassProcessor {
             return "\(number)"
         }
     }
-    func normalizedMass(mass: NSNumber) -> NSNumber {
+    func normalizedMass(_ mass: NSNumber) -> NSNumber {
         return mass
     }
 }
@@ -132,7 +132,7 @@ private class KcalProcessor: EnergyProcessor {
             return "\(number)"
         }
     }
-    func normalizedEnergy(energy: NSNumber) -> NSNumber {
+    func normalizedEnergy(_ energy: NSNumber) -> NSNumber {
         return energy
     }
 }

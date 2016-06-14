@@ -28,7 +28,7 @@ class DishCell: UICollectionViewCell {
             if let newDish = dish {
                 dishName.text = newDish.name
                 if let imgData = newDish.image {
-                    dishImage.image = UIImage(data: imgData)
+                    dishImage.image = UIImage(data: imgData as Data)
                 } else {
                     dishImage.image = UIImage(named: "placeholder")
                 }
