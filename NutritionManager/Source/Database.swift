@@ -27,29 +27,27 @@ class Database {
         moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         moc.persistentStoreCoordinator = coordinator
         
-        // when loading the store failed it is probably because of schema change
-        // we delete the data and try again
-        var tries = 0;
-        repeat {
-            do {
-                try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: Pathes.databaseURL() as URL, options: nil)
-                break;
-            }
-            catch {
-                try! coordinator.destroyPersistentStore(at: Pathes.databaseURL() as URL, ofType: NSSQLiteStoreType, options: nil)
-                tries += 1;
-            }
-        } while(tries < 2)
-        
-        assert(coordinator.persistentStores.count == 1, "Adding persistent store failed")
         
         if (DEVMODE) {
             try! coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
             insertTestData()
         } else {
-            try! coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: Pathes.databaseURL() as URL, options: nil)
+            // when loading the store failed it is probably because of schema change
+            // we delete the data and try again
+            var tries = 0;
+            repeat {
+                do {
+                    try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: Pathes.databaseURL() as URL, options: nil)
+                    break;
+                }
+                catch {
+                    try! coordinator.destroyPersistentStore(at: Pathes.databaseURL() as URL, ofType: NSSQLiteStoreType, options: nil)
+                    tries += 1;
+                }
+            } while(tries < 2)
+            
+            assert(coordinator.persistentStores.count == 1, "Adding persistent store failed")
         }
-        
     }
     
     static func get() -> Database {
