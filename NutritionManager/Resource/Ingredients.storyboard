@@ -84,7 +84,7 @@
         <scene sceneID="FLD-Kq-psu">
             <objects>
                 <navigationController title="Master" id="Va7-Dk-LW9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="OAN-zl-HmT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OAN-zl-HmT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -100,7 +100,7 @@
         <scene sceneID="wYm-zb-T95">
             <objects>
                 <navigationController title="SelectedDetail" id="UBq-Pe-F2q" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="y03-U0-hcA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="y03-U0-hcA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
