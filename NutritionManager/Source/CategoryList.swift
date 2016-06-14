@@ -94,7 +94,7 @@ class CategoryList: UITableViewController, NSFetchedResultsControllerDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.categoryList(self, didSelectCategory: fetchedResultsController.object(at: indexPath))
-        self.navigationController?.popViewController(animated: true)
+        let _ = self.navigationController?.popViewController(animated: true)
     }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
