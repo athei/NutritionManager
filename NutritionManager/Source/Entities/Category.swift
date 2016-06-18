@@ -9,18 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(Category)
-class Category: NSManagedObject, Insertable {
-    
-    // MARK: - Initializing
-    
-    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertInto: context)
-    }
-    
-    required convenience init(context: NSManagedObjectContext) {
-        self.init(entity: NSEntityDescription.entity(forEntityName: "Category", in: context)!, insertInto: context)
-    }
+class Category: NSManagedObject {
     
     // MARK: - Enums
     

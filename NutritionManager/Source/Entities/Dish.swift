@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class Dish: NSManagedObject, Insertable {
+class Dish: NSManagedObject {
     
     // MARK: - Enums
     
@@ -61,16 +61,6 @@ class Dish: NSManagedObject, Insertable {
             sum += dishIngredient.multiplier.floatValue * dishIngredient.ingredient.carbohydrates.floatValue
         }
         return sum
-    }
-
-    // MARK: - Initializing
-    
-    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertInto: context)
-    }
-    
-    required convenience init(context: NSManagedObjectContext) {
-        self.init(entity: NSEntityDescription.entity(forEntityName: "Dish", in: context)!, insertInto: context)
     }
     
     // MARK: - Unit Conversion

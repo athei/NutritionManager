@@ -9,17 +9,8 @@
 import Foundation
 import CoreData
 
-class DishIngredient: NSManagedObject, Insertable {
-
-    // MARK: - Initializing
+class DishIngredient: NSManagedObject {
     
-    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertInto: context)
-    }
-    
-    required convenience init(context: NSManagedObjectContext) {
-        self.init(entity: NSEntityDescription.entity(forEntityName: "DishIngredient", in: context)!, insertInto: context)
-    }
 }
 
 // MARK: - CoreData Extension
