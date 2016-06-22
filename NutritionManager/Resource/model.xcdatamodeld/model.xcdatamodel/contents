@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A282b" minimumToolsVersion="Xcode 7.0">
-    <entity name="Category" representedClassName="Category" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11147.23" systemVersion="15F34" minimumToolsVersion="Xcode 7.0" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Category" representedClassName=".Category" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="order" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="order" attributeType="Integer 32" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Ingredient" inverseName="category" inverseEntity="Ingredient" syncable="YES"/>
     </entity>
     <entity name="Dish" representedClassName=".Dish" syncable="YES">
@@ -12,18 +12,18 @@
         <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DishIngredient" inverseName="dish" inverseEntity="DishIngredient" syncable="YES"/>
     </entity>
     <entity name="DishIngredient" representedClassName=".DishIngredient" syncable="YES">
-        <attribute name="multiplier" attributeType="Float" syncable="YES"/>
+        <attribute name="multiplier" attributeType="Float" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="dish" maxCount="1" deletionRule="Nullify" destinationEntity="Dish" inverseName="ingredients" inverseEntity="Dish" syncable="YES"/>
         <relationship name="ingredient" maxCount="1" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="dishes" inverseEntity="Ingredient" syncable="YES"/>
     </entity>
-    <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">
-        <attribute name="carbohydrates" attributeType="Float" syncable="YES"/>
-        <attribute name="energy" attributeType="Integer 32" syncable="YES"/>
-        <attribute name="fat" attributeType="Float" syncable="YES"/>
+    <entity name="Ingredient" representedClassName=".Ingredient" syncable="YES">
+        <attribute name="carbohydrates" attributeType="Float" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="energy" attributeType="Integer 32" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fat" attributeType="Float" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="proteins" attributeType="Float" syncable="YES"/>
-        <attribute name="valueScale_" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="proteins" attributeType="Float" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="valueScale_" attributeType="Integer 16" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="ingredients" inverseEntity="Category" syncable="YES"/>
         <relationship name="dishes" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="DishIngredient" inverseName="ingredient" inverseEntity="DishIngredient" syncable="YES"/>
     </entity>
